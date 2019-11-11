@@ -4,7 +4,7 @@
 
 ### 链表(8道)：
 
-* [剑指Offer（三）：从尾到头打印链表](./PrintListInReversedOrder/README.md)
+* [剑指Offer（六）：从尾到头打印链表](./PrintListInReversedOrder/README.md)
 * [剑指Offer（十四）：链表中倒数第k个结点]()
 * [剑指Offer（十五）：反转链表]()
 * [剑指Offer（十六）：合并两个排序的链表]()
