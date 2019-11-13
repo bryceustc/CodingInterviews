@@ -7,7 +7,7 @@ class CMyString
 public:
      // 构造函数
      CMyString(char*pData = nullptr);
-     // 拷贝构造函数
+     // 拷贝构造函数 (用来初始化对象)；
      CMyString(const CMyString & str);
      // 赋值运算函数
      ~CMyString(void);
