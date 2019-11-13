@@ -10,7 +10,7 @@ public:
      // 拷贝构造函数
      CMyString(const CMyString & str);
      // 赋值运算函数
-     CMyString &operator=(const CMystring &str);
+     ~CMyString(void);
 private:
      char* m_pData;
 };
