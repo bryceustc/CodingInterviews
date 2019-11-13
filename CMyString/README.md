@@ -37,6 +37,12 @@ private:
 
 **对于高级：**
 
+  1). 其实就是一个构造函数，不过形参是该类型本身。
+  
+  2). 形参为const的引用，因为拷贝不影响原变量。如果不使用引用会无限循环调用构造函数。
+  
+  3). 在给新建变量赋值时会引用。而赋值运算符用在给已存在变量赋值的情况。
+
 可以参考
 
 - [C++](CMyString.cpp)
@@ -44,14 +50,9 @@ private:
 
 - [Python](CMystring.py)
 
-**部分重要思想总结：**
-
-- 向链表从后向前添加元素：将新加节点的next指向当前链表（即在首部加节点），生成新的链表，再赋值给当前链表即可
-- 向链表从前向后添加元素：找到当前链表的最后节点，将当前链表最后节点的next指向新的节点，即实现链表的扩展，此时不需要重新赋值（因为是在原来的链表上添加的）
-
 # 代码
 
-[C++](PrintListInReversedOrder.cpp)
+[C++](CMyString.cpp)
 
 ```c++
 /**
@@ -100,7 +101,7 @@ public:
 };
 ```
 
-[Python](PrintListInReversedOrder.py)
+[Python](CMyString.py)
 
 ```python
 # -*- coding:utf-8 -*-
