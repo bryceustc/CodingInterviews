@@ -131,7 +131,7 @@ using namespace std;
 
 int main()
 {
-    char *temp = "hello world";
+    char *temp = "Hello World";
     CMyString myStr(tmp);
 
     cout << "myStr: " << myStr.getData() << endl;
