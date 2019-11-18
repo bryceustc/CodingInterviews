@@ -43,35 +43,132 @@ private:
   
   3). 在给新建变量赋值时会引用。而赋值运算符用在给已存在变量赋值的情况。
 
-可以参考
-
-- [C++](CMyString.cpp)
-
-
-- [Python](CMystring.py)
-
 # 代码
 
 [C++](CMyString.cpp)
+```c++
+// CMyString.h文件中
+
+class CMyString {
+public:
+     CMyString(char *pData = nullptr);
+     //拷贝构造函数
+     //因为是新建立的变量，所以不用考虑自赋值，不用考虑释放旧值
+     CMyString(const CMyString &);
+     ~CMyString();
+     CMyString &operator = (const CMyString &str);
+     char *getData();
+private:
+     char *m_pData;
+};
+
+```
+
+
 
 ```c++
-CMyString& CMyString::operator = (const CMyString &str)
-{
-     if(this == &str)     
-          return *this;
-     delete[]m_pData;
-     m_pData = nullptr;
-     
-     m_pData = new char[strlen(str.m_pData)+1];
-     strcpy(m_pData,str.m_pData);
-     
-     return *this;
+// CMyString.cpp文件中
+
+#include "CMyString.h"
+#include <string.h>
+#include <iostream>
+
+using namespace std;
+CMyString::CMyString(char *pData){
+    m_pData = new char[strlen(pData) + 1];
+    strcpy(m_pData, pData);
+}
+
+CMyString::~CMyString() {
+    if (m_pData) {
+        delete[] m_pData;
+        m_pData = nullptr;
+    }
+}
+
+//拷贝构造函数
+//参数还是使用const的引用，因为不会改变参数的值，如果不使用引用，这里会存在无限赋值的情况
+CMyString::CMyString(const CMyString &str) {
+    cout << "这是拷贝构造函数！" << endl;
+    m_pData = new char[strlen(str.m_pData) + 1];
+    strcpy(m_pData, str.m_pData);
+}
+
+//赋值运算符函数
+CMyString &CMyString::operator=(const CMyString &str) {
+    cout << "这是拷贝赋值运算符！" << endl;
+    if (this == &str) {
+        //检查自赋值的情况
+        return *this;
+    }
+
+    //释放原本的内存
+    if (m_pData) {
+        delete[] m_pData;
+        m_pData = nullptr;
+    }
+
+    m_pData = new char[strlen(str.m_pData) + 1];
+    strcpy(m_pData, str.m_pData);
+
+    return *this;
+}
+
+char *CMyString::getData() {
+    return m_pData;
 }
 ```
-# 代码解读
+
+
+```c++
+//main.cpp中的测试程序
+
+#include "CMyString.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    char *temp = "hello world";
+    CMyString myStr(tmp);
+
+    cout << "myStr: " << myStr.getData() << endl;
+
+    CMyString test = myStr;
+
+    cout << "test: " << otherOne.getData() << endl;
+
+    char *temp2 = "show the difference.";
+    CMyString myStr2(temp2);
+    cout << "myStr2: " << myStr2.getData() << endl;
+
+    myStr2 = test;
+    cout << "myStr2 after operator \"=\": " << myStr2.getData() << endl;
+
+    system("pause");
+    return 0;
+}
+```
+
+
+```
+输出结果：
+myStr: Hello World
+这是拷贝构造函数！
+test: Hello World
+myStr2: show the difference.
+这是拷贝赋值函数！
+myStr2 after operator "=": Hello World
+请按任意键继续...
+```
+
+
+# 补充：
 [this指针](https://www.runoob.com/cplusplus/cpp-this-pointer.html):在 C++ 中，每一个对象都能通过 this 指针来访问自己的地址。this 指针是所有成员函数的隐含参数。因此，在成员函数内部，它可以用来指向调用对象。
-
-
+[构造函数](https://www.runoob.com/cplusplus/cpp-constructor-destructor.html):类的构造函数是类的一种特殊的成员函数，它会在每次创建类的新对象时执行。构造函数的名称与类的名称是完全相同的，并且不会返回任何类型，也不会返回 void。构造函数可用于为某些成员变量设置初始值。
+[析构函数](https://www.runoob.com/cplusplus/cpp-constructor-destructor.html):类的析构函数是类的一种特殊的成员函数，它会在每次删除所创建的对象时执行。析构函数的名称与类的名称是完全相同的，只是在前面加了个波浪号（~）作为前缀，它不会返回任何值，也不能带有任何参数。析构函数有助于在跳出程序（比如关闭文件、释放内存等）前释放资源。
 
 [Python](CMyString.py)
 
