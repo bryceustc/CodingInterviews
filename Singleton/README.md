@@ -16,141 +16,76 @@
 
 [C++](Singleton.cpp)
 
-## 方法一：
-```c++
-// CMyString.h文件中
+## 方法一：单线程解法
 
-class CMyString {
+```c++
+// 剑指offer 面试题2 实现Singleton模式
+#include <iostream>
+using namespace std;
+
+class Singleton
+{
 public:
-     CMyString(char *pData = nullptr);
-     //拷贝构造函数
-     //因为是新建立的变量，所以不用考虑自赋值，不用考虑释放旧值
-     CMyString(const CMyString &);
-     ~CMyString();
-     CMyString &operator = (const CMyString &str);
-     char *getData();
+    static Singleton* getInstance()
+    {
+        // 在后面的Singleton实例初始化时，若后面是new Singleton()，则此处不必new；（废话）
+        // 若后面是赋值成NULL，则此处需要判断，需要时new
+        // 注意！然而这两种方式并不等价！后面的Singleton实例初始化时，new Singleton(),其实是线程安全的，因为static
+        初始化是在主函数main()之前，那么后面的方法岂不是很麻烦。。。。这也是我测试的时候想到的
+        /*
+        if(m_pInstance == NULL)
+        {
+            m_pInstance = new Singleton();
+        }
+        */
+        return m_pInstance;
+    }
+
+    static void destroyInstance()
+    {
+        if(m_pInstance != NULL)
+        {
+            delete m_pInstance;
+            m_pInstance = NULL;
+        }    }
+
 private:
-     char *m_pData;
+    Singleton(){}
+    static Singleton* m_pInstance;
 };
 
-```
+// Singleton实例初始化
+Singleton* Singleton::m_pInstance = new Singleton(); // 前面不能加static，会和类外全局static混淆
 
+// 单线程获取多次实例
+void Test1(){
+    // 预期结果：两个实例指针指向的地址相同
+    Singleton* singletonObj = Singleton::getInstance();
+    cout << singletonObj << endl;
 
+    Singleton* singletonObj2 = Singleton::getInstance();
+    cout << singletonObj2 << endl;
 
-```c++
-// CMyString.cpp文件中
-
-#include "CMyString.h"
-#include <string.h>
-#include <iostream>
-
-using namespace std;
-CMyString::CMyString(char *pData){
-    m_pData = new char[strlen(pData) + 1];
-    strcpy(m_pData, pData);
+    Singleton::destroyInstance();
 }
 
-CMyString::~CMyString() {
-    if (m_pData) {
-        delete[] m_pData;
-        m_pData = nullptr;
-    }
-}
-
-//拷贝构造函数
-//参数还是使用const的引用，因为不会改变参数的值，如果不使用引用，这里会存在无限赋值的情况
-CMyString::CMyString(const CMyString &str) {
-    cout << "这是拷贝构造函数！" << endl;
-    m_pData = new char[strlen(str.m_pData) + 1];
-    strcpy(m_pData, str.m_pData);
-}
-
-//赋值运算符函数
-CMyString &CMyString::operator=(const CMyString &str) {
-    cout << "这是拷贝赋值运算符！" << endl;
-    if (this == &str) {
-        //检查自赋值的情况
-        return *this;
-    }
-
-    //释放原本的内存
-    if (m_pData) {
-        delete[] m_pData;
-        m_pData = nullptr;
-    }
-
-    m_pData = new char[strlen(str.m_pData) + 1];
-    strcpy(m_pData, str.m_pData);
-
-    return *this;
-}
-
-char *CMyString::getData() {
-    return m_pData;
-}
-```
-
-
-```c++
-//main.cpp中的测试程序
-
-#include "CMyString.h"
-#include <string>
-#include <iostream>
-
-using namespace std;
-
-int main()
-{
-    char *temp = "Hello World";
-    CMyString myStr(tmp);
-
-    cout << "myStr: " << myStr.getData() << endl;
-
-    CMyString test = myStr;
-
-    cout << "test: " << otherOne.getData() << endl;
-
-    char *temp2 = "show the difference.";
-    CMyString myStr2(temp2);
-    cout << "myStr2: " << myStr2.getData() << endl;
-
-    myStr2 = test;
-    cout << "myStr2 after operator \"=\": " << myStr2.getData() << endl;
-
-    system("pause");
+int main(){
+    Test1();
     return 0;
 }
 ```
 
-
-```
-输出结果：
-myStr: Hello World
-这是拷贝构造函数！
-test: Hello World
-myStr2: show the difference.
-这是拷贝赋值函数！
-myStr2 after operator "=": Hello World
-请按任意键继续...
-```
-
 ## 方法二：考虑new分配空间是否足够
 ```c++
-CMyString &CMyString::operator=(const CMyString &str) {
-    if (this != &str) {
-        //调用拷贝构造函数
-        CMyString strTmp(str);
 
-        char *pTmp = strTmp.m_pData;
-        strTmp.m_pData = m_pData;
-        m_pData = pTmp;
-    }
-
-    return *this;
-}
 ```
 
 # 参考：
-
+https://www.cnblogs.com/qiaoconglovelife/p/5851163.html
+https://zhuanlan.zhihu.com/p/37469260
+https://blog.csdn.net/qq_35280514/article/details/70211845
+https://blog.csdn.net/huhaijing/article/details/51756225
+http://www.voidcn.com/article/p-bntiwotm-ny.html
+https://github.com/luofengmacheng/algorithms/blob/master/interviewOffer/2.md
+https://blog.csdn.net/qq_23225317/article/details/79770230
 
