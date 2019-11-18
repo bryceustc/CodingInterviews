@@ -57,7 +57,7 @@ private:
 ```c++
 CMyString& CMyString::operator = (const CMyString &str)
 {
-     if(this == &str)
+     if(this == &str)     
           return *this;
      delete[]m_pData;
      m_pData = nullptr;
@@ -68,6 +68,10 @@ CMyString& CMyString::operator = (const CMyString &str)
      return *this;
 }
 ```
+# 代码解读
+[this指针](https://www.runoob.com/cplusplus/cpp-this-pointer.html):在 C++ 中，每一个对象都能通过 this 指针来访问自己的地址。this 指针是所有成员函数的隐含参数。因此，在成员函数内部，它可以用来指向调用对象。
+
+
 
 [Python](CMyString.py)
 
