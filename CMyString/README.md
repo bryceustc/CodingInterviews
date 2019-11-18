@@ -168,7 +168,7 @@ myStr2 after operator "=": Hello World
 # 补充：
 [this指针](https://www.runoob.com/cplusplus/cpp-this-pointer.html):在 C++ 中，每一个对象都能通过 this 指针来访问自己的地址。this 指针是所有成员函数的隐含参数。因此，在成员函数内部，它可以用来指向调用对象。
 [构造函数](https://www.runoob.com/cplusplus/cpp-constructor-destructor.html):类的构造函数是类的一种特殊的成员函数，它会在每次创建类的新对象时执行。构造函数的名称与类的名称是完全相同的，并且不会返回任何类型，也不会返回 void。构造函数可用于为某些成员变量设置初始值。
-[析构函数](https://www.runoob.com/cplusplus/cpp-constructor-destructor.html):类的析构函数是类的一种特殊的成员函数，它会在每次删除所创建的对象时执行。析构函数的名称与类的名称是完全相同的，只是在前面加了个波浪号（~）作为前缀，它不会返回任何值，也不能带有任何参数。析构函数有助于在跳出程序（比如关闭文件、释放内存等）前释放资源。
+[析构函数](https://www.runoob.com/cplusplus/cpp-constructor-destructor.html):类的析构函数是类的一种特殊的成员函数，它会在每次删除所创建的对象时执行。析构函数的名称与类的名称是完全相同的，只是在前面加了个波浪号（~）作为前缀，它不会返回任何值，也不能带有任何参数。**析构函数有助于在跳出程序（比如关闭文件、释放内存等）前释放资源**。
 
 [Python](CMyString.py)
 
