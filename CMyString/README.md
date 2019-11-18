@@ -182,7 +182,9 @@ CMyString &CMyString::operator=(const CMyString &str) {
 }
 ```
 
-# 补充：
+# 参考：
+[赋值运算符](https://www.runoob.com/cplusplus/assignment-operators-overloading.html):就像其他运算符一样，可以重载赋值运算符（ = ），用于创建一个对象，比如拷贝构造函数。
+
 [this指针](https://www.runoob.com/cplusplus/cpp-this-pointer.html):在 C++ 中，每一个对象都能通过 this 指针来访问自己的地址。this 指针是所有成员函数的隐含参数。因此，在成员函数内部，它可以用来指向调用对象。
 
 [构造函数](https://www.runoob.com/cplusplus/cpp-constructor-destructor.html):类的构造函数是类的一种特殊的成员函数，它会在每次创建类的新对象时执行。构造函数的名称与类的名称是完全相同的，并且不会返回任何类型，也不会返回 void。构造函数可用于为某些成员变量设置初始值。
