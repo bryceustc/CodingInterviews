@@ -75,9 +75,129 @@ int main(){
 }
 ```
 
-## 方法二：考虑new分配空间是否足够
+## 方法二：多线程+加锁
 ```c++
 
+    /*解法一是最简单，也是最普遍的实现方式。但是，这种实现方式有很多问题，比如没有考虑多线程的问题，在多线程的情况下，就可能会创建多个Singleton实例，以下是改善的版本。*/
+    #include <iostream>
+    #include <mutex>
+    #include <thread>
+    #include <vector>
+    using namespace std;
+    
+    class Singleton
+    {
+    private:
+        static mutex m_mutex; // 互斥量
+    
+        Singleton(){}
+        static Singleton* m_pInstance;
+    
+    public:
+        static Singleton* getInstance(){
+            if(m_pInstance == nullptr){
+                m_mutex.lock(); // 使用C++11中的多线程库
+                if(m_pInstance == nullptr){ // 两次判断是否为NULL的双重检查
+                    m_pInstance = new Singleton();
+                }
+                m_mutex.unlock();
+            }
+            return m_pInstance;
+        }
+    
+        static void destroyInstance(){
+            if(m_pInstance != nullptr){
+                delete m_pInstance;
+                m_pInstance = nullptr;
+            }
+        }
+    };
+    
+    Singleton* Singleton::m_pInstance = nullptr;
+    mutex Singleton::m_mutex;
+    
+    
+    void print_singleton_instance(){
+        Singleton *singletonObj = Singleton::getInstance();
+        cout << singletonObj << endl;
+    }
+    
+    // 多个进程获得单例
+    void Test1(){
+        // 预期结果，打印出相同的地址，之间可能缺失换行符，也属正常现象
+        vector<thread> threads;
+        for(int i = 0; i < 10; ++i){
+            threads.push_back(thread(print_singleton_instance));
+        }
+    
+        for(auto& thr : threads){
+            thr.join();
+        }
+    }
+    
+    int main(){
+        Test1();
+        Singleton::destroyInstance();
+        return 0;
+    }
+    /*此方法中进行了两次m_pInstance == nullptr的判断，使用了所谓的“双检锁”机制。因为进行一次加锁和解锁是需要付出对应的代价的，而进行两次判断，就可以避免多次加锁与解锁操作，只在m_pInstance不为nullptr时才需要加锁，同时也保证了线程安全。但是，如果进行大数据的操作，加锁操作将成为一个性能的瓶颈，为此，一种新的单例模式的实现也就出现了。*/
+```
+## 方法三：const + 实例
+```c++
+#include <iostream>
+    #include <thread>
+    #include <vector>
+    using namespace std;
+    
+    class Singleton
+    {
+    private:
+        Singleton(){}
+        static const Singleton* m_pInstance;
+    public:
+        static Singleton* getInstance(){
+            return const_cast<Singleton*>(m_pInstance); // 去掉“const”特性
+            // 注意！若该函数的返回值改为const static型，则此处不必进行const_cast静态转换
+            // 所以该函数可以改为：
+            /*
+            const static Singleton* getInstance(){
+                return m_pInstance;
+            }
+            */
+        }
+    
+        static void destroyInstance(){
+            if(m_pInstance != NULL){
+                delete m_pInstance;
+                m_pInstance = NULL;
+            }
+        }
+    };
+    const Singleton* Singleton::m_pInstance = new Singleton(); // 利用const只能定义一次，不能再次修改的特性，static继续保持类内只有一个实例
+    
+    void print_singleton_instance(){
+        Singleton *singletonObj = Singleton::getInstance();
+        cout << singletonObj << endl;
+    }
+    
+    // 多个进程获得单例
+    void Test1(){
+        // 预期结果，打印出相同的地址，之间可能缺失换行符，也属正常现象
+        vector<thread> threads;
+        for(int i = 0; i < 10; ++i){
+            threads.push_back(thread(print_singleton_instance));
+        }
+        for(auto& thr : threads){
+            thr.join();
+        }
+    }
+    
+    int main(){
+        Test1();
+        Singleton::destroyInstance();
+        return 0;
+    }
+    /*因为静态初始化在程序开始时，也就是进入主函数之前，由主线程以单线程方式完成了初始化，所以静态初始化实例保证了线程安全性。在性能要求比较高时，就可以使用这种方式，从而避免频繁的加锁和解锁造成的资源浪费。由于上述三种实现，都要考虑到实例的销毁，关于实例的销毁，待会在分析。*
 ```
 
 # 参考：
