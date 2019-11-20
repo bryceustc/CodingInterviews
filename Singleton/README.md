@@ -200,6 +200,153 @@ int main(){
     /*因为静态初始化在程序开始时，也就是进入主函数之前，由主线程以单线程方式完成了初始化，所以静态初始化实例保证了线程安全性。在性能要求比较高时，就可以使用这种方式，从而避免频繁的加锁和解锁造成的资源浪费。由于上述三种实现，都要考虑到实例的销毁，关于实例的销毁，待会在分析。*
 ```
 
+## 方法四：在get函数中创建并返回static临时实例的引用
+```c++
+#include <iostream>
+#include <thread>
+#include <vector>
+using namespace std;
+
+class Singleton
+{
+private:
+    Singleton(){}
+
+public:
+    static Singleton* getInstance(){
+        static Singleton m_pInstance; // 注意，声明在该函数内
+        return &m_pInstance;
+    }
+};
+
+void print_singleton_instance(){
+    Singleton *singletonObj = Singleton::getInstance();
+    cout << singletonObj << endl;
+}
+
+// 多个进程获得单例
+void Test1(){
+    // 预期结果，打印出相同的地址，之间可能缺失换行符，也属正常现象
+    vector<thread> threads;
+    for(int i = 0; i < 10; ++i){
+        threads.push_back(thread(print_singleton_instance));
+    }
+
+    for(auto& thr : threads){
+        thr.join();
+    }
+}
+
+// 单个进程获得多次实例
+void Test2(){
+    // 预期结果，打印出相同的地址，之间换行符分隔
+    print_singleton_instance();
+    print_singleton_instance();
+}
+
+int main(){
+    cout << "Test1 begins: " << endl;
+    Test1();
+    cout << "Test2 begins: " << endl;
+    Test2();
+    return 0;
+}
+```
+## 方法五： 最终方案，最简&显式控制实例销毁
+在上述的四种方法中，除了第四种没有使用new操作符实例化对象以外，其余三种都使用了；
+
+​ 我们一般的编程观念是，new操作是需要和delete操作进行匹配的；是的，这种观念是正确的。在上述的实现中，是添加了一个destoryInstance的static函数，这也是最简单，最普通的处理方法了；但是，很多时候，我们是很容易忘记调用destoryInstance函数，就像你忘记了调用delete操作一样。由于怕忘记delete操作，所以就有了智能指针；那么，在单例模型中，没有“智能单例”，该怎么办？怎么办？
+
+​ 在实际项目中，特别是客户端开发，其实是不在乎这个实例的销毁的。因为，全局就这么一个变量，全局都要用，它的生命周期伴随着软件的生命周期，软件结束了，它也就自然而然的结束了，因为一个程序关闭之后，它会释放它占用的内存资源的，所以，也就没有所谓的内存泄漏了。
+
+​ 但是，有以下情况，是必须需要进行实例销毁的：
+
+在类中，有一些文件锁了，文件句柄，数据库连接等等，这些随着程序的关闭而不会立即关闭的资源，必须要在程序关闭前，进行手动释放；
+具有强迫症的程序员。
+​ 在代码实现部分的第四种方法能满足第二个条件，但是无法满足第一个条件。好了，接下来，就介绍一种方法，这种方法也是我从网上学习而来的，代码实现如下：
+```c++
+#include <iostream>
+#include <thread>
+#include <vector>
+using namespace std;
+
+class Singleton
+{
+private:
+    Singleton(){}
+    static Singleton* m_pInstance;
+
+    // **重点在这**
+    class GC // 类似Java的垃圾回收器
+    {
+    public:
+        ~GC(){
+            // 可以在这里释放所有想要释放的资源，比如数据库连接，文件句柄……等等。
+            if(m_pInstance != NULL){
+                cout << "GC: will delete resource !" << endl;
+                delete m_pInstance;
+                m_pInstance = NULL;
+            }
+        };
+    };
+
+    // 内部类的实例
+    static GC gc;
+
+public:
+    static Singleton* getInstance(){
+        return m_pInstance;
+    }
+};
+
+
+Singleton* Singleton::m_pInstance = new Singleton();
+Singleton::GC Singleton::gc;
+
+void print_instance(){
+    Singleton* obj1 = Singleton::getInstance();
+    cout << obj1 << endl;
+}
+
+// 多线程获取单例
+void Test1(){
+    // 预期输出：相同的地址，中间可能缺失换行符，属于正常现象
+    vector<thread> threads;
+    for(int i = 0; i < 10; ++i){
+        threads.push_back(thread(print_instance));
+    }
+
+    for(auto& thr : threads){
+        thr.join();
+    }
+}
+
+// 单线程获取单例
+void Test2(){
+    // 预期输出：相同的地址，换行符分隔
+    print_instance();
+    print_instance();
+    print_instance();
+    print_instance();
+    print_instance();
+}
+
+int main()
+{
+    cout << "Test1 begins: " << endl;
+    cout << "预期输出：相同的地址，中间可以缺失换行（每次运行结果的排列格式通常不一样）。" << endl;
+    Test1();
+    cout << "Test2 begins: " << endl;
+    cout << "预期输出：相同的地址，每行一个。" << endl;
+    Test2();
+    return 0;
+}
+```
+
+在程序运行结束时，系统会调用Singleton的静态成员GC的析构函数，该析构函数会进行资源的释放，而这种资源的释放方式是在程序员“不知道”的情况下进行的，而程序员不用特别的去关心，使用单例模式的代码时，不必关心资源的释放。
+
+​ 那么这种实现方式的原理是什么呢？由于程序在结束的时候，系统会自动析构所有的全局变量，系统也会析构所有类的静态成员变量，因为静态变量和全局变量在内存中，都是存储在静态存储区的，所有静态存储区的变量都会被释放。
+
 # 参考：
 https://www.cnblogs.com/qiaoconglovelife/p/5851163.html
 https://zhuanlan.zhihu.com/p/37469260
