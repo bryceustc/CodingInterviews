@@ -30,7 +30,7 @@ public:
     {
         // 在后面的Singleton实例初始化时，若后面是new Singleton()，则此处不必new；（废话）
         // 若后面是赋值成NULL，则此处需要判断，需要时new
-        // 注意！然而这两种方式并不等价！后面的Singleton实例初始化时，new Singleton(),其实是线程安全的，因为static
+        /* 注意！然而这两种方式并不等价！后面的Singleton实例初始化时，new Singleton(),其实是线程安全的，因为static
         初始化是在主函数main()之前，那么后面的方法岂不是很麻烦。。。。这也是我测试的时候想到的
         /*
         if(m_pInstance == NULL)
@@ -78,7 +78,8 @@ int main(){
 ## 方法二：多线程+加锁
 ```c++
 
-    /*解法一是最简单，也是最普遍的实现方式。但是，这种实现方式有很多问题，比如没有考虑多线程的问题，在多线程的情况下，就可能会创建多个Singleton实例，以下是改善的版本。*/
+    /*解法一是最简单，也是最普遍的实现方式。但是，这种实现方式有很多问题，比如没有考虑多线程的问题，在多线程的情况下，
+    就可能会创建多个Singleton实例，以下是改善的版本。*/
     #include <iostream>
     #include <mutex>
     #include <thread>
