@@ -143,7 +143,7 @@ int main()
 
 ```
 
-## 方法三：
+## 方法三：交换位置重排
 ```c++
 #include <iostream>
 #include <vector>
