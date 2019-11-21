@@ -10,6 +10,7 @@ using namespace std::tr1;
 //        n:      数组的长度
 // 返回值:             
 //        true  - 输入有效，并且数组中存在重复的数字
+//        false - 输入无效，或者数组中没有重复的数字
 
 class Solution{
     public:
