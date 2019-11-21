@@ -40,7 +40,7 @@ using namespace std::tr1;
 
 class Solution{
     public:
-        bool Duplication2(vector<int> nums,int n, vector<int> &res){
+        bool Duplication1(vector<int> nums,int n, vector<int> &res){
             bool flag = false;
             if (nums.empty()||n<0) return false;
             for (int i = 0; i < n; i++)
