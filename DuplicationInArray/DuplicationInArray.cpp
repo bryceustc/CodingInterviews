@@ -5,6 +5,11 @@
 using namespace std;
 using namespace std::tr1;
 
+// 参数:
+//        nums:     一个整数数组
+//        n:      数组的长度
+// 返回值:             
+//        true  - 输入有效，并且数组中存在重复的数字
 
 class Solution{
     public:
