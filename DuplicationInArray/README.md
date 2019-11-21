@@ -10,20 +10,94 @@
 
 # 本题考点：
   
-  1). 
+  1). 把输入的数组进行排序，排序后再判断有无重复数字，时间复杂度为O(n\*lgn)
   
 # 解题思路:
-
+  1). 把输入的数组进行排序，排序后再判断有无重复数字，时间复杂度为O(n\*lgn)
+  2). 使用哈希表来解决，时间复杂度为O(n)，但空间复杂度也为O(n)
+  3). 第三种方法，把每个数字放回对应位置的方法。如果出现一个数字无法放回（所在位置已经是对应数字了），那么说明该数字重复
 
 # 代码
 
-[C++](CMyString.cpp)
+[C++](DuplicationInArray.cpp)
 
-## 方法一：
+## 方法一：排序后直接查找
 ```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
 
+class Solution
+{
+public:
+    vector<int> Duplication(vector<int> nums){
+        vector<int> res;
+        sort(nums.begin(),nums.end());
+        int n = nums.size();
+        for (int i = 0; i < n-1; i++)
+        {
+            if (nums[i]==nums[i+1])
+                res.push_back(nums[i]);
+        }
+        return res;
+    }
+};
+
+int main()
+{
+    vector<int> nums = {2,3,1,0,2,5,3};
+    vector<int> res = Solution().Duplication(nums);
+    cout << res[0]<< endl; // 输出结果为2
+    cout << res[1]<< endl;  // 输出结果为3
+    system("pause");
+    return 0;
+}
 
 ```
 
+## 方法二：利用哈希表
+```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <tr1/unordered_map>
+using namespace std;
+using namespace std::tr1;
+
+class Solution{
+    public:
+        vector<int> Duplication(vector<int> nums){
+            vector<int> res;
+            int n = nums.size();
+            unordered_map<int,int> m;
+            for (auto i : nums)
+            {
+                m[i]++;
+                if(m[i]>1)
+                {
+                    res.push_back(i);
+                }
+            }
+                
+            return res;
+        }
+};
+
+int main()
+{
+    vector<int> nums = {2,3,1,0,2,5,3};
+    vector<int> res = Solution().Duplication(nums);
+    cout << res[0]<< endl;
+    system("pause");
+    return 0;
+}
+
+```
+
+## 方法三：
+```c++
+
+```
 
 # 参考：
