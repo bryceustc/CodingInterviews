@@ -18,6 +18,10 @@
   2). 使用哈希表来解决，时间复杂度为O(n)，但空间复杂度也为O(n)
   
   3). 交换位置重排法，把每个数字放回对应位置的方法。如果出现一个数字无法放回（所在位置已经是对应数字了），那么说明该数字重复，时间复杂度为O(n)，空间复杂度为O(1)
+  
+  4). 题目二可以依照题目一的思路来，不过由于不能修改输入数组，所以可以构建一个n+1大小的辅助数组，构建了辅助数组之后可以使用hash表也可以使用换位置的思路来做 
+  
+  5). 使用二分的思想来做，二分基数组
 
 # 代码
 
@@ -29,14 +33,6 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <tr1/unordered_map>
-using namespace std;
-using namespace std::tr1;
-
 
 class Solution{
     public:
@@ -89,14 +85,6 @@ int main()
 #include <tr1/unordered_map>
 using namespace std;
 using namespace std::tr1;
-
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <tr1/unordered_map>
-using namespace std;
-using namespace std::tr1;
-
 
 class Solution{
     public:
