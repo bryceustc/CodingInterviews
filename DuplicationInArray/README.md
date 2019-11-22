@@ -21,12 +21,12 @@
   
   4). 题目二可以依照题目一的思路来，不过由于不能修改输入数组，所以可以构建一个n+1大小的辅助数组，构建了辅助数组之后可以使用hash表也可以使用换位置的思路来做 
   
-  5). 使用二分的思想来做，二分基数组
+  5). 使用二分的思想来做，二分基数组，但这种方法不能找出所有重复的数字，时间复杂度为O(nlogn)，空间复杂度为O(1)，相当于用时间换取空间
 
 # 代码
 
 [C++](DuplicationInArray.cpp)
-
+[C++2](DuplicationInArrayNoEdit.cpp)
 ## 方法一：排序后直接查找
 ```c++
 #include <iostream>
@@ -193,6 +193,54 @@ int main()
     system("pause");
     return 0;
 }
+```
+
+## 方法四：二分法查找
+```c++
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Solution{
+  public:
+    int getDuplication(const vector<int> nums, int n){
+      if ( nums.empty() || n <=0) return -1;
+      int start = 1;
+      int end = n -1;
+      while(end >= start)
+      {
+        int k = 0;
+        int mid = start + (end-start)/2;
+        for (int i=0;i<n;i++)
+        {
+            if (nums[i]>=start && nums[i]<=mid)
+            {
+              m++;
+            }
+            if (m > mid)
+            {
+              end = mid;
+            }
+            else
+            {
+              start = mid + 1;
+            }
+        }
+      }
+      return start;
+    }
+};
+
+int main()
+{
+    vector<int> nums = {2,3,5,4,3,2,6,7};
+    int n = nums.size()-1;
+    cout<<Solution().getDuplication(nums,n)<<endl;
+    system("pause");
+    return 0;
+}
+
 ```
 
 # 参考：
