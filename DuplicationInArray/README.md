@@ -12,6 +12,8 @@
   
   1). 一维数组的理解，一维数组在内存中占据连续空间，可以根据下标定位对应的元素
   
+  2). 二分查找算法的理解，快速正确实现二分查找
+  
 # 解题思路:
   1). 把输入的数组进行排序，排序后再判断有无重复数字，时间复杂度为O(n\*lgn)
   
@@ -246,3 +248,5 @@ int main()
 
 # 参考：
  - [循环结构中break、continue、return和exit的区别](https://blog.csdn.net/hunanchenxingyu/article/details/8101795)
+ 
+ - [时间复杂度和空间复杂度](https://blog.csdn.net/zolalad/article/details/11848739)
