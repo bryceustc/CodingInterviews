@@ -26,6 +26,7 @@
 # 代码
 
 [C++](DuplicationInArray.cpp)
+
 [C++2](DuplicationInArrayNoEdit.cpp)
 ## 方法一：排序后直接查找
 ```c++
