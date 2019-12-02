@@ -213,7 +213,7 @@ class Solution{
       if ( nums.empty() || n <=0) return -1;
       int start = 1;
       int end = n -1;
-      while(end >= start)
+      while(end > start)
       {
         int m = 0;
         int mid = start + (end-start)/2;
@@ -223,7 +223,7 @@ class Solution{
             {
               m++;
             }
-            if (m > mid)
+            if (m > mid - start+1)
             {
               end = mid;
             }
