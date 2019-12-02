@@ -215,7 +215,7 @@ class Solution{
       int end = n -1;
       while(end >= start)
       {
-        int k = 0;
+        int m = 0;
         int mid = start + (end-start)/2;
         for (int i=0;i<n;i++)
         {
