@@ -28,10 +28,18 @@
   5). 使用二分的思想来做，二分基数组，但这种方法不能找出所有重复的数字，时间复杂度为O(nlogn)，空间复杂度为O(1)，相当于用时间换取空间
 
 # 代码
+问题一：
 
 [C++](DuplicationInArray.cpp)
 
-[C++2](DuplicationInArrayNoEdit.cpp)
+[Python](DuplicationInArray.py)
+问题二：
+
+[C++](DuplicationInArrayNoEdit.cpp)
+
+[Python](DuplicationInArray2.py)
+
+# C++
 ## 方法一：排序后直接查找
 ```c++
 #include <iostream>
@@ -247,6 +255,12 @@ int main()
 }
 
 ```
+
+
+# Python 
+## 方法一：
+
+
 
 # 参考：
  - [循环结构中break、continue、return和exit的区别](https://blog.csdn.net/hunanchenxingyu/article/details/8101795)
