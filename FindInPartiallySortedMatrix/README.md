@@ -109,12 +109,13 @@ int main()
 }
 ```
 
-## 方法三：从右上角开始查找：
+## 方法三：从右上角/左下角 开始查找：
 ```c++
 #include <iostream>
 #include <vector>
 using namespace std;
 
+// 右上角开始查找
 class Solution{
     public:
         bool Find(vector<vector<int>> &nums,int target)
@@ -127,10 +128,33 @@ class Solution{
             {
                 if (nums[i][j]==target)
                     return true;
-                if (nums[i][j]>target)
+                else if (nums[i][j]>target)
                     j--;//左移
-                if (nums[i][j]<target)
+                else
                     i++;//下移
+            }
+            
+            return false;          
+        }
+};
+
+// 左下角开始查找
+class Solution{
+    public:
+        bool Find(vector<vector<int>> &nums,int target)
+        {
+            if (nums.empty()) return false;
+            int m = nums.size();       
+            int n = nums[0].size();
+            int i=m-1,j=0;
+            while (i>=0 && j<n)
+            {
+                if (nums[i][j]==target)
+                    return true;
+                if (nums[i][j]>target)
+                    i--;//上移
+                else
+                    j++;//右移
             }
             
             return false;          
@@ -206,34 +230,45 @@ if __name__ == '_ main__':
     print(res)
 ```
 
-## 方法三：右上角查找：
+## 方法三：右上角/左下角开始查找：
 ```python
 # -*- coding:utf-8 -*-
+
+## 右上角查找
 class Solution:
     def Find(self, nums, target):
         m = len(nums)
         if m == 0:
             return False
         n = len(nums[0])
-        for i in range(m):
-            start = 0
-            end = n-1
-            while end>=start:
-                mid = start+(end-start)//2
-                if nums[i][mid]==target:
-                    return True
-                if nums[i][mid]<target:
-                    start=mid+1
-                if nums[i][mid]>target:
-                    end=mid-1
+        i=0
+        j=n-1
+        while i<m and j>=0 :
+            if nums[i][j]==target:
+                return True
+            elif nums[i][j]>target:
+                j-=1  ## 左移
+            else:
+                i+=1  ## 下移
+        return False
+## 左下角开始查找
+class Solution:
+    def Find(self, nums, target):
+        m = len(nums)
+        if m == 0:
+            return False
+        n = len(nums[0])
+        i=m-1
+        j=0
+        while i>=0 and j<n :
+            if nums[i][j]==target:
+                return True
+            elif nums[i][j]>target:
+                i-=1 ##上移
+            else:
+                j+=1 ##右移
         return False
 
-
-if __name__ == '_ main__':
-    nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-    target = 5
-    res = Solution().Find(nums, target)
-    print(res)
 ```
 
 # 参考：
