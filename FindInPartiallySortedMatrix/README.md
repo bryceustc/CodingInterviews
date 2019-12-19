@@ -35,8 +35,8 @@ class Solution{
         bool Find(vector<vector<int>> &nums,int target)
         {
             if (nums.empty()) return false;
-            int n = nums.size();       
-            int m = nums[0].size();
+            int m = nums.size();       
+            int n = nums[0].size();
             for (int i=0;i<m;i++)
             {
                 for (int j=0;j<n;j++)
