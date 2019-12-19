@@ -38,7 +38,7 @@
 
 [C++](DuplicationInArrayNoEdit.cpp)
 
-[Python](DuplicationInArray2.py)
+[Python](DuplicationInArrayNoEdit.py)
 
 # C++
 ## 方法一：排序后直接查找
