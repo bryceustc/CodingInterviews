@@ -6,14 +6,16 @@
 
 # 本题考点：
   
-  1). 一维数组的理解，一维数组在内存中占据连续空间，可以根据下标定位对应的元素
+  1). 二维数组的理解
+  
+  2). 查找
   
 # 解题思路:
   1). 直接暴力遍历二维数组所有元素，时间复杂度为O(m\*n)
   
   2). 对每一行使用一次二分查找，时间复杂度为O(m\*logn)
   
-  3). 
+  3). 根据简单的例子寻找规律，从右上角开始寻找，时间复杂度为O()
 
 # 代码
 
@@ -106,6 +108,48 @@ int main()
     return 0;
 }
 ```
+
+## 方法三：从右上角开始查找：
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution{
+    public:
+        bool Find(vector<vector<int>> &nums,int target)
+        {
+            if (nums.empty()) return false;
+            int m = nums.size();       
+            int n = nums[0].size();
+            int i=0,j=n-1;
+            while (i<m && j>=0)
+            {
+                if (nums[i][j]==target)
+                    return true;
+                if (nums[i][j]>target)
+                    j--;//左移
+                if (nums[i][j]<target)
+                    i++;//下移
+            }
+            
+            return false;          
+        }
+};
+
+
+int main()
+{
+    vector<vector<int>> nums = {{1,2,3,10},{4,5,6,11},{7,8,9,13}};
+    int target = 5;
+    bool res;
+    res = Solution().Find(nums,target);
+    cout<< res <<endl;
+    system("pause");
+    return 0;
+}
+```
+
 
 
 # Python:
