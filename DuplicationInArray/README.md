@@ -220,7 +220,7 @@ class Solution{
   public:
     int getDuplication(const vector<int> nums, int n){
       if ( nums.empty() || n <=0) return -1;
-      int start = 0;
+      int start = 1;
       int end = n;
       while(end > start)
       {
