@@ -176,7 +176,37 @@ if __name__ == '_ main__':
     print(res)
 ```
 
-## 方法一：一次二分查找：
+## 方法二：一次二分查找：
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def Find(self, nums, target):
+        m = len(nums)
+        if m == 0:
+            return False
+        n = len(nums[0])
+        for i in range(m):
+            start = 0
+            end = n-1
+            while end>=start:
+                mid = start+(end-start)//2
+                if nums[i][mid]==target:
+                    return True
+                if nums[i][mid]<target:
+                    start=mid+1
+                if nums[i][mid]>target:
+                    end=mid-1
+        return False
+
+
+if __name__ == '_ main__':
+    nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    target = 5
+    res = Solution().Find(nums, target)
+    print(res)
+```
+
+## 方法三：右上角查找：
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
