@@ -68,7 +68,25 @@ int main()
 # Python:
 ## 方法一：暴力遍历：
 ```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def Find(self, nums, target):
+        m = len(nums)
+        if m == 0:
+            return False
+        n = len(nums[0])
+        for i in range(m):
+            for j in range(n):
+                if nums[i][j] == target:
+                    return True
+        return False
 
+
+if __name__ == '_ main__':
+    nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    target = 5
+    res = Solution().Find(nums, target)
+    print(res)
 ```
 
 
