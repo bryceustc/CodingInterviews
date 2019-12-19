@@ -11,7 +11,9 @@
 # 解题思路:
   1). 直接暴力遍历二维数组所有元素，时间复杂度为O(m\*n)
   
-  2). 
+  2). 对每一行使用一次二分查找，时间复杂度为O(m\*logn)
+  
+  3). 
 
 # 代码
 
@@ -24,11 +26,6 @@
 ```c++
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <tr1/unordered_map>
-using namespace std;
-using namespace std::tr1;
-
 
 class Solution{
     public:
@@ -64,6 +61,52 @@ int main()
 }
 
 ```
+
+## 方法二：二分查找：
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution{
+    public:
+        bool Find(vector<vector<int>> &nums,int target)
+        {
+            if (nums.empty()) return false;
+            int n = nums.size();       
+            int m = nums[0].size();
+            for (int i=0;i<n;i++)
+            {
+                int start = 0;
+                int end = m-1;
+                while (end>=start)
+                {
+                    int mid = start + (end-start)/2;
+                    if (nums[i][mid]==target)
+                        return true;
+                    if (nums[i][mid]<target)
+                        start = mid+1;
+                    if (nums[i][mid]>target)
+                        end = mid-1;
+                }
+            }
+            return false;          
+        }
+};
+
+
+int main()
+{
+    vector<vector<int>> nums = {{1,2,3,10},{4,5,6,11},{7,8,9,13}};
+    int target = 15;
+    bool res;
+    res = Solution().Find(nums,target);
+    cout<< res <<endl;
+    system("pause");
+    return 0;
+}
+```
+
 
 # Python:
 ## 方法一：暴力遍历：
