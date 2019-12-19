@@ -62,7 +62,7 @@ int main()
 
 ```
 
-## 方法二：二分查找：
+## 方法二：一次二分查找：
 ```c++
 #include <iostream>
 #include <vector>
@@ -132,6 +132,28 @@ if __name__ == '_ main__':
     print(res)
 ```
 
+## 方法一：一次二分查找：
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def Find(self, nums, target):
+        m = len(nums)
+        if m == 0:
+            return False
+        n = len(nums[0])
+        for i in range(m):
+            for j in range(n):
+                if nums[i][j] == target:
+                    return True
+        return False
+
+
+if __name__ == '_ main__':
+    nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    target = 5
+    res = Solution().Find(nums, target)
+    print(res)
+```
 
 # 参考：
  - [循环结构中break、continue、return和exit的区别](https://blog.csdn.net/hunanchenxingyu/article/details/8101795)
