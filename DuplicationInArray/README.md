@@ -283,7 +283,27 @@ if __name__ == '__main__':
     res = Solution().duplicate(nums)
     print(res)
 ```
+## 方法二：排序后直接遍历法
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    # 这里要特别注意~找到任意重复的一个值并赋值到duplication[0]
+    # 函数返回True/False
+    def duplicate(self, nums):
+        duplication=[]
+        n = len(nums)
+        nums = sorted(nums)
+        for i in range (1,n):
+            if nums[i-1]==nums[i]:
+                duplication.append(nums[i])
+                return True
+        return False
 
+if __name__ == '__main__':
+    nums=[2,3,1,0,2,5,3]
+    res = Solution().duplicate(nums)
+    print(res)
+```
 
 
 # 参考：
