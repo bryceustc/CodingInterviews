@@ -142,9 +142,16 @@ class Solution:
             return False
         n = len(nums[0])
         for i in range(m):
-            for j in range(n):
-                if nums[i][j] == target:
+            start = 0
+            end = n-1
+            while end>=start:
+                mid = start+(end-start)//2
+                if nums[i][mid]==target:
                     return True
+                if nums[i][mid]<target:
+                    start=mid+1
+                if nums[i][mid]>target:
+                    end=mid-1
         return False
 
 
