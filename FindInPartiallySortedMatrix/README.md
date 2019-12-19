@@ -65,5 +65,12 @@ int main()
 
 ```
 
+# Python:
+## 方法一：暴力遍历：
+```python
+
+```
+
+
 # 参考：
  - [循环结构中break、continue、return和exit的区别](https://blog.csdn.net/hunanchenxingyu/article/details/8101795)
