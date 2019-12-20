@@ -5,16 +5,16 @@
 
 # 本题考点：
   
-  1). 二维数组的理解
+  1). 数组非减排序
   
-  2). 查找
+  2). 二分查找
   
 # 解题思路:
-  1). 直接暴力遍历二维数组所有元素，时间复杂度为O(m\*n)
+  1). 直接暴力遍历数组所有元素，寻找最小元素，时间复杂度为O(n)
   
-  2). 对每一行使用一次二分查找，时间复杂度为O(m\*logn)
+  2). 使用二分查找，时间复杂度为O(logn)
   
-  3). 根据简单的例子寻找规律，从右上角开始寻找，时间复杂度为O(m+n)
+  3). 直接利用sort对数组进行排序，返回第一个元素
 
 # 代码
 
@@ -67,45 +67,34 @@ int main()
 ```c++
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class Solution{
     public:
-        bool Find(vector<vector<int>> &nums,int target)
+        int MinNumberInRotatedArray(vector<int>&nums)
         {
-            if (nums.empty()) return false;
-            int n = nums.size();       
-            int m = nums[0].size();
-            for (int i=0;i<n;i++)
+            if (nums.empty()) return 0;
+            int n = nums.size();     
+            int start = 0;
+            int end = n-1;
+            int res = nums[0];
+            while (end>=start)
             {
-                int start = 0;
-                int end = m-1;
-                while (end>=start)
+                int mid = start + (end-start)/2;
+                if (nums[mid]>=res)
                 {
-                    int mid = start + (end-start)/2;
-                    if (nums[i][mid]==target)
-                        return true;
-                    if (nums[i][mid]<target)
-                        start = mid+1;
-                    if (nums[i][mid]>target)
-                        end = mid-1;
+                    start = mid+1;
                 }
-            }
-            return false;          
+                if (nums[mid]<res)
+                {
+                    end = mid-1;
+                }
+                res = min(res,nums[mid]);
+                }
+            return res;          
         }
 };
-
-
-int main()
-{
-    vector<vector<int>> nums = {{1,2,3,10},{4,5,6,11},{7,8,9,13}};
-    int target = 15;
-    bool res;
-    res = Solution().Find(nums,target);
-    cout<< res <<endl;
-    system("pause");
-    return 0;
-}
 ```
 
 ## 方法三：从右上角/左下角 开始查找：
