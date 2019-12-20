@@ -18,9 +18,9 @@
 
 # 代码
 
-[C++](FindInPartiallySortedMatrix.cpp)
+[C++](MinNumberInRotatedArray.cpp)
 
-[Python](FindInPartiallySortedMatrix.py)
+[Python](MinNumberInRotatedArray.py)
 
 # C++:
 ## 方法一：暴力遍历
