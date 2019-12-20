@@ -58,11 +58,10 @@ int main()
 
 ```
 
-## 方法二：一次二分查找：
+## 方法二：二分查找：
 ```c++
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 class Solution{
