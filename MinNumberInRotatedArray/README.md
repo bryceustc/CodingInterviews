@@ -90,6 +90,16 @@ class Solution{
             return res;          
         }
 };
+
+int main()
+{
+    vector<int> nums = {3,1};
+    int res=nums[0];
+    res = Solution().MinNumberInRotatedArray(nums);
+    cout<< res <<endl;
+    system("pause");
+    return 0;
+}
 ```
 
 ## 方法三：sort后返回：
