@@ -26,109 +26,155 @@
 # C++:
 ## 方法一：暴力遍历
 ```c++
+
+
 #include <iostream>
 #include <vector>
-#include <algorithm>
-using namespace std;
 
-class Solution {
-public:
-    int findMin(vector<int>& nums) {
-        if (nums.empty()) return 0;
-        int n = nums.size();     
-        int res = nums[0];
-        for (int i=1;i<n;i++)
+class Solution{
+    public:
+        bool Find(vector<vector<int>> &nums,int target)
         {
-            if (res>nums[i])
-                res = nums[i];
+            if (nums.empty()) return false;
+            int m = nums.size();       
+            int n = nums[0].size();
+            for (int i=0;i<m;i++)
+            {
+                for (int j=0;j<n;j++)
+                {
+                    if (nums[i][j]==target)
+                    {
+                        return true;
+                    }                    
+                }
+            }
+            return false;          
         }
-        return res;
-    }
 };
 
 
 int main()
 {
-    vector<int> nums = {3,1};
-    int res=nums[0];
-    res = Solution().MinNumberInRotatedArray(nums);
+    vector<vector<int>> nums = {{1,2,3},{4,5,6},{7,8,9}};
+    int target = 5;
+    bool res;
+    res = Solution().Find(nums,target);
     cout<< res <<endl;
     system("pause");
     return 0;
 }
 ```
 
-## 方法二：二分查找：
+## 方法二：遍历行+二分查找：
 ```c++
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
-class Solution {
-public:
-    int findMin(vector<int>& nums) {
-        if (nums.empty()) return 0;
-        int n = nums.size();     
-        int start = 0;
-        int end = n-1;
-        int res = nums[0];
-        while (end>=start)
+class Solution{
+    public:
+        bool Find(vector<vector<int>> &nums,int target)
         {
-            int mid = start + (end-start)/2;
-            if (nums[mid]>=res)
+            if (nums.empty()) return false;
+            int n = nums.size();       
+            int m = nums[0].size();
+            for (int i=0;i<n;i++)
             {
-                start = mid+1;
+                int start = 0;
+                int end = m-1;
+                while (end>=start)
+                {
+                    int mid = start + (end-start)/2;
+                    if (nums[i][mid]==target)
+                        return true;
+                    if (nums[i][mid]<target)
+                        start = mid+1;
+                    if (nums[i][mid]>target)
+                        end = mid-1;
+                }
             }
-            if (nums[mid]<res)
-            {
-                end = mid-1;
-            }
-            res = min(res,nums[mid]);
+            return false;          
         }
-        return res;   
-    }
 };
 
 
 int main()
 {
-    vector<int> nums = {3,1};
-    int res=nums[0];
-    res = Solution().MinNumberInRotatedArray(nums);
+    vector<vector<int>> nums = {{1,2,3,10},{4,5,6,11},{7,8,9,13}};
+    int target = 5;
+    bool res;
+    res = Solution().Find(nums,target);
     cout<< res <<endl;
     system("pause");
     return 0;
 }
 ```
 
-## 方法三：sort排序后返回：
+## 方法三：从右上角或者左下角开始查找：
 ```c++
 #include <iostream>
 #include <vector>
 using namespace std;
 
-class Solution {
-public:
-    int findMin(vector<int>& nums) {
-        if (nums.empty()) return 0;
-        int res = 0;
-        sort(nums.begin(),nums.end());
-        res =nums[0];
-        return res;
-    }
+// 右上角开始查找
+class Solution{
+    public:
+        bool Find(vector<vector<int>> &nums,int target)
+        {
+            if (nums.empty()) return false;
+            int m = nums.size();       
+            int n = nums[0].size();
+            int i=0,j=n-1;
+            while (i<m && j>=0)
+            {
+                if (nums[i][j]==target)
+                    return true;
+                else if (nums[i][j]>target)
+                    j--;//左移
+                else
+                    i++;//下移
+            }
+            
+            return false;          
+        }
+};
+
+// 左下角开始查找
+class Solution{
+    public:
+        bool Find(vector<vector<int>> &nums,int target)
+        {
+            if (nums.empty()) return false;
+            int m = nums.size();       
+            int n = nums[0].size();
+            int i=m-1,j=0;
+            while (i>=0 && j<n)
+            {
+                if (nums[i][j]==target)
+                    return true;
+                if (nums[i][j]>target)
+                    i--;//上移
+                else
+                    j++;//右移
+            }
+            
+            return false;          
+        }
 };
 
 
 int main()
 {
-    vector<int> nums = {3,1};
-    int res=nums[0];
-    res = Solution().MinNumberInRotatedArray(nums);
+    vector<vector<int>> nums = {{1,2,3,10},{4,5,6,11},{7,8,9,13}};
+    int target = 5;
+    bool res;
+    res = Solution().Find(nums,target);
     cout<< res <<endl;
     system("pause");
     return 0;
 }
+
+
 ```
 
 
@@ -138,20 +184,22 @@ int main()
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def findMin(self, nums: List[int]) -> int:
-        n = len(nums)
-        if n==0:
-            return 0
-        res = nums[0]
-        for i in range (n):
-            if res >nums[i]:
-                res = nums[i]
-        return res
+    def Find(self, nums, target):
+        m = len(nums)
+        if m == 0:
+            return False
+        n = len(nums[0])
+        for i in range(m):
+            for j in range(n):
+                if nums[i][j] == target:
+                    return True
+        return False
 
 
 if __name__ == '_ main__':
-    nums = [3,4,5,1,2]
-    res = Solution().findMin(nums)
+    nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    target = 5
+    res = Solution().Find(nums, target)
     print(res)
 ```
 
@@ -159,53 +207,79 @@ if __name__ == '_ main__':
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def findMin(self, nums: List[int]) -> int:
-        n = len(nums)
-        if n==0:
-            return 0
-        res = nums[0]
-        start = 0
-        end = n-1
-        while end>=start:
-            mid = start+(end-start)//2
-            if nums[mid]>=res:
-                start=mid+1
-            if nums[mid]<res:
-                end = mid-1
-            res = min(res,nums[mid])
-        return res
+    def Find(self, nums, target):
+        m = len(nums)
+        if m == 0:
+            return False
+        n = len(nums[0])
+        for i in range(m):
+            start = 0
+            end = n-1
+            while end>=start:
+                mid = start+(end-start)//2
+                if nums[i][mid]==target:
+                    return True
+                if nums[i][mid]<target:
+                    start=mid+1
+                if nums[i][mid]>target:
+                    end=mid-1
+        return False
 
 
 if __name__ == '_ main__':
-    nums = [3,4,5,1,2]
-    res = Solution().findMin(nums)
+    nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    target = 5
+    res = Solution().Find(nums, target)
     print(res)
 ```
 
 ## 方法三：sorted排序后返回：
 ```python
 # -*- coding:utf-8 -*-
+
+## 右上角查找
 class Solution:
-    def findMin(self, nums: List[int]) -> int:
-        n = len(nums)
-        if n==0:
-            return 0
-        res = nums[0]
-        for i in range (n):
-            if res >nums[i]:
-                res = nums[i]
-        return res
-
-
+    def Find(self, nums, target):
+        m = len(nums)
+        if m == 0:
+            return False
+        n = len(nums[0])
+        i=0
+        j=n-1
+        while i<m and j>=0 :
+            if nums[i][j]==target:
+                return True
+            elif nums[i][j]>target:
+                j-=1  ## 左移
+            else:
+                i+=1  ## 下移
+        return False
+## 左下角开始查找
+class Solution:
+    def Find(self, nums, target):
+        m = len(nums)
+        if m == 0:
+            return False
+        n = len(nums[0])
+        i=m-1
+        j=0
+        while i>=0 and j<n :
+            if nums[i][j]==target:
+                return True
+            elif nums[i][j]>target:
+                i-=1 ##上移
+            else:
+                j+=1 ##右移
+        return False
+        
+        
 if __name__ == '_ main__':
-    nums = [3,4,5,1,2]
-    res = Solution().findMin(nums)
+    nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    target = 5
+    res = Solution().Find(nums, target)
     print(res)
-
 ```
 
 # 参考：
  -  [二分查找算法](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-First-And-Last-Position-Of-Element-In-Sorted-Array/BinarySearch.md)
- 
- -  [寻找旋转排序数组中的最小值](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-Minimum-In-Rotated-Sorted-Array/README.md)
 
