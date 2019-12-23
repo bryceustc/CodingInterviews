@@ -9,6 +9,7 @@
 * [剑指Offer(二十一)：调整数组顺序使奇数位于偶数前面](./ReorderArray/README.md)
 * [剑指Offer(二十九)：顺时针打印矩阵](./PrintMatrix/README.md)
 * [剑指Offer(三十九)：数组中出现次数超过一半的数字](./MoreThanHalfNumber/README.md)
+* [剑指Offer(四十)：最小的k个数](./KLeastNumbers/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
