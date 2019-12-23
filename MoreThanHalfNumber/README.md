@@ -5,11 +5,15 @@
 
 # 本题考点：
   
-  1). 思维能力找规律
+  1). 哈希表
   
   
 # 解题思路:
-  1). 寻找边界条件，寻找最小元素，首先设定上下左右边界,其次向右移动到最右，此时第一行因为已经使用过了，可以将其从图中删去，体现在代码中就是重新定义上边界,判断若重新定义后，上下边界交错，表明螺旋矩阵遍历结束，跳出循环，返回答案,若上下边界不交错，则遍历还未结束，接着向下向左向上移动，操作过程与第一，二步同理,不断循环以上步骤，直到某两条边界交错，跳出循环，返回答案,时间复杂度为O(n)
+  1). 遍历数组，利用哈希表存储数组元素，如果超过一半，就,时间复杂度为O(n),因为使用了哈希表空间复杂度为O(n)
+  
+  2). 暴力遍历，暴力算法遍历整个数组，然后用另一重循环统计每个数字出现的次数。将出现次数大于n/2的元素返回，时间复杂度为O(n<sup>2)
+  
+  3). 摩尔投票法，先假设第一个数过半数并设cnt=1；遍历后面的数如果相同则cnt+1，不同则减一，当cnt为0时则更换新的数字为候选数（成立前提：有出现次数大于n/2的数存在）
 
 # 代码
 
@@ -18,98 +22,260 @@
 [Python](MoreThanHalfNumber.py)
 
 # C++:
+## 方法一：哈希表
 ```c++
 #include <iostream>
 #include <vector>
+#include <tr1/unordered_map>
 using namespace std;
+using namespace std::tr1;
 
-class Solution {
-public:
-    vector<int> printMatrix(vector<vector<int>> matrix) {
-        vector<int> res;
-        if (matrix.empty()) return res;
-        int m = matrix.size();
-        int n = matrix[0].size();
-        int u = 0;
-        int d = m-1;
-        int l = 0;
-        int r = n-1;
-        while(true)
+class Solution{
+    public:
+        int MoreThanHalfNumber_Solution(vector<int>&nums)
         {
-          for (int i=l;i<=r;i++) res.push_back(matrix[u][i]);//向右移动至最右
-          if (++u > d) break;//重新定义上边界
-          for (int i=u;i<=d;i++) res.push_back(matrix[i][r]);//向下
-          if (--r < l) break;//重新定义右边界
-          for (int i=r;i>=l;i--) res.push_back(matrix[d][i]);//向左
-          if (--d < u) break;//重新定义下边界
-          for (int i=d;i>=u;i--) res.push_back(matrix[i][l]);//向上
-          if (++l > r) break;//重新定义左边界
+            int res =0;
+            if (nums.empty()) return res;
+            int n = nums.size();
+            int half = n/2;
+            unordered_map<int,int> record;
+            for (auto num:nums)
+            {
+                record[num]++;
+                if(record[num]>half)
+                {
+                    res = num;
+                }
+            }     
+            return res;          
         }
-        return res;
-    }
 };
 
 
 int main()
 {
-    vector<vector<int>> nums = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-    vector<vector<int>> res;
-    res = Solution().printMatrix(nums);
-    for (int i=0;i<res.size()i++)
-    {
-        cout<< res[i] <<endl;
-    }
+    vector<int> nums = {1,2,3,2,2,2,5,4,2};
+    int res=0;
+    res = Solution().MoreThanHalfNumber_Solution(nums);
+    cout<< res <<endl;
     system("pause");
     return 0;
 }
 
 ```
 
+## 方法二：暴力遍历
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution{
+    public:
+        int MoreThanHalfNumber_Solution(vector<int>&nums)
+        {
+            int res = 0 ;
+            if (nums.empty()) return res;
+            int n = nums.size();
+            int half = n/2;
+            for (int i=0;i<n;i++)
+            {
+                int count = 0;
+                for (auto num : nums)
+                {
+                    if (nums[i] == num)
+                    {
+                        count+=1;
+                        if (count > half)
+                        {
+                            res = num;
+                        }
+                    }
+                }
+            }
+            return res;          
+        }
+};
+
+int main()
+{
+    vector<int> nums = {1,2,3,2,2,2,5,4,2};
+    int res=0;
+    res = Solution().MoreThanHalfNumber_Solution(nums);
+    cout<< res <<endl;
+    system("pause");
+    return 0;
+}
+
+```
+
+## 方法三：摩尔投票
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution{
+    public:
+        int MoreThanHalfNumber_Solution(vector<int>&nums)
+        {
+            int res = 0 ;
+            if (nums.empty()) return res;
+            int n = nums.size();
+            int half = n/2;
+            int cnt = 1;
+            for (auto num:nums)
+            {
+                if (cnt==0)
+                {
+                    res = num; 
+                }
+                if (res == num)
+                {
+                    cnt+=1;
+                }
+                else
+                {
+                    cnt-=1;
+                }
+            }
+            if (!checkMoreThanHalfNumber(nums,res))
+                res = 0;
+            return res;          
+        }
+        bool checkMoreThanHalfNumber(vector<int> &nums, int res)
+        {
+            int times = 0;
+            int n = nums.size();
+            int half = n/2;
+            for (int i=0;i<n;i++)
+            {
+                if (nums[i]==res)
+                    times++;
+            }
+            if (times>half)
+                return true;
+            else
+                return false;
+        }
+};
+
+int main()
+{
+    vector<int> nums = {1,2,3,2,2,2,5,4,2};
+    int res=0;
+    res = Solution().MoreThanHalfNumber_Solution(nums);
+    cout<< res <<endl;
+    system("pause");
+    return 0;
+}
+
+```
+
+## 方法四：排序后返回
+```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution{
+    public:
+        int MoreThanHalfNumber_Solution(vector<int>&nums)
+        {
+            int res = 0 ;
+            if (nums.empty()) return res;
+            int n = nums.size();
+            sort(nums.begin(),nums.end());
+            res = nums[n/2];
+            return res;          
+        }
+};
+
+int main()
+{
+    vector<int> nums = {1,2,3,2,2,2,5,4,2};
+    int res=0;
+    res = Solution().MoreThanHalfNumber_Solution(nums);
+    cout<< res <<endl;
+    system("pause");
+    return 0;
+}
+
+```
+
+
+
+
 # Python:
+## 方法一：暴力遍历
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def printMatrix(self, matrix):
-        res = []
-        m = len(matrix)
-        if m==0:
+    def MoreThanHalfNum_Solution(self, nums):
+        # write code here
+        res = 0
+        n = len(nums)
+        half = n//2
+        if n==0:
             return res
-        n = len(matrix[0])
-        u = 0
-        d = m-1
-        l = 0
-        r = n-1
-        while (true):
-            for i in range(l,r+1):
-                res.append(matrix[u][i])
-            u+=1
-            if u>d:
-                break
-            for i in range(u,d+1):
-                res.append(matrix[i][r])
-            r-=1
-            if r<l:
-                break
-            for i in range(r,l-1,-1):
-                res.append(matrix[d][i])
-            d-=1
-            if d<u:
-                break
-            for i in range(d,u-1,-1):
-                res.append(matrix[i][l])
-            l+=1
-            if l>r:
-                break
+        for i in range(n):
+            cnt = 0
+            for num in nums:
+                if nums[i] == num:
+                    cnt+=1
+            if cnt > half:
+                res = nums[i]
         return res
 
-
 if __name__ == '_ main__':
-    nums = [[1,2,3,4],[5,6,7,8,[9,10,11,12],[13,14,15,16]]
-    res = Solution().printMatrix(nums)
+    nums = [1,2,3,2,2,2,5,4,2]
+    res = Solution().MoreThanHalfNum_Solution(nums)
     print(res)
 ```
 
+## 方法二：排序
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def MoreThanHalfNum_Solution(self, nums):
+        # write code here
+        res = 0
+        n = len(nums)
+        nums=sorted(nums)
+        res = nums[n//2]
+        return res
+```
+
+## 方法三：摩尔投票
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def MoreThanHalfNum_Solution(self, nums):
+        # write code here
+        res = nums[0]
+        cnt = 0
+        n = len(nums)
+        half = n//2
+        if n==0:
+            return 0
+        for i in range(1,n):
+            if cnt == 0:
+                res = nums[i]
+            if res == nums[i]:
+                cnt+=1
+            else:
+                cnt-=1
+        m = 0
+        for num in nums:
+            if (res == num):
+                m+=1
+        if m<=half:
+            res = 0
+        return res
+```
+
 # 参考：
-   - [LeetCode旋转矩阵](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Spiral-Matrix/README.md) 
+   - [LeetCode-169多数元素](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Spiral-Matrix/README.md) 
 
 
