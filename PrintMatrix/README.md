@@ -24,7 +24,6 @@
 [Python](PrintMatrix.py)
 
 # C++:
-## 方法一：上下左右边界
 ```c++
 #include <iostream>
 #include <vector>
@@ -73,7 +72,6 @@ int main()
 ```
 
 # Python:
-## 方法一：上下左右边界：
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
