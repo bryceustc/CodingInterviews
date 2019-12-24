@@ -5,19 +5,17 @@
 
 # 本题考点：
   
-  1).  哈希表
-  
-  2).  数组特点
-  
-  3). 排序分析
+  1). 哈希表
   
   
 # 解题思路:
-  1). 遍历数组，利用哈希表存储数组元素，如果超过一半，就,时间复杂度为O(n),因为使用了哈希表空间复杂度为O(n)
+  1). 哈希表，遍历数组，利用哈希表存储数组元素，如果超过一半，就,时间复杂度为O(n),因为使用了哈希表空间复杂度为O(n)
   
   2). 暴力遍历，暴力算法遍历整个数组，然后用另一重循环统计每个数字出现的次数。将出现次数大于n/2的元素返回，时间复杂度为O(n<sup>2)
   
   3). 摩尔投票法，先假设第一个数过半数并设cnt=1；遍历后面的数如果相同则cnt+1，不同则减一，当cnt为0时则更换新的数字为候选数（成立前提：有出现次数大于n/2的数存在）
+  
+  4). 排序后，返回数组中中间的数字，此处排序，可以使用vector中sort函数，时间复杂度为O(nlogn)，也可以使用Partition函数实现快速排序，时间复杂度为O(n)
 
 # 代码
 
@@ -176,7 +174,7 @@ int main()
 
 ```
 
-## 方法四：排序后返回
+## 方法四：sort排序后返回
 ```c++
 #include <iostream>
 #include <vector>
@@ -208,6 +206,37 @@ int main()
 
 ```
 
+## 方法五：利用Partition排序后返回
+```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution{
+    public:
+        int MoreThanHalfNumber_Solution(vector<int>&nums)
+        {
+            int res = 0 ;
+            if (nums.empty()) return res;
+            int n = nums.size();
+            sort(nums.begin(),nums.end());
+            res = nums[n/2];
+            return res;          
+        }
+};
+
+int main()
+{
+    vector<int> nums = {1,2,3,2,2,2,5,4,2};
+    int res=0;
+    res = Solution().MoreThanHalfNumber_Solution(nums);
+    cout<< res <<endl;
+    system("pause");
+    return 0;
+}
+
+```
 
 
 
