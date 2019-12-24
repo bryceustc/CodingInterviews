@@ -211,18 +211,87 @@ int main()
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <exception>
+#include <cstdlib>
+#include <time.h>
 using namespace std;
 
-class Solution{
+class Solution
+{
     public:
         int MoreThanHalfNumber_Solution(vector<int>&nums)
         {
             int res = 0 ;
             if (nums.empty()) return res;
             int n = nums.size();
-            sort(nums.begin(),nums.end());
-            res = nums[n/2];
-            return res;          
+            int start = 0;
+            int end = n-1;
+            int mid = start + (end-start)>>1;
+            int index = Partition(nums,n,start,end);
+            while(index!=mid)
+            {
+                if (index>mid)
+                {
+                    end = index - 1;
+                    index = Partition(nums,n,start,end);
+                }
+                else
+                {
+                    start = index + 1;
+                    index = Partition(nums,n,start,end);
+                }
+            }
+            res = nums[mid];
+            if (!checkMoreThanHalfNumber(nums,res))
+                res = 0;
+            return res;
+        }
+        
+        int Partition(vector<int> &nums,int n, int start, int end) 
+        {
+            if(nums.empty()||n<=0||start<0||end>=n)
+                return 0;
+            int index=RandomInRange(start,end);  // 随机取一个标准元素
+            swap(nums[index],nums[end]);  // 交换元素
+            int small=start-1;
+            for(int i=start;i<end;i++) 
+            {
+                if(nums[i]<nums[end]) 
+                {
+                    small++;
+                    if(small!=i)
+                        swap(nums[i],nums[small]);  
+                }
+        }
+        ++small;
+        swap(nums[small],nums[end]);
+        return small;
+        }
+
+        int RandomInRange(int start, int end)
+        {
+            int dis = end - start;
+            if (dis ==0)
+                return 0;
+            srand((unsigned)time(NULL));
+            int res = (rand() %dis) + start;
+            return res;
+        }
+        
+        bool checkMoreThanHalfNumber(vector<int> &nums, int res)
+        {
+            int times = 0;
+            int n = nums.size();
+            int half = n/2;
+            for (int i=0;i<n;i++)
+            {
+                if (nums[i]==res)
+                    times++;
+            }
+            if (times>half)
+                return true;
+            else
+                return false;
         }
 };
 
