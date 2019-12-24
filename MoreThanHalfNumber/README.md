@@ -252,20 +252,20 @@ class Solution
             if(nums.empty()||n<=0||start<0||end>=n)
                 return 0;
             int index=RandomInRange(start,end);  // 随机取一个标准元素
-            swap(nums[index],nums[end]);  // 交换元素
-            int small=start-1;
+            swap(nums[index],nums[end]);  // 交换元素，把基准元素放置最后一位
+            int pos=start-1;
             for(int i=start;i<end;i++) 
             {
                 if(nums[i]<nums[end]) 
                 {
-                    small++;
-                    if(small!=i)
-                        swap(nums[i],nums[small]);  
+                    pos++;
+                    if(pos!=i)
+                        swap(nums[i],nums[pos]);  
                 }
         }
-        ++small;
-        swap(nums[small],nums[end]);
-        return small;
+        ++pos;
+        swap(nums[pos],nums[end]);
+        return pos;
         }
 
         int RandomInRange(int start, int end)
