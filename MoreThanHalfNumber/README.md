@@ -227,18 +227,18 @@ class Solution
             int start = 0;
             int end = n-1;
             int mid = start + (end-start)>>1;
-            int index = Partition(nums,n,start,end);
-            while(index!=mid)
+            int pos = Partition(nums,n,start,end);
+            while(pos!=mid)
             {
-                if (index>mid)
+                if (pos>mid)
                 {
-                    end = index - 1;
-                    index = Partition(nums,n,start,end);
+                    end = pos - 1;
+                    pos = Partition(nums,n,start,end);
                 }
                 else
                 {
-                    start = index + 1;
-                    index = Partition(nums,n,start,end);
+                    start = pos + 1;
+                    pos = Partition(nums,n,start,end);
                 }
             }
             res = nums[mid];
