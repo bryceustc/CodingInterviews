@@ -417,7 +417,7 @@ class Solution:
         n = len(nums)
         if n==0 or n<k:
             return res
-        nums = merge_sort(nums)
+        nums = heap_sort(nums)
         res = nums[:k]
         return res
 ```
@@ -489,7 +489,7 @@ class Solution:
         n = len(nums)
         if n==0 or n<k:
             return res
-        nums = merge_sort(nums)
+        nums = select_sort(nums)
         res = nums[:k]
         return res
 ```
@@ -518,7 +518,7 @@ class Solution:
         n = len(nums)
         if n==0 or n<k:
             return res
-        nums = merge_sort(nums)
+        nums = Insert_sort(nums)
         res = nums[:k]
         return res
 ```
