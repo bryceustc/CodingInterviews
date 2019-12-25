@@ -199,4 +199,4 @@ vector<int> GetLeastNumbers_Solution(vector<int> nums, int k)
 # 参考
 
   -  [基于Partition函数实现快排、超过一半数字、最小K个数](https://www.cnblogs.com/zuilehongdou/p/6197716.html)
-  -  [Partition算法剖析] (https://www.cnblogs.com/zuilehongdou/p/6197716.html)
+  -  [Partition算法剖析](https://www.cnblogs.com/zuilehongdou/p/6197716.html)
