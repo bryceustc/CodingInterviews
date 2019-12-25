@@ -173,31 +173,34 @@ bool CheckMoreThanHalfNumber(vector<int> &nums，int res)
 ### 3.最小的K个数
 基于数组的第k个数字来调整，使得比第k个数字小的所有数字都位于数组的左边，比第k个数字大的所有数字都位于数组的右边。调整之后，位于数组左边的k个数字就是最小的k个数字（这k个数字不一定是排序的）。时间复杂度O(N)
 ```c++
-vector<int> GetLeastNumbers_Solution(vector<int> input, int k) {
-
-    int len=input.size();
-    if(len==0||k>len ||k<0) return vector<int>();
-    if(len==k) return input;
-
-    int start=0;
-    int end=len-1;
-    int index=Partition(input,start,end);
-    while(index!=(k-1))
-    {
-        if(index>k-1)
+vector<int> GetLeastNumbers_Solution(vector<int> nums, int k) 
+{
+        vector<int> res;
+        int n = nums.size();
+        if (nums.empty() || k>n) return res; 
+        int start = 0;
+        int end = n-1;
+        int index = Partition(nums,n,start,end);
+        while(index!=k-1)
         {
-            end=index-1;
-            index=Partition(input,start,end);
+            if (index >k-1)
+            {
+                end = index - 1;
+                Partition(nums,n,start,end);
+            }
+            else
+            {
+                start = index+1;
+                Partition(nums,n,start,end);
+            }
         }
-        else
+        for(int i = 0;i<k;i++)
         {
-            start=index+1;
-            index=Partition(input,start,end);
+            res.push_back(nums[i]);
         }
+        return res;
     }
-
-    vector<int> res(input.begin(), input.begin() + k);
-
-    return res;
-}
 ```
+# 参考
+
+  -  [基于Partition函数实现快排、超过一半数字、最小K个数](https://www.cnblogs.com/zuilehongdou/p/6197716.html)
