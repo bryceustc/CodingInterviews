@@ -520,7 +520,7 @@ class Solution:
    - [std::set与std::multiset使用总结](https://blog.csdn.net/CV_Jason/article/details/83048406) 
    - [C++ multiset通过greater、less指定排序方式，实现最大堆、最小堆功能](https://www.cnblogs.com/ficow/p/10045777.html) 
    - [七种排序算法的C++与Python实现]()
-   - [快速排序中Partition函数的理解]()
+   - [Partition函数的理解](https://github.com/bryceustc/CodingInterviews/blob/master/KLeastNumbers/Partition%E5%87%BD%E6%95%B0.md)
 
 
 
