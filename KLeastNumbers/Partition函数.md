@@ -102,7 +102,7 @@ int Partition(vector<int> &nums, int n, int start , int end)
 
 ##  二分Partition函数的应用
 
-### 快速排序算法
+### 1. 快速排序算法
 ```c++
 void quick_sort(vector<int> &nums, int n,int start,  int end)
 {
@@ -118,23 +118,8 @@ void quick_sort(vector<int> &nums, int n,int start,  int end)
 quick_sort(vec, 0, vec.size()-1); //end为n-1
 ```
 
-### 快速排序算法
-```c++
-void quick_sort(vector<int> &nums, int n,int start,  int end)
-{
-        if (start==end)
-                return;
-        int index = Partition(nums,n,start,end);
-        if (index  > start)
-                quick_sort(nums,n, start,index-1);
-        if (index < end)
-                quick_sort(nums,  n , index+1,end);      
-}
-调用：
-quick_sort(vec, 0, vec.size()-1); //end为n-1
-```
 
-### 数组中出现次数超过一半的数字
+### 2.数组中出现次数超过一半的数字
 数组的特性 ：数组中有一个数字出现的次数超过了数组长度的一半。如果我把这个数组排序，那么排序之后位于数组中间的数字一定就是那个出现次数超过数组一半的数字。也就是说，这个数字就是统计学上的中位数，即长度为n的数组中第n/2的数字。 我们有成熟的O(n)的算法得到数组中任意第K大的数字 。
 
 这种算法是受快速排序算法的启发。在随机快速排序算法中，我们现在数组中随机选择一个数字，然后调整数组中数字的顺序，使得比选中的数字小的数字都排在它的左边，比选中的数字大的数字都排在它的右边。如果这个选中的数字的下标刚好是n/2，那么这个数字就是数组的中位数。如果它的下标大于n/2，那么中位数应该位于它的左边，我们可以接着在它的左边部分的数组中查找。如果它的下标小于n/2，那么中位数应该位于它的右边，我们可以接着在它的右边部分的数组中查找。这是一个典型的递归过程，实现代码如下：
@@ -182,4 +167,37 @@ bool CheckMoreThanHalfNumber(vector<int> &nums，int res)
             else
                 return false;
         }
+```
+
+
+### 3.最小的K个数
+基于数组的第k个数字来调整，使得比第k个数字小的所有数字都位于数组的左边，比第k个数字大的所有数字都位于数组的右边。调整之后，位于数组左边的k个数字就是最小的k个数字（这k个数字不一定是排序的）。时间复杂度O(N)
+```c++
+vector<int> GetLeastNumbers_Solution(vector<int> input, int k) {
+
+    int len=input.size();
+    if(len==0||k>len ||k<0) return vector<int>();
+    if(len==k) return input;
+
+    int start=0;
+    int end=len-1;
+    int index=Partition(input,start,end);
+    while(index!=(k-1))
+    {
+        if(index>k-1)
+        {
+            end=index-1;
+            index=Partition(input,start,end);
+        }
+        else
+        {
+            start=index+1;
+            index=Partition(input,start,end);
+        }
+    }
+
+    vector<int> res(input.begin(), input.begin() + k);
+
+    return res;
+}
 ```
