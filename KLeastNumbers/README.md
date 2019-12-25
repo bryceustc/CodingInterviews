@@ -241,7 +241,61 @@ int main()
 }
 ```
 
+## 方法四：红黑树：multise集合 利用仿函数改变排序顺序   平均时间复杂度为O(nlogk)
+```c++
+#include <iostream>
+#include <vector>
+#include<algorithm>
+#include<set>
+using namespace std;
 
+class Solution {
+public:
+   vector<int> KLeastNumbers(vector<int>& nums,int k ) 
+    {
+        vector<int> res;
+        int n = nums.size();
+        if (nums.empty() || k>n) return res; 
+        //仿函数中的greater<T>模板，从大到小排序
+        multiset<int, greater<int> > leastNums;
+        vector<int>::iterator vec_it=nums.begin();
+        for(;vec_it!=nums.end();vec_it++)
+        {
+            //将前k个元素插入集合
+            if(leastNums.size()<k)
+                leastNums.insert(*vec_it);
+            else
+            {
+                //第一个元素是最大值
+                multiset<int, greater<int> >::iterator greatest_it=leastNums.begin();
+                //如果后续元素<第一个元素，删除第一个，加入当前元素
+                if(*vec_it<*(leastNums.begin()))
+                {
+                    leastNums.erase(greatest_it);
+                    leastNums.insert(*vec_it);
+                }
+            }
+        }
+        res = vector<int>(leastNums.begin(),leastNums.end());
+    }
+};
+
+
+int main()
+{
+   vector<int> nums = {4,5,1,6,2,7,3,8};
+   int k = 4;
+    vector<int>  res;
+    res = Solution().KLeastNumbers(nums,k);
+    int n = res.size();
+    for (int i = 0; i < n; i++)
+    {
+        cout<< res[i]<<endl;
+    }
+    system("pause");
+    return 0;
+}
+```
 
 # Python:
 ## 方法一：直接法
@@ -292,6 +346,10 @@ if __name__ == '_ main__':
    - [LeetCode-169多数元素](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Spiral-Matrix/README.md)
    - [C/C++ | STL | 大顶堆 | 小顶堆 | std::priority_queue](https://blog.csdn.net/stone_fall/article/details/89010656) 
    - [【c++】STL里的priority_queue用法总结](https://blog.csdn.net/xiaoquantouer/article/details/52015928) 
+   - [set/multiset用法详解](https://blog.csdn.net/longshengguoji/article/details/8546286) 
+   - [std::set与std::multiset使用总结](https://blog.csdn.net/CV_Jason/article/details/83048406) 
+   - [C++ multiset通过greater、less指定排序方式，实现最大堆、最小堆功能](https://www.cnblogs.com/ficow/p/10045777.html) 
+   
 
 
 
