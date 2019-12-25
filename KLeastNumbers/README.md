@@ -211,7 +211,8 @@ public:
             if(nums[i]<nums[end])
             {
                 pos++;
-                swap(nums[pos],nums[i]);
+                if (i != pos)
+                    swap(nums[pos],nums[i]);
             }
         }
         pos++;
