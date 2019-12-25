@@ -429,30 +429,13 @@ class Solution:
 class Solution:
     def KLeastNumbers(self, nums, k):
         # write code here
-        def siftup(lst, temp, begin, end):
+        def bubble_sort(lst):
             if lst == []:
                 return []
-            i, j = begin, begin * 2 + 1
-            while j < end:
-                if j + 1 < end and lst[j + 1] > lst[j]:
-                    j += 1
-                elif temp > lst[j]:
-                    break
-                else:
-                    lst[i] = lst[j]
-                    i, j = j, 2 * j + 1
-            lst[i] = temp
- 
-        def heap_sort(lst):
-            if lst == []:
-                return []
-            end = len(lst)
-            for i in range((end // 2) - 1, -1, -1):
-                siftup(lst, lst[i], i, end)
-            for i in range(end - 1, 0, -1):
-                temp = lst[i]
-                lst[i] = lst[0]
-                siftup(lst, temp, 0, i)
+            for i in range(len(lst)):
+                for j in range(1, len(lst) - i):
+                    if lst[j-1] > lst[j]:
+                        lst[j-1], lst[j] = lst[j], lst[j-1]
             return lst
         
         
@@ -460,7 +443,7 @@ class Solution:
         n = len(nums)
         if n==0 or n<k:
             return res
-        nums = merge_sort(nums)
+        nums = bubble_sort(nums)
         res = nums[:k]
         return res
 ```
