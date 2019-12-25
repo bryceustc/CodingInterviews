@@ -19,7 +19,7 @@
 [Python](MoreThanHalfNumber.py)
 
 # C++:
-## 方法一：哈希表
+## 方法一：利用sort排序
 ```c++
 #include <iostream>
 #include <vector>
@@ -59,6 +59,105 @@ int main()
     return 0;
 }
 ```
+
+
+## 方法二：利用STL容器 priority_queue 大顶堆/小顶堆
+
+### 大顶堆：
+```c++
+#include <iostream>
+#include <vector>
+#include <queue>
+#include<algorithm>
+using namespace std;
+
+class Solution {
+public:
+   vector<int> KLeastNumbers(vector<int>& nums,int k ) 
+    {
+        vector<int> res;
+        int n = nums.size();
+        if (nums.empty() || k>n) return res;
+        priority_queue<int> q;    // 大顶堆 优先输入大数据
+        for (auto num : nums)
+        {
+            q.push(num);
+            if (q.size()>k)
+            {
+                q.pop();
+            }
+        }
+        while(!q.empty())
+        {
+            res.push_back(q.top());
+            q.pop();
+        }
+        return res;
+    }
+};
+
+
+int main()
+{
+    vector<int> nums = {4,5,1,6,2,7,3,8};
+    int k = 4;
+    vector<int>  res;
+    res = Solution().KLeastNumbers(nums,k);
+    int n = res.size();
+    for (int i = 0; i < n; i++)
+    {
+        cout<< res[i]<<endl;
+    }
+    system("pause");
+    return 0;
+}
+```
+### 小顶堆：
+```c++
+#include <iostream>
+#include <vector>
+#include <queue>
+#include<algorithm>
+using namespace std;
+
+class Solution {
+public:
+   vector<int> KLeastNumbers(vector<int>& nums,int k ) 
+    {
+        vector<int> res;
+        int n = nums.size();
+        if (nums.empty() || k>n) return res;
+        priority_queue<int,vector<int>, greater<int>> q;    // 小顶堆 优先输入小数据
+        for (auto num : nums)
+        {
+            q.push(num);
+            if (q.size()>n-k)
+            {
+                res.push_back(q.top());
+                q.pop();
+            }
+        }
+        return res;
+    }
+};
+
+
+int main()
+{
+    vector<int> nums = {4,5,1,6,2,7,3,8};
+    int k = 4;
+    vector<int>  res;
+    res = Solution().KLeastNumbers(nums,k);
+    int n = res.size();
+    for (int i = 0; i < n; i++)
+    {
+        cout<< res[i]<<endl;
+    }
+    system("pause");
+    return 0;
+}
+```
+
 
 # Python:
 ## 方法一：直接法
