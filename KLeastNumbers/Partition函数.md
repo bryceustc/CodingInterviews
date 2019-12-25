@@ -22,7 +22,7 @@ partition算法从字面上就非常好理解，就是分割算法嘛！简单�
 int RandInRang(int start, int end)
 {
         int dis = end - start +1;
-        srand((unsigned) Time(NULL));
+        srand((unsigned) time(NULL));
         int res = rand()%dis + start;
         return res;
 }
@@ -68,7 +68,7 @@ int Partition(vector<int> &nums, int n, int start, int end)
 int RandInRang(int start, int end)
 {
         int dis = end - start +1;
-        srand((unsigned) Time(NULL));
+        srand((unsigned) time(NULL));
         int res = rand()%dis + start;
         return res;
 }
