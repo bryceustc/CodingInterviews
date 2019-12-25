@@ -27,10 +27,8 @@ int RandInRang(int start, int end)
         return res;
 }
 
-int Partition(vector<int> &nums, int n, int start, int end)
+int Partition(vector<int> &nums,int start, int end)
 {
-        if (nums.empty() || n<=0 || start <0  || end >=n)
-                return -1;
         int index = RandInRange(start, end);
         swap(nums[index],nums[end]);
         //凡是小于pivot的全部放到数组左端,pos指向<枢轴值的最后一个
@@ -73,12 +71,10 @@ int RandInRang(int start, int end)
         return res;
 }
 
-int Partition(vector<int> &nums, int n, int start , int end)
+int Partition(vector<int> &nums,  int start , int end)
 {
-        if (num.empty() || n<=0 || start<0 || end >=n)
-                return -1;
-        int index = RandInRange(start, end);
-        int pivot = nums[index];
+        //  int index = RandInRange(start, end);
+        int pivot = nums[start];
         while(start <end)
         {
                 while (start <end && nums[end]>=pivot)
@@ -104,15 +100,15 @@ int Partition(vector<int> &nums, int n, int start , int end)
 
 ### 1. 快速排序算法
 ```c++
-void quick_sort(vector<int> &nums, int n,int start,  int end)
+void quick_sort(vector<int> &nums, int start,  int end)
 {
         if (start==end)
                 return;
-        int index = Partition(nums,n,start,end);
+        int index = Partition(nums,start,end);
         if (index  > start)
-                quick_sort(nums,n, start,index-1);
+                quick_sort(nums, start,index-1);
         if (index < end)
-                quick_sort(nums,  n , index+1,end);      
+                quick_sort(nums, index+1,end);      
 }
 调用：
 quick_sort(vec, 0, vec.size()-1); //end为n-1
@@ -132,18 +128,18 @@ int MoreThanHalfNumbers(vectot<int> &nums)
         int start = 0;
         int end = n-1;
         int mid = start + (end-start)>>1;
-        int index = Partition(nums,n,start,end);
+        int index = Partition(nums,start,end);
         whilr(index != mid)
         {
                 if(index > mid)
                 {
                         end = index -1;
-                        index  = Partition(nums,n,start,end);
+                        index  = Partition(nums,start,end);
                 }
                 if (index < mid)
                 {
                         start = index+1;
-                        index = Partition(nums, n, start , end);
+                        index = Partition(nums,start , end);
                 }
         }
         res = nums[mid];
