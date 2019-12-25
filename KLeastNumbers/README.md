@@ -11,7 +11,7 @@
   
   
 # 解题思路:
-  1). 利用Partition函数修改原数组进行 求解，平均时间复杂度为O(n)，最坏时间复杂度为O(n<sup>2<\sup>)
+  1). 利用Partition函数修改原数组进行 求解，平均时间复杂度为O(n)，最坏时间复杂度为O(n<sup>2</sup>)
   
   2). 利用STL容器中的priority_queue 大顶堆/小顶堆进行求解 时间复杂度O（nlogk）
 
