@@ -309,8 +309,7 @@ class Solution:
         if n==0 or n<k:
             return res
         nums=sorted(nums)
-        for i in range(k):
-            res.append(nums[i])
+        res = nums[:k]
         return res
 
 if __name__ == '_ main__':
@@ -319,37 +318,221 @@ if __name__ == '_ main__':
     print(res)
 ```
 
-## 方法二：
+## 方法二：快速排序
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
     def KLeastNumbers(self, nums, k):
         # write code here
+        def quick_sort(nums):
+            if not nums:
+                return []
+            pivot = nums[0]
+            left = quick_sort([x for x in nums[1:] if x < pivot])
+            right = quick_sort([x for x in nums[1:] if x>= pivot])
+            res = left + [pivot] + right
+            return res
+        
+        
         res = []
         n = len(nums)
         if n==0 or n<k:
             return res
-        nums=sorted(nums)
-        for i in range(k):
-            res.append(nums[i])
+        nums = quick_sort(nums)
+        res = nums[:k]
         return res
-
-if __name__ == '_ main__':
-    nums = [4,5,1,6,2,7,3,8]
-    res = Solution().KLeastNumbers(nums)
-    print(res)
 ```
 
 
+## 方法三：归并排序
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def KLeastNumbers(self, nums, k):
+        # write code here
+        def merge_sort(lst):
+            if len(lst) <= 1:
+                return lst
+            mid = len(lst) // 2
+            left = merge_sort(lst[: mid])
+            right = merge_sort(lst[mid:])
+            return merge(left, right)
+        def merge(left, right):
+            l, r, res = 0, 0, []
+            while l < len(left) and r < len(right):
+                if left[l] <= right[r]:
+                    res.append(left[l])
+                    l += 1
+                else:
+                    res.append(right[r])
+                    r += 1
+            res += left[l:]
+            res += right[r:]
+            return res
+        
+        
+        res = []
+        n = len(nums)
+        if n==0 or n<k:
+            return res
+        nums = merge_sort(nums)
+        res = nums[:k]
+        return res
+```
+
+## 方法四：堆排序
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def KLeastNumbers(self, nums, k):
+        # write code here
+        def siftup(lst, temp, begin, end):
+            if lst == []:
+                return []
+            i, j = begin, begin * 2 + 1
+            while j < end:
+                if j + 1 < end and lst[j + 1] > lst[j]:
+                    j += 1
+                elif temp > lst[j]:
+                    break
+                else:
+                    lst[i] = lst[j]
+                    i, j = j, 2 * j + 1
+            lst[i] = temp
+ 
+        def heap_sort(lst):
+            if lst == []:
+                return []
+            end = len(lst)
+            for i in range((end // 2) - 1, -1, -1):
+                siftup(lst, lst[i], i, end)
+            for i in range(end - 1, 0, -1):
+                temp = lst[i]
+                lst[i] = lst[0]
+                siftup(lst, temp, 0, i)
+            return lst
+        
+        
+        res = []
+        n = len(nums)
+        if n==0 or n<k:
+            return res
+        nums = merge_sort(nums)
+        res = nums[:k]
+        return res
+```
+
+
+## 方法五：冒泡排序
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def KLeastNumbers(self, nums, k):
+        # write code here
+        def siftup(lst, temp, begin, end):
+            if lst == []:
+                return []
+            i, j = begin, begin * 2 + 1
+            while j < end:
+                if j + 1 < end and lst[j + 1] > lst[j]:
+                    j += 1
+                elif temp > lst[j]:
+                    break
+                else:
+                    lst[i] = lst[j]
+                    i, j = j, 2 * j + 1
+            lst[i] = temp
+ 
+        def heap_sort(lst):
+            if lst == []:
+                return []
+            end = len(lst)
+            for i in range((end // 2) - 1, -1, -1):
+                siftup(lst, lst[i], i, end)
+            for i in range(end - 1, 0, -1):
+                temp = lst[i]
+                lst[i] = lst[0]
+                siftup(lst, temp, 0, i)
+            return lst
+        
+        
+        res = []
+        n = len(nums)
+        if n==0 or n<k:
+            return res
+        nums = merge_sort(nums)
+        res = nums[:k]
+        return res
+```
+
+
+## 方法六：直接选择排序
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def KLeastNumbers(self, nums, k):
+        # write code here
+        def select_sort(lst):
+            if lst == []:
+                return []
+            for i in range(len(lst)-1):
+                smallest = i
+                for j in range(i, len(lst)):
+                    if lst[j] < lst[smallest]:
+                        smallest = j
+                lst[i], lst[smallest] = lst[smallest], lst[i]
+ 
+            return lst
+        
+        
+        res = []
+        n = len(nums)
+        if n==0 or n<k:
+            return res
+        nums = merge_sort(nums)
+        res = nums[:k]
+        return res
+```
+
+
+## 方法七：插入排序
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def KLeastNumbers(self, nums, k):
+        # write code here
+        def Insert_sort(lst):
+            if lst == []:
+                return []
+            for i in range(1, len(lst)):
+                temp = lst[i]
+                j = i
+                while j > 0 and temp < lst[j - 1]:
+                    lst[j] = lst[j - 1]
+                    j -= 1
+                lst[j] = temp
+            return lst
+        
+        
+        res = []
+        n = len(nums)
+        if n==0 or n<k:
+            return res
+        nums = merge_sort(nums)
+        res = nums[:k]
+        return res
+```
+
 
 # 参考：
-   - [LeetCode-169多数元素](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Spiral-Matrix/README.md)
+   - [LeetCode-215数组中的第k个最大元素](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Spiral-Matrix/README.md)
    - [C/C++ | STL | 大顶堆 | 小顶堆 | std::priority_queue](https://blog.csdn.net/stone_fall/article/details/89010656) 
    - [【c++】STL里的priority_queue用法总结](https://blog.csdn.net/xiaoquantouer/article/details/52015928) 
    - [set/multiset用法详解](https://blog.csdn.net/longshengguoji/article/details/8546286) 
    - [std::set与std::multiset使用总结](https://blog.csdn.net/CV_Jason/article/details/83048406) 
    - [C++ multiset通过greater、less指定排序方式，实现最大堆、最小堆功能](https://www.cnblogs.com/ficow/p/10045777.html) 
-   
+   - [七种排序算法的C++与Python实现]()
+   - [快速排序中Partition函数的理解]()
 
 
 
