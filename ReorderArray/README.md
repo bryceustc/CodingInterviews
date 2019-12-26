@@ -122,7 +122,7 @@ int main()
 ```
 
 
-## 方法三：冒泡排序的思想
+## 方法三：冒泡排序的思想  类似冒泡算法，前偶后奇数就交换
 ```c++
 #include <iostream>
 #include <vector>
@@ -169,26 +169,84 @@ int main()
 
 
 # Python:
-## 方法一：暴力遍历：
+## 方法一：构建辅助数组(未通过OJ)
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def findMin(self, nums: List[int]) -> int:
+    def reOrderArray(self, nums):
+        # write code here
+        res = []
         n = len(nums)
         if n==0:
-            return 0
-        res = nums[0]
-        for i in range (n):
-            if res >nums[i]:
-                res = nums[i]
-        return res
+            return
+        for i in range(0,n):
+            if nums[i]%2!=0:
+                res.append(nums[i])
+        for i in range(0,n):
+            if nums[i]%2==0:
+                res.append(nums[i])
+        nums=res
 
 
 if __name__ == '_ main__':
     nums = [3,4,5,1,2]
-    res = Solution().findMin(nums)
+    res = Solution().reOrderArray(nums)
     print(res)
 ```
 
-# 参考：
+## 方法二：插入排序的思想
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def reOrderArray(self, nums):
+        # write code here
+        n = len(nums)
+        if n==0:
+            return
+        for i in range(0,n):
+            if nums[i]%2==0:
+                for j in range(i+1,n):
+                    if nums[j]%2!=0:
+                        temp = nums[j]
+                        for k in range(j,i,-1):
+                            nums[k] = nums[k-1]
+                        nums[i] = temp
+                        break
+       
+       
+if __name__ == '_ main__':
+    nums = [3,4,5,1,2]
+    res = Solution().reOrderArray(nums)
+    print(res)
+```
 
+
+## 方法三：构建辅助数组(未通过OJ)
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def reOrderArray(self, nums):
+        # write code here
+        res = []
+        n = len(nums)
+        if n==0:
+            return
+        for i in range(0,n):
+            if nums[i]%2!=0:
+                res.append(nums[i])
+        for i in range(0,n):
+            if nums[i]%2==0:
+                res.append(nums[i])
+        nums=res
+
+
+if __name__ == '_ main__':
+    nums = [3,4,5,1,2]
+    res = Solution().reOrderArray(nums)
+    print(res)
+```
+
+
+
+# 参考：
+  - [LeetCode_283移动零](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Move-Zeroes/README.md)
