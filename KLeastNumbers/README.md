@@ -7,7 +7,9 @@
   
   1). Partition函数的运用
   
-  2). 
+  2). 大顶堆求解
+  
+  3). 
   
   
 # 解题思路:
@@ -19,9 +21,9 @@
 
 # 代码
 
-[C++](MoreThanHalfNumber.cpp)
+[C++](KLeastNumbers.cpp)
 
-[Python](MoreThanHalfNumber.py)
+[Python](KLeastNumbers.py)
 
 # C++:
 ## 方法一：利用sort排序  时间复杂度为O(nlogn)
@@ -512,7 +514,7 @@ class Solution:
         return res
 ```
 
-## 方法八 最大堆
+## 方法八: 最大堆
 ```python
 # 最大堆版
 #!/usr/bin/env python
