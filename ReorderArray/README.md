@@ -5,12 +5,12 @@
 
 # 本题考点：
   
-  1). 数组非减排序
+  1). 构建辅助数组
   
-  2). 二分查找
+  2). 插入排序思想
   
 # 解题思路:
-  1). 直接暴力遍历数组所有元素，寻找最小元素，时间复杂度为O(n)
+  1). 构建辅助数组，时间复杂度为O(n)，空间复杂度O(n);
   
   2). 使用二分查找，时间复杂度为O(logn)
   
@@ -27,36 +27,93 @@
 ```c++
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
-class Solution {
-public:
-    int findMin(vector<int>& nums) {
-        if (nums.empty()) return 0;
-        int n = nums.size();     
-        int res = nums[0];
-        for (int i=1;i<n;i++)
+class Solution{
+    public:
+        void reOrderArray(vector<int>&nums)
         {
-            if (res>nums[i])
-                res = nums[i];
+            vector<int> res;
+            int n = nums.size();
+            for (int i = 0; i < n; i++)
+            {
+                if(nums[i]%2!=0)
+                {
+                    res.push_back(nums[i]);
+                }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                if(nums[i]%2==0)
+                {
+                    res.push_back(nums[i]);
+                }
+            }        
         }
-        return res;
-    }
 };
 
 
 int main()
 {
-    vector<int> nums = {3,1};
-    int res=nums[0];
-    res = Solution().MinNumberInRotatedArray(nums);
-    cout<< res <<endl;
+    vector<int> nums = {1,2,3,4,5,6,7,8,9};
+    Solution().reOrderArray(nums);
+    int m=nums.size();
+    for (int i=0;i<m;i++)
+    {
+        cout<< nums[i] <<endl;
+    }
     system("pause");
     return 0;
 }
 
 ```
+
+## 方法一：暴力遍历
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution{
+    public:
+        void reOrderArray(vector<int>&nums)
+        {
+            vector<int> res;
+            int n = nums.size();
+            for (int i = 0; i < n; i++)
+            {
+                if(nums[i]%2!=0)
+                {
+                    res.push_back(nums[i]);
+                }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                if(nums[i]%2==0)
+                {
+                    res.push_back(nums[i]);
+                }
+            }        
+        }
+};
+
+
+int main()
+{
+    vector<int> nums = {1,2,3,4,5,6,7,8,9};
+    Solution().reOrderArray(nums);
+    int m=nums.size();
+    for (int i=0;i<m;i++)
+    {
+        cout<< nums[i] <<endl;
+    }
+    system("pause");
+    return 0;
+}
+
+```
+
+
 
 # Python:
 ## 方法一：暴力遍历：
