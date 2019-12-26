@@ -232,12 +232,11 @@ class Solution:
         if n==0:
             return
         for i in range(0,n):
-            if nums[i]%2!=0:
-                res.append(nums[i])
-        for i in range(0,n):
-            if nums[i]%2==0:
-                res.append(nums[i])
-        nums=res
+                for j in range(n-1,i,-1):
+                    if nums[j]!=0 and nums[j-1]==0:
+                        temp = nums[j]
+                        nums[j] = nums[j-1]
+                        nums[j-1] = temp
 
 
 if __name__ == '_ main__':
