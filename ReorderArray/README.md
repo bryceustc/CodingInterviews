@@ -7,7 +7,9 @@
   
   1). 构建辅助数组
   
-  2). 插入排序思想
+  2). 插入排序的思想
+  
+  3). 冒泡排序的思想
   
 # 解题思路:
   1). 构建辅助数组，时间复杂度为O(n)，空间复杂度O(n);
@@ -68,7 +70,7 @@ int main()
 
 ```
 
-## 方法一：暴力遍历
+## 方法二：插入排序的思想
 ```c++
 #include <iostream>
 #include <vector>
@@ -79,21 +81,27 @@ class Solution{
         void reOrderArray(vector<int>&nums)
         {
             vector<int> res;
+            if (nums.empty()) return;
             int n = nums.size();
-            for (int i = 0; i < n; i++)
+            for (int i=0;i<n;i++)
             {
-                if(nums[i]%2!=0)
+                if (nums[i]%2==0)
                 {
-                    res.push_back(nums[i]);
+                    for (int j=i+1;j<n;j++)
+                    {
+                        if (nums[j]%2!=0)
+                        {
+                            int temp = nums[j];
+                            for (int k=j;k>i;k--)
+                            {
+                                nums[k] = nums[k-1];
+                            }
+                            nums[i] = temp;
+                            break;
+                        }
+                    }
                 }
             }
-            for (int i = 0; i < n; i++)
-            {
-                if(nums[i]%2==0)
-                {
-                    res.push_back(nums[i]);
-                }
-            }        
         }
 };
 
@@ -112,6 +120,51 @@ int main()
 }
 
 ```
+
+
+## 方法三：冒泡排序的思想
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution{
+    public:
+        void reOrderArray(vector<int>&nums)
+        {
+            vector<int> res;
+            if (nums.empty()) return;
+            int n = nums.size();
+            for (int i=0;i<n;i++)
+            {
+                for (int j=n-1;j>i;j--)
+                {
+                    if (nums[j]%2!=0 && nums[j-1]%2==0)
+                    {
+                        swap(nums[j],nums[j-1]);
+                    }
+                }
+            }
+        }
+};
+
+
+int main()
+{
+    vector<int> nums = {1,2,3,4,5,6,7,8,9};
+    Solution().reOrderArray(nums);
+    int m=nums.size();
+    for (int i=0;i<m;i++)
+    {
+        cout<< nums[i] <<endl;
+    }
+    system("pause");
+    return 0;
+}
+
+```
+
+
 
 
 
