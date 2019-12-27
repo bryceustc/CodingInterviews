@@ -6,7 +6,7 @@
   
   1). Partition函数的运用
   
-  2). 大顶堆求解
+  2). 大顶堆+小顶堆求解
   
   3). multiset 红黑二叉树
   
@@ -25,7 +25,7 @@
 [Python](StreamMedian.py)
 
 # C++:
-## 方法一：利用sort排序  时间复杂度为O(nlogn)
+## 方法一：大顶堆+小顶堆
 ```c++
 #include <iostream>
 #include <vector>
@@ -34,19 +34,40 @@ using namespace std;
 
 class Solution {
 public:
-   vector<int> KLeastNumbers(vector<int>& nums,int k ) 
+    int count = 0;
+    void Insert(int num)
     {
-        vector<int> res;
-        if (nums.empty()) return res; 
-        int n = nums.size();
-        if (k>n) return res;
-        sort(nums.begin(),nums.end());
-        for (int i=0;i<k;i++)
+        if (count %2==0)
         {
-            res.push_back(nums[i]);
+            max.push(num);
+            int max_num = max.top();
+            max.pop();
+            min.push(max_num);
         }
-        return res;
+        else
+        {
+            min.push(num);
+            int min_num = min.top();
+            min.pop();
+            max.push(min_num);
+        }
+        count++;
     }
+
+    double GetMedian()
+    { 
+        if (count %2 ==0)
+        {
+            return ((min.top()+max.top())/2.0);
+        }
+        else
+        {
+            return (min.top());
+        }
+    }
+private:
+    priority_queue <int,vector<int>> min; //小顶堆
+    priority_queue <int,vector<int>,greater<int>> max;//大顶堆
 };
 
 
