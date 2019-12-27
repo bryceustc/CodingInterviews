@@ -50,7 +50,8 @@ class Solution{
                 {
                     res.push_back(nums[i]);
                 }
-            }        
+            }
+            nums = res;
         }
 };
 
