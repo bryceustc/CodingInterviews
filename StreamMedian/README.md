@@ -442,12 +442,10 @@ class Solution:
 # 参考：
    - [LeetCode-295数据流的中位数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-Median-From-Data-Stream/README.md)
    - [C/C++ | STL | 大顶堆 | 小顶堆 | std::priority_queue](https://blog.csdn.net/stone_fall/article/details/89010656) 
-   - [【c++】STL里的priority_queue用法总结](https://blog.csdn.net/xiaoquantouer/article/details/52015928) 
-   - [set/multiset用法详解](https://blog.csdn.net/longshengguoji/article/details/8546286) 
-   - [std::set与std::multiset使用总结](https://blog.csdn.net/CV_Jason/article/details/83048406) 
    - [C++ multiset通过greater、less指定排序方式，实现最大堆、最小堆功能](https://www.cnblogs.com/ficow/p/10045777.html) 
    - [c++ vector容器 插入元素时实现自动排序](https://blog.csdn.net/su20145104009/article/details/70955760)
    - [数据流的中位数](https://leetcode-cn.com/problems/find-median-from-data-stream/solution/shu-ju-liu-de-zhong-wei-shu-by-leetcode/)
+   - [数据流中的中位数——牛客网](https://www.nowcoder.com/questionTerminal/9be0172896bd43948f8a32fb954e1be1?f=discussion)
 
 
 
