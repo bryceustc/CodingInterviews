@@ -188,16 +188,24 @@ int main()
 ## 方法一：直接法
 ```python
 # -*- coding:utf-8 -*-
-class Solution:
-    def KLeastNumbers(self, nums, k):
-        # write code here
-        res = []
-        n = len(nums)
-        if n==0 or n<k:
-            return res
-        nums=sorted(nums)
-        res = nums[:k]
-        return res
+class MedianFinder:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.store=[] 
+
+    def addNum(self, num: int) -> None:
+        self.store.append(num)
+
+    def findMedian(self) -> float:
+        store=sorted(self.store)
+        n = len(self.store)
+        if n%2==0:
+            return (self.store[n//2]+self.store[n//2-1])/2.0
+        else:
+            return self.store[n//2]
 
 if __name__ == '_ main__':
     nums = [4,5,1,6,2,7,3,8]
@@ -205,7 +213,7 @@ if __name__ == '_ main__':
     print(res)
 ```
 
-## 方法二：快速排序
+## 方法二：插入排序
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
