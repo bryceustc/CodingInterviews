@@ -66,8 +66,8 @@ public:
         }
     }
 private:
-    priority_queue <int,vector<int>> min; //小顶堆
-    priority_queue <int,vector<int>,greater<int>> max;//大顶堆
+    priority_queue <int,vector<int>> max; //大顶堆
+    priority_queue <int,vector<int>,greater<int>> min;//小顶堆
 };
 
 
@@ -88,9 +88,13 @@ int main()
 ```
 
 
-## 方法二：利用STL容器 priority_queue 大顶堆/小顶堆   时间复杂度O（nlogk）
+## 方法二：直接排序后返回
 
-### 大顶堆 (优先输出大数据)：
+### （将数字存储在可调整大小的容器中。每次需要输出中间值时，对容器进行排序并输出中间值） 
+### 时间复杂度:O(nlogn)+O(1)≃O(nlogn)
+   1. 添加一个数字对于一个有效调整大小方案的容器来说需要花费 O(1)的时间。
+   2. 找到中间值主要取决于发生的排序。对于标准比较排序，这需要 O(nlogn)时间
+### 空间复杂度:O(n) 线性空间，用于在容器中保存输入。除了需要的空间之外没有其他空间（因为通常可以在适当的位置进行排序）
 ```c++
 #include <iostream>
 #include <vector>
@@ -100,92 +104,30 @@ using namespace std;
 
 class Solution {
 public:
-   vector<int> KLeastNumbers(vector<int>& nums,int k ) 
+    vector<double> store;
+    void Insert(int num)
     {
-        vector<int> res;
-        int n = nums.size();
-        if (nums.empty() || k>n) return res;
-        priority_queue<int> q;    // 大顶堆 优先输出大数据
-        for (auto num : nums)
+        store.push_back(num);
+    }
+
+    double GetMedian()
+    { 
+        sort(store.begin(),store.end());
+        int n = store.size();
+        if (n%2==0)
         {
-            q.push(num);
-            if (q.size()>k)
-            {
-                q.pop();
-            }
+            return((store[n/2]+store[n/2-1])/2.0);
         }
-        while(!q.empty())
+        else
         {
-            res.push_back(q.top());
-            q.pop();
+            return (store[n/2]);
         }
-        return res;
     }
 };
 
-
-int main()
-{
-    vector<int> nums = {4,5,1,6,2,7,3,8};
-    int k = 4;
-    vector<int>  res;
-    res = Solution().KLeastNumbers(nums,k);
-    int n = res.size();
-    for (int i = 0; i < n; i++)
-    {
-        cout<< res[i]<<endl;
-    }
-    system("pause");
-    return 0;
-}
-```
-### 小顶堆(优先输出小数据)：
-```c++
-#include <iostream>
-#include <vector>
-#include <queue>
-#include<algorithm>
-using namespace std;
-
-class Solution {
-public:
-   vector<int> KLeastNumbers(vector<int>& nums,int k ) 
-    {
-        vector<int> res;
-        int n = nums.size();
-        if (nums.empty() || k>n) return res;
-        priority_queue<int,vector<int>, greater<int>> q;    // 小顶堆 优先输出小数据
-        for (auto num : nums)
-        {
-            q.push(num);
-            if (q.size()>n-k)
-            {
-                res.push_back(q.top());
-                q.pop();
-            }
-        }
-        return res;
-    }
-};
-
-
-int main()
-{
-    vector<int> nums = {4,5,1,6,2,7,3,8};
-    int k = 4;
-    vector<int>  res;
-    res = Solution().KLeastNumbers(nums,k);
-    int n = res.size();
-    for (int i = 0; i < n; i++)
-    {
-        cout<< res[i]<<endl;
-    }
-    system("pause");
-    return 0;
-}
 ```
 
-## 方法三：基于函数Partition   平均时间复杂度为O(n)
+## 方法三：插入排序
 ```c++
 #include <iostream>
 #include <vector>
@@ -194,61 +136,25 @@ using namespace std;
 
 class Solution {
 public:
-   vector<int> KLeastNumbers(vector<int>& nums,int k ) 
+    vector<double> store;
+    void Insert(int num)
     {
-        vector<int> res;
-        int n = nums.size();
-        if (nums.empty() || k>n) return res; 
-        int start = 0;
-        int end = n-1;
-        int index = Partition(nums,n,start,end);
-        while(index!=k-1)
-        {
-            if (index >k-1)
-            {
-                end = index - 1;
-                Partition(nums,n,start,end);
-            }
-            else
-            {
-                start = index+1;
-                Partition(nums,n,start,end);
-            }
-        }
-        for(int i = 0;i<k;i++)
-        {
-            res.push_back(nums[i]);
-        }
-        return res;
+        if (store.empty())
+            store.push_back(num);
+        else
+            store.insert(lower_bound(store.begin(), store.end(), num), num);
     }
-    int Partition(vector<int> &nums,int n, int start, int end)
-    {
-        if(nums.empty() || n <=0 || start<0 || end >=n)
-            return -1;
-        int index = RandInRange(start,end);
-        int pos = start - 1;
-        swap(nums[index],nums[end]);
-        for (int i= start;i<=end;i++)
+    double GetMedian()
+    { 
+        int n = store.size();
+        if (n%2==0)
         {
-            if(nums[i]<nums[end])
-            {
-                pos++;
-                if (i != pos)
-                    swap(nums[pos],nums[i]);
-            }
+            return((store[n/2]+store[n/2-1])/2.0);
         }
-        pos++;
-        swap(nums[pos],nums[end]);
-        return pos;
-    }
-    
-    int RandInRange(int start,int end)
-    {
-        int dis = end - start;
-        if (dis ==0) return 0;
-        srand((unsigned) time (NULL));
-        int res = (rand() %dis +start);
-        return res;
+        else
+        {
+            return (store[n/2]);
+        }
     }
 };
 
@@ -269,61 +175,6 @@ int main()
 }
 ```
 
-## 方法四：红黑树：multise集合 利用仿函数改变排序顺序   平均时间复杂度为O(nlogk)
-```c++
-#include <iostream>
-#include <vector>
-#include<algorithm>
-#include<set>
-using namespace std;
-
-class Solution {
-public:
-   vector<int> KLeastNumbers(vector<int>& nums,int k ) 
-    {
-        vector<int> res;
-        int n = nums.size();
-        if (nums.empty() || k>n) return res; 
-        //仿函数中的greater<T>模板，从大到小排序
-        multiset<int, greater<int> > leastNums;
-        vector<int>::iterator vec_it=nums.begin();
-        for(;vec_it!=nums.end();vec_it++)
-        {
-            //将前k个元素插入集合
-            if(leastNums.size()<k)
-                leastNums.insert(*vec_it);
-            else
-            {
-                //第一个元素是最大值
-                multiset<int, greater<int> >::iterator greatest_it=leastNums.begin();
-                //如果后续元素<第一个元素，删除第一个，加入当前元素
-                if(*vec_it<*(leastNums.begin()))
-                {
-                    leastNums.erase(greatest_it);
-                    leastNums.insert(*vec_it);
-                }
-            }
-        }
-        res = vector<int>(leastNums.begin(),leastNums.end());
-    }
-};
-
-
-int main()
-{
-   vector<int> nums = {4,5,1,6,2,7,3,8};
-   int k = 4;
-    vector<int>  res;
-    res = Solution().KLeastNumbers(nums,k);
-    int n = res.size();
-    for (int i = 0; i < n; i++)
-    {
-        cout<< res[i]<<endl;
-    }
-    system("pause");
-    return 0;
-}
-```
 
 # Python:
 ## 方法一：直接法
@@ -587,7 +438,7 @@ class Solution:
    - [set/multiset用法详解](https://blog.csdn.net/longshengguoji/article/details/8546286) 
    - [std::set与std::multiset使用总结](https://blog.csdn.net/CV_Jason/article/details/83048406) 
    - [C++ multiset通过greater、less指定排序方式，实现最大堆、最小堆功能](https://www.cnblogs.com/ficow/p/10045777.html) 
-   - [七种排序算法的C++与Python实现]()
+   - [c++ vector容器 插入元素时实现自动排序](https://blog.csdn.net/su20145104009/article/details/70955760)
    - [二进制位运算判断奇数偶数](https://blog.csdn.net/zsc2014030403015/article/details/44246621)
 
 
