@@ -4,7 +4,7 @@
 
 # 本题考点：
   
-  1). 插入排序
+  1). 插入排序/直接排序
   
   2). 大顶堆+小顶堆求解
   
@@ -14,7 +14,7 @@
 # 解题思路:
   1). 直接排序 将数字存储在可调整大小的容器中。每次需要输出中间值时，对容器进行排序并输出中间值。平均时间复杂度为O(nlogn)+O(1)\approxO(nlogn),空间复杂度：O(n) 线性空间，用于在容器中保存输入。
   
-  2). 利用STL容器中的priority_queue 大顶堆+小顶堆进行求解 时间复杂度O(5 \cdot \log n) + O(1) \approx O(\log n),空间复杂度，O(n) 用于在容器中保存输入的线性空间。
+  2). 利用STL容器中的priority_queue 大顶堆+小顶堆进行求解 时间复杂度O(\log n),空间复杂度，O(n) 用于在容器中保存输入的线性空间。
 
   3). 哪种算法允许将一个数字添加到已排序的数字列表中，但仍保持整个列表的排序状态？插入排序！
 
@@ -185,31 +185,40 @@ int main()
 
 
 # Python:
-## 方法一：直接法
+## 方法一：利用python 调用heapq库来实现大小堆进行求解
 ```python
 # -*- coding:utf-8 -*-
-class MedianFinder:
-
+import heapq
+class Solution:
     def __init__(self):
-        """
-        initialize your data structure here.
-        """
-        self.store=[] 
-
-    def addNum(self, num: int) -> None:
-        self.store.append(num)
-
-    def findMedian(self) -> float:
-        store=sorted(self.store)
-        n = len(self.store)
-        if n%2==0:
-            return (self.store[n//2]+self.store[n//2-1])/2.0
+        self.count = 0
+        self.max_heap = []
+        self.min_heap = []
+    def Insert(self, num):
+        # write code here
+        if self.count % 2 == 0:
+            heapq.heappush(self.max_heap,-num)
+            max_heap_top = heapq.heappop(self.max_heap)
+            heapq.heappush(self.min_heap,-max_heap_top)
         else:
-            return self.store[n//2]
+            heapq.heappush(self.min_heap,num)
+            min_heap_top = heapq.heappop(self.min_heap)
+            heapq.heappush(self.max_heap,-min_heap_top)
+        self.count+=1
+    def GetMedian(self, data):
+        # write code here
+        if self.count % 2 == 0:
+            return(self.min_heap[0]-self.max_heap[0])/2.0
+        else:
+            return self.min_heap[0]
 
 if __name__ == '_ main__':
     nums = [4,5,1,6,2,7,3,8]
-    res = Solution().KLeastNumbers(nums)
+    
+    Solution().Insert(num[0])
+    Solution().Insert(num[1])
+    Solution().Insert(num[2])
+    res = Solution().GetMedian()    
     print(res)
 ```
 
