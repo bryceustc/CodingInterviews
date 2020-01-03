@@ -8,11 +8,9 @@
   
   2). 大顶堆+小顶堆求解
   
-  3). multiset 红黑二叉树
-  
   
 # 解题思路:
-  1). 直接排序 将数字存储在可调整大小的容器中。每次需要输出中间值时，对容器进行排序并输出中间值。平均时间复杂度为O(nlogn)+O(1)\approxO(nlogn),空间复杂度：O(n) 线性空间，用于在容器中保存输入。
+  1). 直接排序 将数字存储在可调整大小的容器中。每次需要输出中间值时，对容器进行排序并输出中间值。平均时间复杂度为O(nlogn)+O(1)≈O(nlogn),空间复杂度：O(n) 线性空间，用于在容器中保存输入。
   
   2). 利用STL容器中的priority_queue 大顶堆+小顶堆进行求解 时间复杂度O(log n)+O(1)≈O(log n),空间复杂度，O(n) 用于在容器中保存输入的线性空间。
 
@@ -25,9 +23,9 @@
 
 # 代码
 
-[C++](StreamMedian.cpp)
+[C++](./StreamMedian.cpp)
 
-[Python](StreamMedian.py)
+[Python](./StreamMedian.py)
 
 # C++:
 ## 方法一：大顶堆+小顶堆
@@ -150,10 +148,10 @@ public:
 	vector<double> store;
 	void Insert(int num)
 	{
-    if (store.empty())
+    	    if (store.empty())
 		  store.push_back(num);
-    else
-      store.insert(lower_bound(store.begin(),store.end(),num),num);
+    	    else
+      		  store.insert(lower_bound(store.begin(),store.end(),num),num);
 	}
 
 	double GetMedian()
@@ -213,246 +211,91 @@ class Solution:
             return self.min_heap[0]
 
 if __name__ == '_ main__':
-    nums = [4,5,1,6,2,7,3,8]
+    nums = [4,5,1]
     
     Solution().Insert(num[0])
+    res = Solution().GetMedian()
+    print(res)
     Solution().Insert(num[1])
+    res = Solution().GetMedian()    
+    print(res)
     Solution().Insert(num[2])
     res = Solution().GetMedian()    
     print(res)
 ```
 
-## 方法二：插入排序
+## 方法二：直接排序返回
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def KLeastNumbers(self, nums, k):
+    def __init__(self):
+        self.store=[]
+    def Insert(self, num):
         # write code here
-        def quick_sort(nums):
-            if not nums:
-                return []
-            pivot = nums[0]
-            left = quick_sort([x for x in nums[1:] if x < pivot])
-            right = quick_sort([x for x in nums[1:] if x>= pivot])
-            res = left + [pivot] + right
-            return res
-        
-        
-        res = []
-        n = len(nums)
-        if n==0 or n<k:
-            return res
-        nums = quick_sort(nums)
-        res = nums[:k]
-        return res
+        self.store.append(num)
+    def GetMedian(self, data):
+        # write code here
+        store=sorted(self.store)
+        n = len(self.store)
+        if n%2==0:
+            return (self.store[n//2]+self.store[n//2-1])/2.0
+        else:
+            return self.store[n//2]
+
+if __name__ == '_ main__':
+    nums = [4,5,1]
+    
+    Solution().Insert(num[0])
+    res = Solution().GetMedian()
+    print(res)
+    Solution().Insert(num[1])
+    res = Solution().GetMedian()    
+    print(res)
+    Solution().Insert(num[2])
+    res = Solution().GetMedian()    
+    print(res)
 ```
 
-
-## 方法三：归并排序
+## 方法三：插入排序
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def KLeastNumbers(self, nums, k):
+    def __init__(self):
+        self.store=[]
+    def insertSort(self,arr):
+        for i in range(1,len(arr)):
+            j = i-1
+            key = arr[i]
+            while j >= 0:
+                if arr[j] > key:
+                    arr[j+1] = arr[j]
+                    arr[j] = key
+                j -= 1
+        return arr
+    def Insert(self, num):
         # write code here
-        def merge_sort(lst):
-            if len(lst) <= 1:
-                return lst
-            mid = len(lst) // 2
-            left = merge_sort(lst[: mid])
-            right = merge_sort(lst[mid:])
-            return merge(left, right)
-        def merge(left, right):
-            l, r, res = 0, 0, []
-            while l < len(left) and r < len(right):
-                if left[l] <= right[r]:
-                    res.append(left[l])
-                    l += 1
-                else:
-                    res.append(right[r])
-                    r += 1
-            res += left[l:]
-            res += right[r:]
-            return res
-        
-        
-        res = []
-        n = len(nums)
-        if n==0 or n<k:
-            return res
-        nums = merge_sort(nums)
-        res = nums[:k]
-        return res
-```
-
-## 方法四：堆排序
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def KLeastNumbers(self, nums, k):
+        self.store.append(num)
+	self.store = self.insertSort(self.store)
+    def GetMedian(self, data):
         # write code here
-        def siftup(lst, temp, begin, end):
-            if lst == []:
-                return []
-            i, j = begin, begin * 2 + 1
-            while j < end:
-                if j + 1 < end and lst[j + 1] > lst[j]:
-                    j += 1
-                elif temp > lst[j]:
-                    break
-                else:
-                    lst[i] = lst[j]
-                    i, j = j, 2 * j + 1
-            lst[i] = temp
- 
-        def heap_sort(lst):
-            if lst == []:
-                return []
-            end = len(lst)
-            for i in range((end // 2) - 1, -1, -1):
-                siftup(lst, lst[i], i, end)
-            for i in range(end - 1, 0, -1):
-                temp = lst[i]
-                lst[i] = lst[0]
-                siftup(lst, temp, 0, i)
-            return lst
-        
-        
-        res = []
-        n = len(nums)
-        if n==0 or n<k:
-            return res
-        nums = heap_sort(nums)
-        res = nums[:k]
-        return res
-```
+        n = len(self.store)
+        if n%2==0:
+            return (self.store[n//2]+self.store[n//2-1])/2.0
+        else:
+            return self.store[n//2]
 
-
-## 方法五：冒泡排序
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def KLeastNumbers(self, nums, k):
-        # write code here
-        def bubble_sort(lst):
-            if lst == []:
-                return []
-            for i in range(len(lst)):
-                for j in range(1, len(lst) - i):
-                    if lst[j-1] > lst[j]:
-                        lst[j-1], lst[j] = lst[j], lst[j-1]
-            return lst
-        
-        
-        res = []
-        n = len(nums)
-        if n==0 or n<k:
-            return res
-        nums = bubble_sort(nums)
-        res = nums[:k]
-        return res
-```
-
-
-## 方法六：直接选择排序
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def KLeastNumbers(self, nums, k):
-        # write code here
-        def select_sort(lst):
-            if lst == []:
-                return []
-            for i in range(len(lst)-1):
-                smallest = i
-                for j in range(i, len(lst)):
-                    if lst[j] < lst[smallest]:
-                        smallest = j
-                lst[i], lst[smallest] = lst[smallest], lst[i]
- 
-            return lst
-        
-        
-        res = []
-        n = len(nums)
-        if n==0 or n<k:
-            return res
-        nums = select_sort(nums)
-        res = nums[:k]
-        return res
-```
-
-
-## 方法七：插入排序
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def KLeastNumbers(self, nums, k):
-        # write code here
-        def Insert_sort(lst):
-            if lst == []:
-                return []
-            for i in range(1, len(lst)):
-                temp = lst[i]
-                j = i
-                while j > 0 and temp < lst[j - 1]:
-                    lst[j] = lst[j - 1]
-                    j -= 1
-                lst[j] = temp
-            return lst
-        
-        
-        res = []
-        n = len(nums)
-        if n==0 or n<k:
-            return res
-        nums = Insert_sort(nums)
-        res = nums[:k]
-        return res
-```
-
-## 方法八: 最大堆
-```python
-# 最大堆版
-#!/usr/bin/env python
-# coding=utf-8
-
-# -*- coding:utf-8 -*-
-class Solution:
-    def GetLeastNumbers_Solution(self, tinput, k):
-        # write code here
-        if tinput == [] or k > len(tinput) or k==0:
-            return []
-        def maxHeap(tinput):
-            for i in range(len(tinput), -1, -1):
-                if 2*i +1 > len(tinput) and 2*i +2 > len(tinput):
-                    continue
-                left = 2*i +1
-                right = 2*i + 2
-                idx = i
-                if left < len(tinput) and tinput[left] > tinput[i]:
-                    idx = left
-                if right < len(tinput) and tinput[right] > tinput[i]:
-                    idx = right
-                tinput[i], tinput[idx] = tinput[idx], tinput[i]
-            for i in range(len(tinput)):
-                if 2*i +1 > len(tinput) and 2*i +2 > len(tinput):
-                    continue
-                left = 2*i + 1
-                right = 2*i + 2
-                idx = i
-                if left < len(tinput) and tinput[left] > tinput[i]:
-                    idx = left
-                if right < len(tinput) and tinput[right] > tinput[i]:
-                    idx = right
-                tinput[i], tinput[idx] = tinput[idx], tinput[i]
-            return tinput
-        k_head = [float("inf")]*k
-        for num in tinput:
-            if num < k_head[0]:
-                k_head[0] = num
-                k_head = maxHeap(k_head)
-        k_head.sort()
-        return k_head
+if __name__ == '_ main__':
+    nums = [4,5,1]
+    
+    Solution().Insert(num[0])
+    res = Solution().GetMedian()
+    print(res)
+    Solution().Insert(num[1])
+    res = Solution().GetMedian()    
+    print(res)
+    Solution().Insert(num[2])
+    res = Solution().GetMedian()    
+    print(res)
 ```
 
 
