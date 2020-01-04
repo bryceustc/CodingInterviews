@@ -293,29 +293,6 @@ if __name__ == '_ main__':
     print(res)
 ```
 
-## 方法二：贪心算法
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def FindGreatestSumOfSubArray(self, nums):
-        # write code here
-        res = nums[0]
-        n = len(nums)
-        sum_num = 0
-        for num in nums:
-            if sum_num>0:
-                sum_num+=num
-            else:
-                sum_num = num
-            res = max(res,sum_num)            
-        return res
-
-if __name__ == '_ main__':
-    nums = [-2,1,4]
-    res = Solution().FindGreatestSumOfSubArray(nums)    
-    print(res)
-```
-
 ## 方法三：分治算法
 ```python
 # -*- coding:utf-8 -*-
