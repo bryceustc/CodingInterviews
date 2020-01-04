@@ -11,7 +11,7 @@
 * [剑指Offer(三十九)：数组中出现次数超过一半的数字](./MoreThanHalfNumber/README.md)
 * [剑指Offer(四十)：最小的k个数](./KLeastNumbers/README.md)(**重要**)
 * [剑指Offer(四十一)：数据流中的中位数](./StreamMedian/README.md)(**重要**)
-* [剑指Offer(四十二)：连续子数组的最大和](./GreatestSumOfSubarrays/README.md)(**重要**)
+* [剑指Offer(四十二)：连续子数组的最大和](./GreatestSumOfSubarrays/README.md)(**重要**,分治法再做)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
