@@ -4,22 +4,23 @@ HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天
 
 # 本题考点：
   
-  1). 插入排序/直接排序
+  1). 动态规划
   
-  2). 大顶堆+小顶堆求解
+  2). 贪心算法
+  
+  3). 分治法
   
   
 # 解题思路:
-  1). 直接排序 将数字存储在可调整大小的容器中。每次需要输出中间值时，对容器进行排序并输出中间值。平均时间复杂度为O(nlogn)+O(1)≈O(nlogn),空间复杂度：O(n) 线性空间，用于在容器中保存输入。
+  此题与LeetCode第53题一样，主要有四种解法
   
-  2). 利用STL容器中的priority_queue 大顶堆+小顶堆进行求解 时间复杂度O(log n)+O(1)≈O(log n),空间复杂度，O(n) 用于在容器中保存输入的线性空间。
+  1). 动态规划：在整个数组或在固定大小的滑动窗口中找到总和或最大值或最小值的问题可以通过动态规划（dp）在线性时间内解决。构建一个动态数组``vector<int> dp(n)``,dp[i]表示nums中以nums[i]结尾的最大子序和，``dp[i] = max(dp[i-1]+nums[i],nums[i])``,dp[i]要么是当前数字，要么是与前面的最大子序和的和。时间复杂度:O(n),空间复杂度O(n)(空间复杂度可优化为O(1))
+  
+  2). 贪心算法：从左向右迭代，一个个数字加过去，如果sum<0,重新开始寻找子序列。时间复杂度O(n),空间复杂度O(1).
 
-  3). 哪种算法允许将一个数字添加到已排序的数字列表中，但仍保持整个列表的排序状态？插入排序！
-
-  我们假设当前列表已经排序。当一个新的数字出现时，我们必须将它添加到列表中，同时保持列表的排序性质。这可以通过使用二分搜索找到插入传入号码的正确位置来轻松实现。
-（记住，列表总是排序的）。一旦找到位置，我们需要将所有较高的元素移动一个空间，以便为传入的数字腾出空间。
-
-当插入查询的数量较少或者中间查找查询的数量大致相同。 此方法会很好地工作。 平均时间复杂度为O(n)+O(logn)≈O(n),空间复杂度：O(n) 线性空间，用于在容器中保存输入。
+  3). 分治法：将一个问题拆分成多个相似的小问题，并对其分别求解，如果拆出的问题依然复杂，就通过递归调用再次将子问题拆分，直到拆出的方法可以以简单方式求得解，最后合并多个小问题的解，就是原问题的结果。
+  
+  4). 暴力法：枚举每一个子序列的大小，记录下最大的和返回。
 
 # 代码
 
@@ -28,284 +29,362 @@ HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天
 [Python](./StreamMedian.py)
 
 # C++:
-## 方法一：大顶堆+小顶堆
+## 方法一：动态规划（空间复杂度O(n)）
 ```c++
 #include <iostream>
 #include <vector>
-#include <queue>
-#include <algorithm>
 using namespace std;
 class Solution {
 public:
-	int count = 0;   // count要声明为全局变量
-	void Insert(int num) {
-		if (count % 2 == 0) // 偶数放入最大堆
-		{
-			max.push(num);
-			int max_num = max.top();
-			max.pop();
-			min.push(max_num);
-		}
-		else     // 奇数放入最小堆
-		{
-			min.push(num);
-			int min_num = min.top();
-			min.pop();
-			max.push(min_num);
-		}
-		count++;
-	}
-
-	double GetMedian() {
-		if (count % 2 == 0)
-		{
-			return ((max.top() + min.top()) / 2.0);
-		}
-		else
-		{
-			return (min.top());
-		}
-
-	}
-private:
-	priority_queue<int, vector<int>> max;  //大顶堆
-	priority_queue<int, vector<int>, greater<int>> min;  // 小顶堆
+    int FindGreatestSumOfSubArray(vector<int> nums) {
+        int res = nums[0];
+        int n = nums.size();
+        //dp[i]表示nums中以nums[i]结尾的最大子序和
+        vector<int> dp(n);
+        dp[0] = nums[0];
+        for (int i=1;i<n;i++)
+        {
+            dp[i] = max(dp[i-1]+nums[i],nums[i]);
+            res = max(res,dp[i]);
+        }
+        return res;
+    }
 };
 
 int main()
 {
-	Solution* obj = new Solution();
-	obj->Insert(5);
-	obj->Insert(2);
-	obj->Insert(3);
-	double res = obj->GetMedian();
-	cout << res << endl;
-	system("pause");
-	return 0;
+    vector<int> nums = {-2,1,4};
+    int res = Solution().FindGreatestSumOfSubArray(nums);
+    cout << res << endl;
+    system ("pause");
+    return 0;
 }
 ```
 
-
-## 方法二：直接排序后返回
-
-### （将数字存储在可调整大小的容器中。每次需要输出中间值时，对容器进行排序并输出中间值） 
-### 时间复杂度:O(nlogn)+O(1)≃O(nlogn)
-   1. 添加一个数字对于一个有效调整大小方案的容器来说需要花费 O(1)的时间。
-   2. 找到中间值主要取决于发生的排序。对于标准比较排序，这需要 O(nlogn)时间
-### 空间复杂度:O(n) 线性空间，用于在容器中保存输入。除了需要的空间之外没有其他空间（因为通常可以在适当的位置进行排序）
+## 方法一：动态规划（空间复杂度O(1)）
 ```c++
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
-
 class Solution {
 public:
-	vector<double> store;
-	void Insert(int num)
-	{
-		store.push_back(num);
-	}
-
-	double GetMedian()
-	{
-		sort(store.begin(), store.end());
-		int n = store.size();
-		if (n % 2 == 0)
-		{
-			return((store[n / 2] + store[n / 2 - 1]) / 2.0);
-		}
-		else
-		{
-			return (store[n / 2]);
-		}
-	}
+    int FindGreatestSumOfSubArray(vector<int> nums) {
+        int res = nums[0];
+        int n = nums.size();
+        int dp= nums[0];
+        for (int i=1;i<n;i++)
+        {
+            dp = max(dp+nums[i],nums[i]);
+            res = max(res,dp);
+        }
+        return res;
+    }
 };
 
 int main()
 {
-	Solution* obj = new Solution();
-	obj->Insert(5);
-	obj->Insert(2);
-	obj->Insert(3);
-	double res = obj->GetMedian();
-	cout << res << endl;
-	system("pause");
-	return 0;
+    vector<int> nums = {-2,1,4};
+    int res = Solution().FindGreatestSumOfSubArray(nums);
+    cout << res << endl;
+    system ("pause");
+    return 0;
 }
-
 ```
 
-## 方法三：插入排序
+
+
+## 方法二：贪心算法
 ```c++
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
-	vector<double> store;
-	void Insert(int num)
-	{
-    	    if (store.empty())
-		  store.push_back(num);
-    	    else
-      		  store.insert(lower_bound(store.begin(),store.end(),num),num);
-	}
-
-	double GetMedian()
-	{
-		int n = store.size();
-		if (n % 2 == 0)
-		{
-			return((store[n / 2] + store[n / 2 - 1]) / 2.0);
-		}
-		else
-		{
-			return (store[n / 2]);
-		}
-	}
+    int FindGreatestSumOfSubArray(vector<int> nums) {
+        int res = nums[0];
+        int n = nums.size();
+        int sum = nums[0];
+        for (int i=1;i<n;i++)
+        {
+            if (sum > 0)
+                sum+=nums[i];
+            else
+                sum = nums[i];
+            res = max(res,sum);
+        }
+        return res;
+    }
 };
 
 int main()
 {
-	Solution* obj = new Solution();
-	obj->Insert(5);
-	obj->Insert(2);
-	obj->Insert(3);
-	double res = obj->GetMedian();
-	cout << res << endl;
-	system("pause");
-	return 0;
+    vector<int> nums = {-2,1,4};
+    int res = Solution().FindGreatestSumOfSubArray(nums);
+    cout << res << endl;
+    system ("pause");
+    return 0;
+}
+
+```
+
+## 方法三：分治法
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int FindGreatestSumOfSubArray(vector<int>& nums) 
+    {
+        int res = nums[0];
+        int n = nums.size();
+        res = maxSubArrayHelper(nums,0,n-1);
+        return res;
+    }
+    
+    int maxSubArrayHelper(vector<int> &nums, int left, int right)
+    {
+        if (left == right)
+        {
+            return nums[left];
+        }
+        int mid = (left + right)/2;
+        int leftSum = maxSubArrayHelper(nums,left,mid);
+        //注意这里应是mid + 1，否则left + 1 = right时，会无限循环
+        int rightSum = maxSubArrayHelper(nums,mid+1,right);
+        int midSum = findMaxCrossingSubarray(nums,left,mid,right);
+        int res = max(leftSum,rightSum);
+        res = max(res,midSum);
+        return res;
+    }
+
+    int findMaxCrossingSubarray(vector<int> &nums, int left, int mid, int right)
+    {
+        int leftSum = nums[mid];
+        int sum = 0;
+        for (int i = mid; i >= left; i--)
+        {
+            sum += nums[i];
+            leftSum = max(leftSum, sum);
+        }
+        int rightSum = nums[mid+1];
+        sum = 0;
+        //注意这里i = mid + 1，避免重复用到nums[i]
+        for (int i = mid + 1; i <= right; i++)
+        {
+            sum += nums[i];
+            rightSum = max(rightSum, sum);
+        }
+        return (leftSum + rightSum);
+    }
+};
+
+int main()
+{
+    vector<int> nums = {-2,1,4};
+    int res = Solution().FindGreatestSumOfSubArray(nums);
+    cout << res << endl;
+    system ("pause");
+    return 0;
 }
 ```
+
+## 方法四：暴力遍历
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int FindGreatestSumOfSubArray(vector<int> nums) {
+        int res = nums[0];
+        int n = nums.size();
+        for (int i=0;i<n;i++)
+        {
+            int sum = 0;
+            for (int j=i;j<n;j++)
+            {
+                sum+=nums[j];
+                res = max(sum,res);
+            }
+        }
+        return res;
+    }
+};
+
+int main()
+{
+    vector<int> nums = {-2,1,4};
+    int res = Solution().FindGreatestSumOfSubArray(nums);
+    cout << res << endl;
+    system ("pause");
+    return 0;
+}
+
+```
+
 
 
 # Python:
-## 方法一：利用python 调用heapq库来实现大小堆进行求解
-```python
-# -*- coding:utf-8 -*-
-import heapq
-class Solution:
-    def __init__(self):
-        self.count = 0
-        self.max_heap = []
-        self.min_heap = []
-    def Insert(self, num):
-        # write code here
-        if self.count % 2 == 0:
-            heapq.heappush(self.max_heap,-num)
-            max_heap_top = heapq.heappop(self.max_heap)
-            heapq.heappush(self.min_heap,-max_heap_top)
-        else:
-            heapq.heappush(self.min_heap,num)
-            min_heap_top = heapq.heappop(self.min_heap)
-            heapq.heappush(self.max_heap,-min_heap_top)
-        self.count+=1
-    def GetMedian(self, data):
-        # write code here
-        if self.count % 2 == 0:
-            return(self.min_heap[0]-self.max_heap[0])/2.0
-        else:
-            return self.min_heap[0]
-
-if __name__ == '_ main__':
-    nums = [4,5,1]
-    
-    Solution().Insert(num[0])
-    res = Solution().GetMedian()
-    print(res)
-    Solution().Insert(num[1])
-    res = Solution().GetMedian()    
-    print(res)
-    Solution().Insert(num[2])
-    res = Solution().GetMedian()    
-    print(res)
-```
-
-## 方法二：直接排序返回
+## 方法一：动态规划
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def __init__(self):
-        self.store=[]
-    def Insert(self, num):
+    def FindGreatestSumOfSubArray(self, nums):
         # write code here
-        self.store.append(num)
-    def GetMedian(self, data):
-        # write code here
-        store=sorted(self.store)
-        n = len(self.store)
-        if n%2==0:
-            return (self.store[n//2]+self.store[n//2-1])/2.0
-        else:
-            return self.store[n//2]
+        res = nums[0]
+        dp = nums[0]
+        n = len(nums)
+        for i in range(1,n):
+            dp = max(dp+nums[i],nums[i])
+            res = max(res,dp)
+        return res
 
 if __name__ == '_ main__':
-    nums = [4,5,1]
-    
-    Solution().Insert(num[0])
-    res = Solution().GetMedian()
-    print(res)
-    Solution().Insert(num[1])
-    res = Solution().GetMedian()    
-    print(res)
-    Solution().Insert(num[2])
-    res = Solution().GetMedian()    
+    nums = [-2,1,4]
+    res = Solution().FindGreatestSumOfSubArray(nums)    
     print(res)
 ```
 
-## 方法三：插入排序
+## 方法一：动态规划
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def __init__(self):
-        self.store=[]
-    def insertSort(self,arr):
-        for i in range(1,len(arr)):
-            j = i-1
-            key = arr[i]
-            while j >= 0:
-                if arr[j] > key:
-                    arr[j+1] = arr[j]
-                    arr[j] = key
-                j -= 1
-        return arr
-    def Insert(self, num):
+    def FindGreatestSumOfSubArray(self, nums):
         # write code here
-        self.store.append(num)
-	self.store = self.insertSort(self.store)
-    def GetMedian(self, data):
-        # write code here
-        n = len(self.store)
-        if n%2==0:
-            return (self.store[n//2]+self.store[n//2-1])/2.0
-        else:
-            return self.store[n//2]
+        res = nums[0]
+        n = len(nums)
+        dp = [0 for _ in range(n)]
+        dp[0] = nums[0]
+        for i in range(1,n):
+            dp[i] = max(dp[i-1]+nums[i],nums[i])
+            res = max(res,dp[i])
+        return res
 
 if __name__ == '_ main__':
-    nums = [4,5,1]
-    
-    Solution().Insert(num[0])
-    res = Solution().GetMedian()
-    print(res)
-    Solution().Insert(num[1])
-    res = Solution().GetMedian()    
-    print(res)
-    Solution().Insert(num[2])
-    res = Solution().GetMedian()    
+    nums = [-2,1,4]
+    res = Solution().FindGreatestSumOfSubArray(nums)    
     print(res)
 ```
+
+## 方法二：贪心算法
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def FindGreatestSumOfSubArray(self, nums):
+        # write code here
+        res = nums[0]
+        n = len(nums)
+        sum_num = 0
+        for num in nums:
+            if sum_num>0:
+                sum_num+=num
+            else:
+                sum_num = num
+            res = max(res,sum_num)            
+        return res
+
+if __name__ == '_ main__':
+    nums = [-2,1,4]
+    res = Solution().FindGreatestSumOfSubArray(nums)    
+    print(res)
+```
+
+## 方法二：贪心算法
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def FindGreatestSumOfSubArray(self, nums):
+        # write code here
+        res = nums[0]
+        n = len(nums)
+        sum_num = 0
+        for num in nums:
+            if sum_num>0:
+                sum_num+=num
+            else:
+                sum_num = num
+            res = max(res,sum_num)            
+        return res
+
+if __name__ == '_ main__':
+    nums = [-2,1,4]
+    res = Solution().FindGreatestSumOfSubArray(nums)    
+    print(res)
+```
+
+## 方法三：分治算法
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def FindGreatestSumOfSubArray(self, nums: List[int]) -> int:
+        res = nums[0]
+        n = len(nums)
+        res = self.maxSubArrayHelper(nums,0,n-1)       
+        return res
+    def maxSubArrayHelper(self,nums,left,right):
+        if left==right:
+            return nums[left]
+        mid = (left+right)//2
+        leftSum = self.maxSubArrayHelper(nums,left,mid)
+        rightSum = self.maxSubArrayHelper(nums,mid+1,right)
+        midSum = self.maxCrossingSubArray(nums,left,mid,right)
+        res = max(leftSum,midSum,rightSum)
+        return res
+    def maxCrossingSubArray(self,nums,left,mid,right):
+        leftBoaderSum = nums[mid]
+        cur_sum = 0
+        for i in range(mid,left-1,-1):
+            cur_sum+=nums[i]
+            leftBoaderSum = max(leftBoaderSum,cur_sum)
+        rightBoaderSum = nums[mid+1]
+        cur_sum = 0
+        for i in range(mid+1,right+1):
+            cur_sum+=nums[i]
+            rightBoaderSum = max(rightBoaderSum,cur_sum)
+        return leftBoaderSum + rightBoaderSum
+
+if __name__ == '_ main__':
+    nums = [-2,1,4]
+    res = Solution().FindGreatestSumOfSubArray(nums)    
+    print(res)
+```
+
+
+
+## 方法四：暴力算法
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def FindGreatestSumOfSubArray(self, nums):
+        # write code here
+        res = nums[0]
+        n = len(nums)
+        for i in range(n):
+            sum_num = 0
+            for j in range(i,n):
+                sum_num+=nums[j]
+                res = max(res,sum_num)            
+        return res
+
+if __name__ == '_ main__':
+    nums = [-2,1,4]
+    res = Solution().FindGreatestSumOfSubArray(nums)    
+    print(res)
+```
+
+
 
 
 # 参考：
-   - [LeetCode-295数据流的中位数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-Median-From-Data-Stream/README.md)
-   - [C/C++ | STL | 大顶堆 | 小顶堆 | std::priority_queue](https://blog.csdn.net/stone_fall/article/details/89010656) 
-   - [C++ multiset通过greater、less指定排序方式，实现最大堆、最小堆功能](https://www.cnblogs.com/ficow/p/10045777.html) 
-   - [c++ vector容器 插入元素时实现自动排序](https://blog.csdn.net/su20145104009/article/details/70955760)
-   - [数据流的中位数](https://leetcode-cn.com/problems/find-median-from-data-stream/solution/shu-ju-liu-de-zhong-wei-shu-by-leetcode/)
-   - [数据流中的中位数——牛客网](https://www.nowcoder.com/questionTerminal/9be0172896bd43948f8a32fb954e1be1?f=discussion)
+   - [LeetCode-53最大子序和](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Maximum-Subarray/README.md)
+   - [五大常用算法之一：分治算法](https://www.cnblogs.com/steven_oyj/archive/2010/05/22/1741370.html) 
+   - [五大常用算法之二：动态规划算法](https://www.cnblogs.com/steven_oyj/archive/2010/05/22/1741374.html) 
+   - [五大常用算法之三：贪心算法](https://www.cnblogs.com/steven_oyj/archive/2010/05/22/1741375.html)
+   - [最大子序和](https://leetcode-cn.com/problems/maximum-subarray/solution/zui-da-zi-xu-he-cshi-xian-si-chong-jie-fa-bao-li-f/)
 
 
 
