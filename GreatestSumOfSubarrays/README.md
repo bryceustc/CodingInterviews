@@ -24,9 +24,9 @@ HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天
 
 # 代码
 
-[C++](./StreamMedian.cpp)
+[C++](./GreatestSumOfSubarrays.cpp)
 
-[Python](./StreamMedian.py)
+[Python](./GreatestSumOfSubarrays.py)
 
 # C++:
 ## 方法一：动态规划（空间复杂度O(n)）
