@@ -17,9 +17,9 @@
   主要就是要给数组进行排序，但是排序方法不是普通的升序或者降序，对于两个数字a和b来说，如果将其都转为字符串，如果 ab < ba，则a排在前面，比如9和34，由于 934<349，所以34排在前面，再比如说 2 和3，由于 23<32，所以2排在 3 的前面。按照这种规则对原数组进行排序后，将每个数字转化为字符串再连接起来就是最终结果。时间复杂度:O(nlogn),空间复杂度O(n)
 
   排序规则数学证明：
-  ![]()
-  ![]()
-  ![]()
+  ![1](https://github.com/bryceustc/CodingInterviews/blob/master/SortArrayForMinNumber/Images/1.png)
+  ![2](https://github.com/bryceustc/CodingInterviews/blob/master/SortArrayForMinNumber/Images/2.png)
+  ![3](https://github.com/bryceustc/CodingInterviews/blob/master/SortArrayForMinNumber/Images/3.png)
 
 # 代码
 
