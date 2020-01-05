@@ -1,6 +1,6 @@
-# 题目描述:把数组排成最小的数
+# 题目描述:丑数
 ## 题目：
-输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。
+把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。
 
 # 本题考点：
   
@@ -16,16 +16,11 @@
   
   主要就是要给数组进行排序，但是排序方法不是普通的升序或者降序，对于两个数字a和b来说，如果将其都转为字符串，如果 ab < ba，则a排在前面，比如9和34，由于 934<349，所以34排在前面，再比如说 2 和3，由于 23<32，所以2排在 3 的前面。按照这种规则对原数组进行排序后，将每个数字转化为字符串再连接起来就是最终结果。时间复杂度:O(nlogn),空间复杂度O(n)
 
-  排序规则数学证明：
-  ![1](https://github.com/bryceustc/CodingInterviews/blob/master/SortArrayForMinNumber/Images/1.png)
-  ![2](https://github.com/bryceustc/CodingInterviews/blob/master/SortArrayForMinNumber/Images/2.png)
-  ![3](https://github.com/bryceustc/CodingInterviews/blob/master/SortArrayForMinNumber/Images/3.png)
-
 # 代码
 
-[C++](./SortArrayForMinNumber.cpp)
+[C++](./UglyNumber.cpp)
 
-[Python](./SortArrayForMinNumber.py)
+[Python](./UglyNumber.py)
 
 # C++:
 ## 自定义排序规则
