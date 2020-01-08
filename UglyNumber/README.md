@@ -168,10 +168,10 @@ public:
             // {
             //     min.push(temp[i]);
             // }
-            // num = res;
-            // min.push(res*2);
-            // min.push(res*3);
-            // min.push(res*5);
+             num = res;
+             min.push(res*2);
+             min.push(res*3);
+             min.push(res*5);
         }
         return res;
     }
