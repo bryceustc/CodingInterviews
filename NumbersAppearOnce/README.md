@@ -68,38 +68,38 @@ int main()
 using namespace std;
 class Solution {
 public:
-    int GetUglyNumber_Solution(int n) {
-    // 0-6的丑数分别为0-6
-		if (n < 7)
-			return n;
-		vector<int>dp (n,0);
-        dp[0]=1;
-        int l_2 = 0;
-        int l_3 = 0;
-        int l_5 = 0;
-        for (int i=1;i<n;i++)
+    int GetNumberOfK(vector<int> nums ,int k) {
+        int res = 0;
+        if (nums.empty())
+            return 0;
+        int n = nums.size();
+        int start = 0;
+        int end = n;
+        while (end > start)
         {
-            dp[i] = My_min(dp[l_2]*2,dp[l_3]*3,dp[l_5]*5);
-            while(dp[l_2]*2<=dp[i])
-            {
-                l_2++;
-            }
-            while(dp[l_3]*3<=dp[i])
-            {
-                l_3++;
-            }
-            while(dp[l_5]*5<=dp[i])
-            {
-                l_5++;
-            }
+            int mid = start + (end-start)/2;
+            if (nums[mid]==k)
+                end=mid;
+            if (nums[mid]<k)
+                start = mid+1;
+            if (nums[mid]>k)
+                end = mid;
         }
-        return dp[n-1];
-	}
-
-    int My_min(int a, int b, int c)
-    {
-        int res = min(a,b);
-        res = min(res,c);
+        int temp1 = start;
+        start = 0;
+        end = n;
+        while (end > start)
+        {
+            int mid = start + (end-start)/2;
+            if (nums[mid]==k)
+                start=mid+1;
+            if (nums[mid]<k)
+                start = mid+1;
+            if (nums[mid]>k)
+                end = mid;
+        }
+        int temp2 = start;
+        res = temp2-temp1;
         return res;
     }
 };
@@ -107,52 +107,9 @@ public:
 
 int main()
 {
-	int index = 6;
-	int res = Solution().GetUglyNumber_Solution(index);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
-```
-
-## 方法三：小顶堆
-```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <queue>
-using namespace std;
-class Solution {
-public:
-    int GetUglyNumber_Solution(int n) {
-        priority_queue<long,vector<long>,greater<long>> min; 
-        //priority_queue<Type, Container, Functional>Type为数据类型，Container为保存数据的容器，Functional为元素比较方式。 如果不写后两个        // 参数，那么容器默认用的是vector，比较方式默认用operator<
-        min.push(1);
-        long long int res = 0;
-        long long int num = 0;
-        for (int i=0;i<n;i++)
-        {
-            res = min.top();
-            min.pop();
-            while (!min.empty() && res == num)
-            {
-                res = min.top();
-                min.pop();
-            }
-             num = res;
-             min.push(res*2);
-             min.push(res*3);
-             min.push(res*5);
-        }
-        return res;
-    }
-};
-
-
-int main()
-{
-	int index = 6;
-	int res = Solution().GetUglyNumber_Solution(index);
+	vector<int> nums = {1,2,3,3,3,4,5};
+	int k = 3;
+	int res = Solution().GetNumberOfK(nums,k);
 	cout << res << endl;
 	system("pause");
 	return 0;
@@ -162,7 +119,7 @@ int main()
 
 
 # Python:
-## 方法一：直接法(未通过OJ，超时)
+## 方法一：暴力遍历
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
