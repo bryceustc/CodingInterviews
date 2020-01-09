@@ -4,15 +4,10 @@
 
 # 本题考点：
   
-  1). 二分查找
-  
-  2). 动态规划
-  
-  3). 最小堆
-  
+  1). 二分查找  
   
 # 解题思路:
-  此题与LeetCode第263题和264题丑数相关问题类似
+  此题与LeetCode第34题在排序数组中查找元素的第一个和最后一个位置问题类似，
   
   1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n),空间复杂度O(1)
   
@@ -79,27 +74,31 @@ public:
         {
             int mid = start + (end-start)/2;
             if (nums[mid]==k)
+            {
                 end=mid;
+            }
             if (nums[mid]<k)
                 start = mid+1;
             if (nums[mid]>k)
                 end = mid;
         }
-        int temp1 = start;
+        int temp1 = start; // 一次二分查找寻找左侧边界，
         start = 0;
         end = n;
         while (end > start)
         {
             int mid = start + (end-start)/2;
             if (nums[mid]==k)
+            {
                 start=mid+1;
+            }
             if (nums[mid]<k)
                 start = mid+1;
             if (nums[mid]>k)
                 end = mid;
         }
-        int temp2 = start;
-        res = temp2-temp1;
+        int temp2 = end-1;   // 一次二分查找寻找右侧边界，注意寻找右侧边界要减一
+        res = temp2-temp1+1;
         return res;
     }
 };
@@ -148,7 +147,7 @@ if __name__ == '_ main__':
     print(res)
 ```
 
-## 方法二：动态规划
+## 方法二：二分查找
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
@@ -177,37 +176,10 @@ if __name__ == '_ main__':
     res = Solution().GetUglyNumber_Solution(n)    
     print(res)
 ```
-## 方法三：小顶堆
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def GetUglyNumber_Solution(self, n):
-        # write code here
-        import heapq
-        if n<=0:
-            return 0
-        res = 0
-        min_heap = []
-        heapq.heappush(min_heap,1)
-        for i in range (n):
-            res = heapq.heappop(min_heap)
-            while min_heap and res == min_heap[0]:
-                res = heapq.heappop(min_heap)
-            heapq.heappush(min_heap,res*2)
-            heapq.heappush(min_heap,res*3)
-            heapq.heappush(min_heap,res*5)
-        return res
-
-
-if __name__ == '_ main__':
-    nums = 10
-    res = Solution().GetUglyNumber_Solution(n)    
-    print(res)
-```
 
 
 
 # 参考：
   -  [二分查找总结](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-First-And-Last-Position-Of-Element-In-Sorted-Array/BinarySearch.md)
-  -  [LeetCode_263题——丑数II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Ugly-Number-II/README.md)
+  -  [LeetCode_34题——在排序数组中查找元素的第一个和最后一个位置](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-First-And-Last-Position-Of-Element-In-Sorted-Array/README.md)
 
