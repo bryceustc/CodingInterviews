@@ -122,28 +122,21 @@ int main()
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def isUgly(self, num: int) -> bool:
-        if num <1:
-            return False
-        while num%5 == 0:
-            num//=5
-        while num%3 == 0:
-            num//=3
-        while num%2 == 0:
-            num//=2
-        return num==1
-    def GetUglyNumber_Solution(self, n: int) -> int:
-        i = 0
-        num = 0
-        while i<n:
-            num+=1
-            if self.isUgly(num):
-                i+=1
-        return num
+    def GetNumberOfK(self, nums, k):
+        # write code here
+        res = 0
+        n = len(nums)
+        if n==0:
+            return 0
+        for i in range(n):
+            if nums[i]==k:
+                res+=1
+        return res
 
 if __name__ == '_ main__':
-    nums = 10
-    res = Solution().GetUglyNumber_Solution(n)    
+    nums = [1,2,3,3,3,4,5]
+    k = 3
+    res = Solution().GetNumberOfK(nums,k)    
     print(res)
 ```
 
@@ -151,29 +144,41 @@ if __name__ == '_ main__':
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def GetUglyNumber_Solution(self, n):
+    def GetNumberOfK(self, nums, k):
         # write code here
-        if n<=0:
+        res = 0
+        n = len(nums)
+        if n==0:
             return 0
-        dp = [0 for _ in range(n)]
-        dp[0] = 1
-        l_2 = 0
-        l_3 = 0
-        l_5 = 0
-        for i in range(1,n):
-            dp[i] = min(dp[l_2]*2,dp[l_3]*3,dp[l_5]*5)
-            if dp[l_2]*2<=dp[i]:
-                l_2+=1
-            if dp[l_3]*3<=dp[i]:
-                l_3+=1
-            if dp[l_5]*5<=dp[i]:
-                l_5+=1
-        return dp[n-1]
-
+        start = 0
+        end = n
+        while end > start:
+            mid = start + (end-start)//2
+            if nums[mid]==k:
+                end = mid
+            if nums[mid] < k:
+                start = mid+1
+            if nums[mid] > k:
+                end = mid
+        temp1 = start ## 一次二分查找寻找左侧边界
+        start = 0
+        end = n
+        while end > start:
+            mid = start + (end - start)//2
+            if nums[mid] == k:
+                start = mid + 1
+            if nums[mid] < k:
+                start = mid + 1
+            if nums[mid] > k:
+                end = mid
+        temp2 = end - 1  ## 一次二分查找寻找右侧边界，注意右侧边界要减一
+        res = temp2-temp1+1
+        return res
 
 if __name__ == '_ main__':
-    nums = 10
-    res = Solution().GetUglyNumber_Solution(n)    
+    nums = [1,2,3,3,3,4,5]
+    k = 3
+    res = Solution().GetNumberOfK(nums,k)    
     print(res)
 ```
 
