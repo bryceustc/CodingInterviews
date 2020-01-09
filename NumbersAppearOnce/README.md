@@ -55,7 +55,7 @@ int main()
 }
 ```
 
-## 方法二：动态规划
+## 方法二：二分查找
 ```c++
 #include <iostream>
 #include <algorithm>
