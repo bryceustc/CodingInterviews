@@ -7,7 +7,7 @@
   1). 二分查找  
   
 # 解题思路:
-  此题与LeetCode第34题在排序数组中查找元素的第一个和最后一个位置问题类似，
+  此题与LeetCode第268题缺失数字问题类似，
   
   1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n),空间复杂度O(1)
   
@@ -29,15 +29,20 @@
 using namespace std;
 class Solution {
 public:
-    int GetNumberOfK(vector<int> nums ,int k) {
+    int missingNumber(vector<int>& nums) {
+        int n = nums.size();
         int res = 0;
         if (nums.empty())
             return 0;
-        int n = nums.size();
+        unordered_map<int,int> map;
         for (int i=0;i<n;i++)
         {
-            if (nums[i]==k)
-                res++;
+            map[nums[i]]++;
+        }
+        for (int num=0;num<=n;num++)
+        {
+            if (map[num]==0)
+                return num;
         }
         return res;
     }
@@ -46,9 +51,8 @@ public:
 
 int main()
 {
-	vector<int> nums = {1,2,3,3,3,4};
-	int k = 3;
-	int res = Solution().GetNumberOfK(nums,k);
+	vector<int> nums = {1,2,3,4};
+	int res = Solution().missingNumber(nums);
 	cout << res << endl;
 	system("pause");
 	return 0;
