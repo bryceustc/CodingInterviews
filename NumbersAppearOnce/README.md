@@ -14,7 +14,7 @@
 # 解题思路:
   此题与LeetCode第263题和264题丑数相关问题类似
   
-  1.) 想要判断一个数的因子是否为2,3,5只需要判断对这个几个数进行取模看是否能够整除然后再除以这几个数，直到最后为1即是丑数，不是1则不为丑数。然后从1开始按照顺序判断每一个数是不是丑数。无法准确分析时间复杂度:至少O(n<sup>3</sup>),空间复杂度O(1)
+  1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n),空间复杂度O(1)
   
   2.) 利用动态规划的思想，假设要找下标i对应的丑数dp[i],可以用i之前的所有丑数乘若干个2直到大于上一个丑数dp[i-1]，记此数为num1;同理用i之前的所有丑数乘若干个3直到大于上一个丑数dp[i-1]，记此数为num2；用i之前的所有丑数乘若干个5直到大于上一个丑数dp[i-1]，记此数为num3。这三个数中的最小数字就是第i个丑数dp[i]。其实没必要把i之前的所有丑数乘2或者乘3或者乘5。在i之前的丑数中，肯定存在一个丑数（下标记为index2），乘2以后正好大于i的上一个丑数dp[i-1],index2之前的丑数乘2都小于等于dp[i-1];我们只需要记录index2，每次直接用这个下标对应的数乘2就行，并且在下标不满足时更新下标。同理我们也要记录乘3和乘5对应的下标。时间复杂度:O(n),空间复杂度:O(n)
   
@@ -27,54 +27,33 @@
 [Python](./NumbersAppearOnce.py)
 
 # C++:
-## 方法一：按顺序判断(时间复杂度非常高，未通过OJ)
+## 方法一：暴力遍历
 ```c++
 #include <iostream>
-#include <algorithm>
 #include <vector>
 using namespace std;
 class Solution {
 public:
-    bool isUgly(int num)
-    {
-        if (num < 1)
-            return false;
-        while (num % 5 == 0)
-        {
-            num /= 5;
-        }
-        while (num % 3 == 0)
-        {
-            num /= 3;
-        }
-        while (num % 2 == 0)
-        {
-            num /= 2;
-        }
-        return num == 1;
-    }
-    int GetUglyNumber_Solution(int index) {
-        if (index < 0)
+    int GetNumberOfK(vector<int> nums ,int k) {
+        int res = 0;
+        if (nums.empty())
             return 0;
-        int i = 0;
-        int number = 0;
-        while (i<index)
+        int n = nums.size();
+        for (int i=0;i<n;i++)
         {
-            number++;
-            if (isUgly(number))
-            {
-                i++;
-            }
+            if (nums[i]==k)
+                res++;
         }
-        return number;
+        return res;
     }
 };
 
 
 int main()
 {
-	int index = 6;
-	int res = Solution().GetUglyNumber_Solution(index);
+	vector<int> nums = {1,2,3,3,3,4};
+	int k = 3;
+	int res = Solution().GetNumberOfK(nums,k);
 	cout << res << endl;
 	system("pause");
 	return 0;
