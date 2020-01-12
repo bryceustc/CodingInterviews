@@ -59,6 +59,46 @@ int main()
 }
 ```
 
+
+## 方法一：哈希表(简洁)
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n = nums.size();
+        int res = 0;
+        if (nums.empty())
+            return 0;
+        unordered_map<int> map;
+        for (int i=0;i<n;i++)
+        {
+            map[nums[i]]++;
+        }
+        for (int num=0;num<=n;num++)
+        {
+            if (map[num]==0)
+                return num;
+        }
+        return res;
+    }
+};
+
+
+int main()
+{
+	vector<int> nums = {1,2,3,4};
+	int res = Solution().missingNumber(nums);
+	cout << res << endl;
+	system("pause");
+	return 0;
+}
+```
+
+
+
 ## 方法二：二分查找
 ```c++
 #include <iostream>
