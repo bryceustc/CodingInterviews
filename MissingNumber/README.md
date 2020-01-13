@@ -6,6 +6,10 @@
   
   1). 二分查找  
   
+  2). 哈希表
+  
+  3). 数学技巧
+  
 # 解题思路:
   此题与LeetCode第268题缺失数字问题类似，但此题是递增排序的数组，较为简单,注意输入数组。
   
@@ -221,31 +225,33 @@ using namespace std;
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-        int length = nums.size();
-	int start = 0;
-	int end = length-1;
-	while(end >= start)
-	{
-	    int mid = start + (end - start)/2;
-	    if (nums[mid]==mid)
-	    {
-	    	start = mid+1;
-	    }
-	    else
-	    {
-	    	if(mid = 0 || nums[mid-1]==mid-1)
-		{
-		    return mid;
-		}
-		end = mid - 1;
-	    }
-	}
-        if (start==n)
+        if (nums.empty()) return 0;
+        int l = nums.size();
+        sort(nums.begin(),nums.end());
+        int start = 0;
+        int end = l-1;
+        while(end >= start)
         {
-            return n;
+            int mid = start + (end - start)/2;
+            if (nums[mid]==mid)
+            {
+                start = mid+1;
+            }
+            else
+            {
+                if(mid == 0 || nums[mid-1]==mid-1)
+                {
+                    return mid;
+                }
+                end = mid - 1;
+            }
         }
-	// 无效的输入，比如数组不是按照要求排序的
-	// 或者有数字不在0~n-1范围之内
+        if (start==l)
+        {
+            return l;
+        }
+        // 无效的输入，比如数组不是按照要求排序的
+        // 或者有数字不在0~n-1范围之内
         return -1;
     }
 };
