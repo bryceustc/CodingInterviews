@@ -15,11 +15,7 @@
   
   1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n),空间复杂度O(1)
   
-  2.) 哈希表
-  
-  3). 数学方法(高斯公式，异或)
-  
-  4). 排序法、二分查找
+  2.) 二分查找
 
 # 代码
 
@@ -35,20 +31,18 @@
 using namespace std;
 class Solution {
 public:
-    int missingNumber(vector<int>& nums) {
+    int IntegerIdenticalToIndex(vector<int>& nums) {
         int n = nums.size();
         int res = 0;
         if (nums.empty())
             return 0;
-        unordered_map<int,int> map;
         for (int i=0;i<n;i++)
         {
-            map[nums[i]]++;
-        }
-        for (int num=0;num<=n;num++)
-        {
-            if (map[num]==0)
-                return num;
+            if (nums[i]==i)
+	    {
+	    	res = nums[i];
+		break;
+	    }
         }
         return res;
     }
@@ -58,7 +52,7 @@ public:
 int main()
 {
 	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
+	int res = Solution().IntegerIdenticalToIndex(nums);
 	cout << res << endl;
 	system("pause");
 	return 0;
@@ -66,7 +60,7 @@ int main()
 ```
 
 
-## 方法一：哈希表(简洁)
+## 方法二：二分查找
 ```c++
 #include <iostream>
 #include <vector>
@@ -76,183 +70,26 @@ public:
     int missingNumber(vector<int>& nums) {
         int res = 0;
         int n = nums.size();
-        unordered_set<int> set;
-        for(auto num : nums)
-        {
-            set.insert(num);
-        }
-        for (int i=0;i<=n;i++)
-        {
-            if (set.count(i)==0)
-            {
-                res = i;
-                break;
-            }
-        }
-        return res;
-    }
-};
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
-```
-
-
-
-## 方法二：数学方法
-```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        int res =0;
-        int n = nums.size();
-        int sum_num = 0;
-        int Sum = 0;
-        for (int i=0;i<n;i++)
-        {
-            sum_num+=nums[i];
-        }
-        for (int i=0;i<=n;i++)
-        {
-            Sum += i;
-        }
-        res = Sum - sum_num;
-        return res;
-    }
-};
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
-```
-
-## 方法二：数学方法
-```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        int n = nums.size();
-        int res = n;
-        for (int i = 0; i < n; i++)
-        {
-            res ^= nums[i];
-            res ^= i;
-            // 异或满足交换律，i和nums[i]是肯定有重复的，剩下的只有一个那就是nums中缺失的
-        }
-        return res;
-    }
-};
-
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
-```
-
-## 方法三：排序法
-```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        int n = nums.size();
-        int res = 0;
-        if (nums[n-1]!=n)
-        {
-            return n;
-        }
-        for (int i=0;i<n;i++)
-        {
-            if (nums[i]!=i)
-            {
-                res = i;
-                break;
-            }
-        }
-        return res;
-    }
-};
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
-```
-
-
-## 方法三：二分查找
-```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        if (nums.empty()) return 0;
-        int l = nums.size();
-        sort(nums.begin(),nums.end());
         int start = 0;
-        int end = l-1;
-        while(end >= start)
-        {
-            int mid = start + (end - start)/2;
-            if (nums[mid]==mid)
-            {
-                start = mid+1;
-            }
-            else
-            {
-                if(mid == 0 || nums[mid-1]==mid-1)
-                {
-                    return mid;
-                }
-                end = mid - 1;
-            }
-        }
-        if (start==l)
-        {
-            return l;
-        }
-        // 无效的输入，比如数组不是按照要求排序的
-        // 或者有数字不在0~n-1范围之内
-        return -1;
+	int end = n-1;
+	while(end>=start)
+	{
+	    int mid = start + (end -start) /2;
+	    if (nums[mid]==mid)
+	    {
+	    	res = mid;
+		break;
+	    }
+	    if (nums[mid]>mid)
+	    {
+	    	end = mid-1;
+	    }
+	    else
+	    {
+	    	start = mid +1;
+	    }
+	}
+        return res;
     }
 };
 
@@ -266,8 +103,6 @@ int main()
 	return 0;
 }
 ```
-
-
 
 
 # Python:
