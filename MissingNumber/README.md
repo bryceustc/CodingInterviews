@@ -7,15 +7,15 @@
   1). 二分查找  
   
 # 解题思路:
-  此题与LeetCode第268题缺失数字问题类似，
+  此题与LeetCode第268题缺失数字问题类似，但此题是递增排序的数组，较为简单,注意输入数组。
   
   1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n),空间复杂度O(1)
   
   2.) 哈希表
   
-  2.) 利用动态规划的思想，假设要找下标i对应的丑数dp[i],可以用i之前的所有丑数乘若干个2直到大于上一个丑数dp[i-1]，记此数为num1;同理用i之前的所有丑数乘若干个3直到大于上一个丑数dp[i-1]，记此数为num2；用i之前的所有丑数乘若干个5直到大于上一个丑数dp[i-1]，记此数为num3。这三个数中的最小数字就是第i个丑数dp[i]。其实没必要把i之前的所有丑数乘2或者乘3或者乘5。在i之前的丑数中，肯定存在一个丑数（下标记为index2），乘2以后正好大于i的上一个丑数dp[i-1],index2之前的丑数乘2都小于等于dp[i-1];我们只需要记录index2，每次直接用这个下标对应的数乘2就行，并且在下标不满足时更新下标。同理我们也要记录乘3和乘5对应的下标。时间复杂度:O(n),空间复杂度:O(n)
+  3). 数学方法(高斯公式，异或)
   
-  3). 最小堆
+  4). 排序法、二分查找
 
 # 代码
 
@@ -210,6 +210,58 @@ int main()
 	return 0;
 }
 ```
+
+
+## 方法三：二分查找
+```c++
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int length = nums.size();
+	int start = 0;
+	int end = length-1;
+	while(end >= start)
+	{
+	    int mid = start + (end - start)/2;
+	    if (nums[mid]==mid)
+	    {
+	    	start = mid+1;
+	    }
+	    else
+	    {
+	    	if(mid = 0 || nums[mid-1]==mid-1)
+		{
+		    return mid;
+		}
+		end = mid - 1;
+	    }
+	}
+        if (start==n)
+        {
+            return n;
+        }
+	// 无效的输入，比如数组不是按照要求排序的
+	// 或者有数字不在0~n-1范围之内
+        return -1;
+    }
+};
+
+
+int main()
+{
+	vector<int> nums = {1,2,3,4};
+	int res = Solution().missingNumber(nums);
+	cout << res << endl;
+	system("pause");
+	return 0;
+}
+```
+
+
 
 
 # Python:
