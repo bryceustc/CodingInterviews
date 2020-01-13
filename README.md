@@ -15,7 +15,8 @@
 * [剑指Offer(四十五)：把数组排成最小的数](./SortArrayForMinNumber/README.md)(sort自定义排序)
 * [剑指Offer(四十九)：丑数](./UglyNumber/README.md)(动态规划、小顶堆)
 * [剑指Offer(五十三)： 数字在排序数组中出现的次数](./NumberOfK/README.md)(二分查找)
-* [剑指Offer(五十三)： 0~n-1中缺失的数字](./MissingNumber/README.md)(数学方法：异或)
+* [剑指Offer(五十三)： 0~n-1中缺失的数字](./MissingNumber/README.md)(数学方法：异或, 二分查找)
+* [剑指Offer(五十三)： 数组中数值和下标相等的元素](./IntegerIdenticalToIndex/README.md)(数学方法：异或, 二分查找)
 * [剑指Offer(五十七)： 和为s的两个数字](./TwoNumbersWithSum/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
