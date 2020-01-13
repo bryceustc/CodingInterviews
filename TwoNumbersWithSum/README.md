@@ -19,9 +19,9 @@
 
 # 代码
 
-[C++](./MissingNumber.cpp)
+[C++](./TwoNumbersWithSum.cpp)
 
-[Python](./MissingNumber.py)
+[Python](./TwoNumbersWithSum.py)
 
 # C++:
 ## 方法一：暴力遍历
