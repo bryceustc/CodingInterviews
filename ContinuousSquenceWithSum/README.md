@@ -63,9 +63,9 @@ public:
 
 int main()
 {
-    vector<int> nums = {2,7,11,15};
-    vector<int> res;
-    res = Solution().FindNumbersWithSum(nums,9);
+    int target = 100;
+    vector<vector<int> >res;
+    res = Solution().FindContinuousSequence(target);
     system("pause");
     return 0;
 }
@@ -76,24 +76,29 @@ int main()
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def FindNumbersWithSum(self, nums, target):
+    def FindContinuousSequence(self, target):
         # write code here
         res = []
-        n = len(nums)
-        if n==0:
-            return res
-        for i in range(n):
-            for j in range(i+1,n):
-                if nums[i]+nums[j]==target:
-                    res.append(nums[i])
-                    res.append(nums[j])
-                    return res
+        low = 1
+        high = 2
+        Sum = 3
+        while high > low:
+            Sum = (high+low)*(high-low+1)//2
+            if Sum == target:
+                out = []
+                for i in range(low,high+1):
+                    out.append(i)
+                res.append(out[:])
+                low+=1
+            if Sum > target:
+                low+=1
+            if Sum < target:
+                high+=1
         return res
 
 if __name__ == '_ main__':
-    nums = [2,7,11,15]
-    target = 9
-    res = Solution().FindNumbersWithSum(nums,target)    
+    target = 100
+    res = Solution().FindContinuousSequence(target)    
     print(res)
 ```
 
