@@ -29,31 +29,6 @@
 using namespace std;
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& numbers, int target) {
-        vector <int> res (2,0);
-        if (numbers.empty())
-            return res;
-        int n = numbers.size();
-        for (int i=0;i<n;i++)
-        {
-            for (int j = i+1; j<n;j++)
-            {
-                if (numbers[i]+numbers[j]==target)
-                {
-                    res[0] = numbers[i];
-                    res[1] = numbers[j];
-                    break;
-                }
-            }
-        }
-        return res;
-    }
-};
-
-
-
-class Solution {
-public:
     vector<int> FindNumbersWithSum(vector<int> nums,int target) {
         int n = nums.size();
         vector<int> res;
@@ -79,7 +54,7 @@ int main()
 {
     vector<int> nums = {2,7,11,15};
     vector<int> res;
-    res = Solution().twoSum(nums,9);
+    res = Solution().FindNumbersWithSum(nums,9);
     system("pause");
     return 0;
 }
@@ -93,30 +68,6 @@ int main()
 #include <unordered_map>
 using namespace std;
 using namespace std::tr1;
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& numbers, int target) {
-        vector <int> res (2,0);
-        if (numbers.empty())
-            return res;
-        int n = numbers.size();
-        unordered_map<int,int> record;
-        for (int i=0;i<n;i++)
-        {
-            int complement = target -numbers[i];
-            if (record.find(complement)!=record.end())
-            {
-                res[0] = complement;
-                res[1] = nums[i];
-                break;
-            }
-            record[numbers[i]] = i;
-        }
-        return res;
-    }
-};
-
-
 class Solution {
 public:
     vector<int> FindNumbersWithSum(vector<int> nums,int target) {
@@ -145,7 +96,7 @@ int main()
     vector<int> nums = {2,7,11,15};
     int target = 9;
     vector<int> res;
-    res = Solution().twoSum(nums,target);
+    res = Solution().FindNumbersWithSum(nums,target);
     system("pause");
     return 0;
 }
@@ -157,37 +108,6 @@ int main()
 #include <algorithm>
 #include <vector>
 using namespace std;
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        vector <int> res (2,0);
-        if (nums.empty())
-            return res;
-        int n = nums.size();
-        int left = 0;
-        int right = n-1;
-        while (right>left)
-        {
-            if (nums[left]+nums[right]==target)
-            {
-                res[0] = nums[left];
-                res[1] = nums[right];
-                break;
-            }
-            if (nums[left]+nums[right]>target)
-            {
-                right--;
-            }
-            if (nums[left]+nums[right]<target)
-            {
-                left++;
-            }
-        }
-        return res;
-    }
-};
-
-
 class Solution {
 public:
     vector<int> FindNumbersWithSum(vector<int> nums,int target) {
@@ -232,7 +152,7 @@ int main()
     vector<int> nums = {2,7,11,15};
     int target = 9;
     vector<int> res;
-    res = Solution().twoSum(nums,target);
+    res = Solution().FindNumbersWithSum(nums,target);
     system("pause");
     return 0;
 }
@@ -260,7 +180,7 @@ class Solution:
 if __name__ == '_ main__':
     nums = [2,7,11,15]
     target = 9
-    res = Solution().twoSum(nums,target)    
+    res = Solution().FindNumbersWithSum(nums,target)    
     print(res)
 ```
 
@@ -287,7 +207,7 @@ class Solution:
 if __name__ == '_ main__':
     nums = [2,7,11,15]
     target = 9
-    res = Solution().twoSum(nums,target)    
+    res = Solution().FindNumbersWithSum(nums,target)    
     print(res)
 ```
 
@@ -315,7 +235,7 @@ class Solution:
 if __name__ == '_ main__':
     nums = [2,7,11,15]
     target = 9
-    res = Solution().twoSum(nums,target)    
+    res = Solution().FindNumbersWithSum(nums,target)    
     print(res)
 ```
 
