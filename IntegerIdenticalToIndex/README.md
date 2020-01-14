@@ -6,16 +6,12 @@
   
   1). 二分查找  
   
-  2). 哈希表
-  
-  3). 数学技巧
   
 # 解题思路:
-  此题与LeetCode第268题缺失数字问题类似，但此题是递增排序的数组，较为简单,注意输入数组。
   
   1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n),空间复杂度O(1)
   
-  2.) 二分查找
+  2.) 二分查找,由于数组是单调递增排序的，用二分查找，如果``nums[mid]==mid``返回``nums[mid]``，如果``nums[mid] == m > mid == i``，由于数组中的所有数字都唯一且单调递增，那么对于任意大于0的k,位于下标i+k的数字的值大于等于m+k,另外，因为m>i,所以m+k>i+k。因此位于下标i+k的数字的值一定大于它的下标。这意味着如果第i个数字的值大于i，那么它右边的数字都大于对应的下标，可以忽略，下一轮查找我们需要从左边的数字查找。
 
 # 代码
 
@@ -51,7 +47,7 @@ public:
 
 int main()
 {
-	vector<int> nums = {1,2,3,4};
+	vector<int> nums = {-1,0,2};
 	int res = Solution().IntegerIdenticalToIndex(nums);
 	cout << res << endl;
 	system("pause");
@@ -67,7 +63,7 @@ int main()
 using namespace std;
 class Solution {
 public:
-    int missingNumber(vector<int>& nums) {
+    int IntegerIdenticalToIndex(vector<int>& nums) {
         int res = 0;
         int n = nums.size();
         int start = 0;
@@ -96,8 +92,8 @@ public:
 
 int main()
 {
-	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
+	vector<int> nums = {-1,0,2};
+	int res = Solution().IntegerIdenticalToIndex(nums);
 	cout << res << endl;
 	system("pause");
 	return 0;
@@ -106,83 +102,46 @@ int main()
 
 
 # Python:
-## 方法一：哈希表
+## 方法一：直接遍历
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def missingNumber(self, nums: List[int]) -> int:
+    def IntegerIdenticalToIndex(self, nums: List[int]) -> int:
         res = 0
         n = len(nums)
-        nums_set = set(nums)
-        for num in range(n+1):
-            if num not in nums_set:
-                return num
-        return res
-
-if __name__ == '_ main__':
-    nums = [1,2,3,4,5]
-    res = Solution().missingNumber(nums)    
-    print(res)
-```
-
-## 方法二：数学方法
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def missingNumber(self, nums: List[int]) -> int:
-        res = 0;
-        n = len(nums)
-        x = range(n+1)
-        x = list(x)           ### Python3 需要用list转换成数组
-        res = sum(x)-sum(nums)
-        return res
-
-if __name__ == '_ main__':
-    nums = [1,2,3,4,5]
-    res = Solution().missingNumber(nums)    
-    print(res)
-```
-
-## 方法二：数学方法 （异或）
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def missingNumber(self, nums: List[int]) -> int:
-        n = len(nums)
-        res = n
         for i in range(n):
-            res = res ^ nums[i]
-            res = res ^ i
+            if nums[i] == i:
+	    	res = nums[i]
+		break
         return res
 
 if __name__ == '_ main__':
-    nums = [1,2,3,4,5]
-    res = Solution().missingNumber(nums)    
+    nums = [-1,0,2]
+    res = Solution().IntegerIdenticalToIndex(nums)    
     print(res)
 ```
 
-## 方法三：排序法
+## 方法二：二分查找
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def missingNumber(self, nums: List[int]) -> int:
-        nums = sorted(nums)
+    def IntegerIdenticalToIndex(self, nums: List[int]) -> int:
         n = len(nums)
-        if nums[-1] != n:
-            return n
-        for i in range(0,n):
-            if i!=nums[i]:
-                return i
-
+	start = 0
+	end = n-1
+	while end>=start:
+	    mid = start + (end-start)//2
+	    if nums[mid] == mid:
+	    	return mid
+	    if nums[mid] > mid:
+	    	end = mid - 1
+	    else:
+	    	start = mid + 1
+	if start == n:
+	    return n
+	return -1
 if __name__ == '_ main__':
-    nums = [1,2,3,4,5]
-    res = Solution().missingNumber(nums)    
+    nums = [-1,0,2]
+    res = Solution().IntegerIdenticalToIndex(nums)    
     print(res)
 ```
-
-# 参考：
-  -  [LeetCode_268题——缺失数字](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Missing-Number/README.md)
-
-
-
-
