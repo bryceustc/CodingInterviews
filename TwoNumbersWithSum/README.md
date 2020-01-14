@@ -9,13 +9,11 @@
 # 解题思路:
   此题与LeetCode第268题缺失数字问题类似，
   
-  1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n),空间复杂度O(1)
+  1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n<sup>2</sup>),空间复杂度O(1)
   
-  2.) 哈希表
+  2.) 哈希表。时间复杂度O(n)，空间复杂度O(n).
   
-  2.) 利用动态规划的思想，假设要找下标i对应的丑数dp[i],可以用i之前的所有丑数乘若干个2直到大于上一个丑数dp[i-1]，记此数为num1;同理用i之前的所有丑数乘若干个3直到大于上一个丑数dp[i-1]，记此数为num2；用i之前的所有丑数乘若干个5直到大于上一个丑数dp[i-1]，记此数为num3。这三个数中的最小数字就是第i个丑数dp[i]。其实没必要把i之前的所有丑数乘2或者乘3或者乘5。在i之前的丑数中，肯定存在一个丑数（下标记为index2），乘2以后正好大于i的上一个丑数dp[i-1],index2之前的丑数乘2都小于等于dp[i-1];我们只需要记录index2，每次直接用这个下标对应的数乘2就行，并且在下标不满足时更新下标。同理我们也要记录乘3和乘5对应的下标。时间复杂度:O(n),空间复杂度:O(n)
-  
-  3). 最小堆
+  3.) 双指针。时间复杂度:O(n),空间复杂度:O(n)
 
 # 代码
 
@@ -31,58 +29,110 @@
 using namespace std;
 class Solution {
 public:
-    int missingNumber(vector<int>& nums) {
-        int n = nums.size();
-        int res = 0;
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        vector <int> res (2,0);
+        if (numbers.empty())
+            return res;
+        int n = numbers.size();
+        for (int i=0;i<n;i++)
+        {
+            for (int j = i+1; j<n;j++)
+            {
+                if (numbers[i]+numbers[j]==target)
+                {
+                    res[0] = numbers[i];
+                    res[1] = numbers[j];
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+};
+
+
+int main()
+{
+    vector<int> nums = {2,7,11,15};
+    vector<int> res;
+    res = Solution().twoSum(nums,9);
+    system("pause");
+    return 0;
+}
+```
+
+
+## 方法二：哈希表
+```c++
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+using namespace std::tr1;
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        vector <int> res (2,0);
+        if (numbers.empty())
+            return res;
+        int n = numbers.size();
+        unordered_map<int,int> record;
+        for (int i=0;i<n;i++)
+        {
+            int complement = target -numbers[i];
+            if (record.find(complement)!=record.end())
+            {
+                res[0] = complement;
+                res[1] = nums[i];
+                break;
+            }
+            record[numbers[i]] = i;
+        }
+        return res;
+    }
+};
+
+
+int main()
+{
+    vector<int> nums = {2,7,11,15};
+    vector<int> res;
+    res = Solution().twoSum(nums,9);
+    system("pause");
+    return 0;
+}
+```
+
+## 方法三：双指针
+```c++
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector <int> res (2,0);
         if (nums.empty())
-            return 0;
-        unordered_map<int,int> map;
-        for (int i=0;i<n;i++)
-        {
-            map[nums[i]]++;
-        }
-        for (int num=0;num<=n;num++)
-        {
-            if (map[num]==0)
-                return num;
-        }
-        return res;
-    }
-};
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
-```
-
-
-## 方法一：哈希表(简洁)
-```c++
-#include <iostream>
-#include <vector>
-using namespace std;
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        int res = 0;
+            return res;
         int n = nums.size();
-        unordered_set<int> set;
-        for(auto num : nums)
+        int left = 0;
+        int right = n-1;
+        while (right>left)
         {
-            set.insert(num);
-        }
-        for (int i=0;i<=n;i++)
-        {
-            if (set.count(i)==0)
+            if (nums[left]+nums[right]==target)
             {
-                res = i;
+                res[0] = nums[left];
+                res[1] = nums[right];
                 break;
+            }
+            if (nums[left]+nums[right]>target)
+            {
+                right--;
+            }
+            if (nums[left]+nums[right]<target)
+            {
+                left++;
             }
         }
         return res;
@@ -99,121 +149,9 @@ int main()
 	return 0;
 }
 ```
-
-
-
-## 方法二：数学方法
-```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        int res =0;
-        int n = nums.size();
-        int sum_num = 0;
-        int Sum = 0;
-        for (int i=0;i<n;i++)
-        {
-            sum_num+=nums[i];
-        }
-        for (int i=0;i<=n;i++)
-        {
-            Sum += i;
-        }
-        res = Sum - sum_num;
-        return res;
-    }
-};
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
-```
-
-## 方法二：数学方法
-```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        int n = nums.size();
-        int res = n;
-        for (int i = 0; i < n; i++)
-        {
-            res ^= nums[i];
-            res ^= i;
-            // 异或满足交换律，i和nums[i]是肯定有重复的，剩下的只有一个那就是nums中缺失的
-        }
-        return res;
-    }
-};
-
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
-```
-
-## 方法三：排序法
-```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
-class Solution {
-public:
-    int missingNumber(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        int n = nums.size();
-        int res = 0;
-        if (nums[n-1]!=n)
-        {
-            return n;
-        }
-        for (int i=0;i<n;i++)
-        {
-            if (nums[i]!=i)
-            {
-                res = i;
-                break;
-            }
-        }
-        return res;
-    }
-};
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,4};
-	int res = Solution().missingNumber(nums);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
-```
-
 
 # Python:
-## 方法一：哈希表
+## 方法一：暴力遍历
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
@@ -232,7 +170,7 @@ if __name__ == '_ main__':
     print(res)
 ```
 
-## 方法二：数学方法
+## 方法二：哈希表
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
@@ -250,7 +188,7 @@ if __name__ == '_ main__':
     print(res)
 ```
 
-## 方法二：数学方法 （异或）
+## 方法三：双指针
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
