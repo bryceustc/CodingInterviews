@@ -7,13 +7,8 @@
   1). 双指针
   
 # 解题思路:
-  此题与LeetCode第268题缺失数字问题类似，
   
-  1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n<sup>2</sup>),空间复杂度O(1)
-  
-  2.) 哈希表。时间复杂度O(n)，空间复杂度O(n).
-  
-  3.) 双指针。时间复杂度:O(n),空间复杂度:O(n)
+  1.) 双指针。时间复杂度:O(n),空间复杂度:O(n)
 
 # 代码
 
@@ -29,21 +24,37 @@
 using namespace std;
 class Solution {
 public:
-    vector<int> FindNumbersWithSum(vector<int> nums,int target) {
-        int n = nums.size();
-        vector<int> res;
-        if (nums.empty()) 
-            return res;
-        for(int i=0;i<n;i++)
+    vector<vector<int> > FindContinuousSequence(int target) {
+        //存放结果
+        vector<vector<int>> res;
+        //两个起点，相当于动态窗口的两边，根据其窗口内的值的和来确定窗口的位置和大小
+        int low = 1;
+        int high = 2;
+        int sum = 3;
+        while (high>low)
         {
-            for (int j=i+1;j<n;j++)
+            //由于是连续的，差为1的一个序列，那么求和公式是(a0+an)*n/2
+            sum = (low+high)*(high-low+1)/2;
+            //相等，那么就将窗口范围的所有数添加进结果集
+            if (sum==target)
             {
-                if (nums[i]+nums[j]==target)
+                vector<int> out;
+                for (int i=low;i<=high;i++)
                 {
-                    res.push_back(nums[i]);
-                    res.push_back(nums[j]);
-                    return res;
+                    out.push_back(i);
                 }
+                res.push_back(out);
+                low++;
+            }
+            //如果当前窗口内的值之和大于sum，那么左边窗口右移一下
+            if (sum > target)
+            {
+                low++;
+            }
+            //如果当前窗口内的值之和小于sum，那么右边窗口右移一下
+            if (sum < target)
+            {
+                high++;
             }
         }
         return res;
@@ -60,106 +71,8 @@ int main()
 }
 ```
 
-
-## 方法二：哈希表
-```c++
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-using namespace std;
-using namespace std::tr1;
-class Solution {
-public:
-    vector<int> FindNumbersWithSum(vector<int> nums,int target) {
-        vector<int> res;
-        if(nums.empty())
-            return res;
-        int n =nums.size();
-        unordered_map<int,int> record;
-        for (int i=0;i<n;i++)
-        {
-            int complement = target - nums[i];
-            if (record.find(complement)!=record.end())
-            {
-                res.push_back(complement);
-                res.push_back(nums[i]);
-                break;
-            }
-            record[nums[i]]=i;
-        }
-        return res;
-    }
-};
-
-int main()
-{
-    vector<int> nums = {2,7,11,15};
-    int target = 9;
-    vector<int> res;
-    res = Solution().FindNumbersWithSum(nums,target);
-    system("pause");
-    return 0;
-}
-```
-
-## 方法三：双指针
-```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
-class Solution {
-public:
-    vector<int> FindNumbersWithSum(vector<int> nums,int target) {
-        vector<int> res;
-        if(nums.empty())
-            return res;
-        int n =nums.size();
-        int left=0;
-        int right=n-1;
-        while (right>left)
-        {
-            if (nums[left]+nums[right]==target)
-            {
-                res.push_back(nums[left]);
-                res.push_back(nums[right]);
-                break;
-            }
-            if (nums[left]+nums[right]>target)
-            {
-                right--;
-            }
-            else
-                left++;
-        }
-        return res;
-    }
-};
-
-// 输出两个数的乘积最小的。这句话的理解？
-// 假设：若b>a,且存在，
-// a + b = s;
-// (a - m ) + (b + m) = s
-// 则：(a - m )(b + m)=ab - (b-a)m - m*m < ab；说明外层的乘积更小
-// 也就是说依然是左右夹逼法！！！只需要2个指针
-// 1.left开头，right指向结尾
-// 2.如果和小于sum，说明太小了，left右移寻找更大的数
-// 3.如果和大于sum，说明太大了，right左移寻找更小的数
-// 4.和相等，把left和right的数返回
-
-int main()
-{
-    vector<int> nums = {2,7,11,15};
-    int target = 9;
-    vector<int> res;
-    res = Solution().FindNumbersWithSum(nums,target);
-    system("pause");
-    return 0;
-}
-```
-
 # Python:
-## 方法一：暴力遍历
+## 方法一：双指针
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
@@ -184,60 +97,5 @@ if __name__ == '_ main__':
     print(res)
 ```
 
-## 方法二：哈希表
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def FindNumbersWithSum(self, nums, target):
-        # write code here
-        res = []
-        record = {}
-        n = len(nums)
-        if n==0:
-            return res
-        for index,num in enumerate (nums):
-            complement = target - num
-            if complement in record:
-                res.append(complement)
-                res.append(num)
-                return res
-            record[num] = index
-        return res
-
-if __name__ == '_ main__':
-    nums = [2,7,11,15]
-    target = 9
-    res = Solution().FindNumbersWithSum(nums,target)    
-    print(res)
-```
-
-## 方法三：双指针
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def FindNumbersWithSum(self, nums, target):
-        # write code here
-        res = []
-        n = len(nums)
-        left = 0
-        right = n-1
-        while right>left:
-            if nums[left]+nums[right]==target:
-                res.append(nums[left])
-                res.append(nums[right])
-                return res
-            if nums[left]+nums[right]>target:
-                right-=1
-            else:
-                left+=1
-        return res
-
-if __name__ == '_ main__':
-    nums = [2,7,11,15]
-    target = 9
-    res = Solution().FindNumbersWithSum(nums,target)    
-    print(res)
-```
-
 # 参考：
-  -  [LeetCode_167题——两数之和 II - 输入有序数组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Two-Sum-II-Input-Array-Is-Sorted/README.md)
+  -  [剑指offer五十七题——和为s的两个数字](https://github.com/bryceustc/CodingInterviews/blob/master/TwoNumbersWithSum/README.md)
