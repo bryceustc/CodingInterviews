@@ -18,7 +18,8 @@
 * [剑指Offer(五十三)： 0~n-1中缺失的数字](./MissingNumber/README.md)(数学方法：异或, 二分查找)
 * [剑指Offer(五十三)： 数组中数值和下标相等的元素](./IntegerIdenticalToIndex/README.md)(数学方法：异或, 二分查找)
 * [剑指Offer(五十七)： 和为s的两个数字](./TwoNumbersWithSum/README.md)(双指针)
-* [剑指Offer(五十七)： 和为S的连续正数序列](./ContinuousSquenceWithSum/README.md)
+* [剑指Offer(五十七)： 和为S的连续正数序列](./ContinuousSquenceWithSum/README.md)(双指针)
+* [剑指Offer(六十一)： 扑克牌的顺子](./ContinousCards/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
