@@ -17,7 +17,6 @@ LL今天心情特别好,因为他去买了一副扑克牌,发现里面居然有2
 [Python](./ContinousCards.py)
 
 # C++:
-## 方法一：暴力遍历
 ```c++
 #include <iostream>
 #include <vector>
@@ -60,36 +59,31 @@ int main()
 ```
 
 # Python:
-## 方法一：双指针
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def FindContinuousSequence(self, target):
+    def IsContinuous(self, nums):
         # write code here
-        res = []
-        low = 1
-        high = 2
-        Sum = 3
-        while high > low:
-            Sum = (high+low)*(high-low+1)//2
-            if Sum == target:
-                out = []
-                for i in range(low,high+1):
-                    out.append(i)
-                res.append(out[:])
-                low+=1
-            if Sum > target:
-                low+=1
-            if Sum < target:
-                high+=1
-        return res
+        n = len(nums)
+        if nums is None or n!=5:
+            return False
+        nums = sorted(nums)
+        numZero = 0
+        gap = 0
+        for num in nums:
+            if num ==0:
+                numZero+=1
+        for i in range(numZero,n-1):
+            j=i+1
+            if nums[j]==nums[i]:
+                return False
+            gap += nums[j]-nums[i]-1
+        if gap > numZero:
+            return False
+        return True
 
 if __name__ == '_ main__':
-    target = 100
-    res = Solution().FindContinuousSequence(target)    
+    nums = [1,3,0,7,0]
+    res = Solution().IsContinuous(nums)    
     print(res)
 ```
-
-# 参考：
-  -  [剑指offer五十七题——和为s的两个数字](https://github.com/bryceustc/CodingInterviews/blob/master/TwoNumbersWithSum/README.md)
-
