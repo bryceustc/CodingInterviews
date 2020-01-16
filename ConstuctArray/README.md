@@ -21,7 +21,8 @@
 
 [Python](./ConstuctArray.py)
 
-# C++:
+# C++: 
+### 方法一：模拟法
 ```c++
 #include <iostream>
 #include <vector>
@@ -61,7 +62,32 @@ int main()
     return 0;
 }
 ```
-
+### 方法二：观察公式，上三角和下三角连乘
+```c++
+class Solution {
+public:
+    vector<int> multiply(const vector<int>& A) {
+        if (A.empty())
+            return {};
+        int n = A.size();
+        vector<int> B (n,0);
+        //计算下三角连乘
+        B[0]=1;
+        for (int i=1;i<n;i++)
+        {
+            B[i] = B[i-1]*A[i-1];
+        }
+        // 计算上三角连乘
+        int temp = 1;
+        for (int i=n-2;i>=0;i--)
+        {
+            temp *= A[i+1];
+            B[i] *= temp;
+        }
+        return B;
+    }
+};
+```
 # Python:
 ```python
 # -*- coding:utf-8 -*-
@@ -78,10 +104,4 @@ class Solution:
             del nums[end]
             start = end
         return nums[0]
-
-if __name__ == '_ main__':
-    n=5
-    m=3
-    res = Solution().LastRemaining_Solution(n,m)    
-    print(res)
 ```
