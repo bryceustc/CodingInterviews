@@ -22,6 +22,9 @@
 * [剑指Offer(六十一)： 扑克牌的顺子](./ContinousCards/README.md)
 * [剑指Offer(六十二)： 圆圈中最后剩下的数字](./LastNumberInCircle/README.md)(约瑟夫环)
 * [剑指Offer(六十六)： 构建乘积数组](./ConstuctArray/README.md)
+
+### 字符串：
+* [剑指Offer(五)：替换空格](./ReplaceSpaces/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
