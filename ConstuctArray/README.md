@@ -7,7 +7,7 @@
   
 # 解题思路:
   
-  1.) 用数组列表模拟一下。创建一个数组存储0-n-1的数组，但数组长度大于1时，就计算end位置即为(start+m-i)%len(nums) ，删除该元素后然后start再等于之前end，最后数组中剩最后一个元素，返回nums[0]
+  1.) 模拟法。创建一个数组存储0-n-1的数组，但数组长度大于1时，就计算end位置即为(start+m-i)%len(nums) ，删除该元素后然后start再等于之前end，最后数组中剩最后一个元素，返回nums[0]
   
   时间复杂度:O(n),空间复杂度:O(n)
 
@@ -22,38 +22,37 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
 class Solution {
 public:
-    int LastRemaining_Solution(int n, int m)
-    {
-        int res =-1;
-        if (n<=0 || m<0)
-            return res;
-        vector<int> nums;
-        for (int i=0;i<=n;i++)
+    vector<int> multiply(const vector<int>& A) {
+        if (A.empty())
+            return {};
+        int n = A.size();
+        vector<int> B (n,0);
+        for (int i =0;i<n;i++)
         {
-            nums.push_back(i);
+            int temp = 1;
+            for (int j=0;j<n;j++)
+            {
+                if (j==i)
+                    continue;
+                temp *=A[j];
+            }
+            B[i] = temp;
         }
-        int start =0;
-        while(nums.size()>1)
-        {
-            int end = (start+m-1)%(nums.size());
-            nums.erase(nums.begin()+end);
-            start = end;
-        }
-        res = nums[0];
-        return res;
+        return B;
     }
 };
 
 int main()
 {
-    int n = 5;
-    int m = 3;
-    int res = 0;
-    res = Solution().LastRemaining_Solution(n,m);
-    cout <<res << endl;
+    vector<int> A = {0,1,2,3,4}; // n=5
+    vector<int> B;
+    B = Solution().multiply(A);
+    for (int i=0;i<B.size();i++)
+    {
+        cout << B[i] << endl;
+    }
     system("pause");
     return 0;
 }
