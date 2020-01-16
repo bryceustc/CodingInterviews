@@ -3,11 +3,11 @@
 0,1，···n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字。求出这个圆圈里剩下的最后一个数字。
 # 本题考点：
   
-  1). 双指针
+  约瑟夫环问题
   
 # 解题思路:
   
-  1.) 注意理解题意，输入为5个数字的数组，判断是否是一个顺子序列。以大小王为0,0可以代替任何数字。先对序列进行排序，然后算数组中0的个数，然后计算差值，如果后面一个数比前面一个数大于1以上，那么中间的差值就必须用0来补了，计算数组空缺总数，如果空缺总数大于0的个数，不是顺子，否则是顺子。注意如果5张牌发现有 对子，肯定不是顺子
+  1.) 用数组列表模拟一下。创建一个数组存储0-n-1的数组，但数组长度大于1时，就计算
   时间复杂度:O(n),空间复杂度:O(n)
 
 # 代码
@@ -20,39 +20,39 @@
 ```c++
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
-    bool IsContinuous( vector<int> nums ) {
-        int n = nums.size();
-        if (nums.empty()|| n!=5)
-            return false;
-        sort(nums.begin(),nums.end());
-        int numZero = 0;
-        int gap = 0;
-        for (int i=0;i<n;i++)
+    int LastRemaining_Solution(int n, int m)
+    {
+        int res =-1;
+        if (n<=0 || m<0)
+            return res;
+        vector<int> nums;
+        for (int i=0;i<=n;i++)
         {
-            if (nums[i]==0)
-                numZero++;
+            nums.push_back(i);
         }
-        for (int i=numZero, j=numZero+1;j<n;i++,j++)
+        int start =0;
+        while(nums.size()>1)
         {
-            if (nums[i]==nums[j]) return false;
-            gap += nums[j]-nums[i]-1;
+            int end = (start+m-1)%(nums.size());
+            nums.erase(nums.begin()+end);
+            start = end;
         }
-        if (numZero<gap) return false;
-        return true;
+        res = nums[0];
+        return res;
     }
 };
 
 int main()
 {
-    vector<int> nums = {1,3,0,7,0};
-    bool res;
-    res = Solution().IsContinuous(nums);
-    cout << res << endl;
+    int n = 5;
+    int m = 3;
+    int res = 0;
+    res = Solution().LastRemaining_Solution(n,m);
+    cout <<res << endl;
     system("pause");
     return 0;
 }
@@ -62,29 +62,22 @@ int main()
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def IsContinuous(self, nums):
-        # write code here
-        n = len(nums)
-        if nums is None or n!=5:
-            return False
-        nums = sorted(nums)
-        numZero = 0
-        gap = 0
-        for num in nums:
-            if num ==0:
-                numZero+=1
-        for i in range(numZero,n-1):
-            j=i+1
-            if nums[j]==nums[i]:
-                return False
-            gap += nums[j]-nums[i]-1
-        if gap > numZero:
-            return False
-        return True
+    def LastRemaining_Solution(self, n, m):
+        # write code h;
+        res = -1
+        if n<=0 or m<0:
+            return res
+        nums =range(n)## 0-n-1数组
+        start=0
+        while len(nums)>1:
+            end = (start+m-1)%(len(nums))
+            del nums[end]
+            start = end
+        return nums[0]
 
 if __name__ == '_ main__':
-    nums = [1,3,0,7,0]
-    res = Solution().IsContinuous(nums)    
+    n=5
+    m=3
+    res = Solution().LastRemaining_Solution(n,m)    
     print(res)
 ```
-
