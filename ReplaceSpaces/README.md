@@ -117,45 +117,29 @@ public:
 };
 ```
 # Python:
-### 方法一：模拟法
+### 方法一：replace 函数操作
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def multiply(self, A):
+    # s 源字符串
+    def replaceSpace(self, s):
         # write code here
-        n = len(A)
-        if n==0:
-            return []
-        B = [0 for _ in range(n)]
-        for i in range(n):
-            temp = 1
-            for j in range(n):
-                if j==i:
-                    continue
-                temp*=A[j]
-            B[i] = temp
-        return B
+        s = s.replace(' ','%20')
+        return s
 ```
-### 方法二：上/下三角法
+### 方法二：join方法
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def multiply(self, A):
+    # s 源字符串
+    def replaceSpace(self, s):
         # write code here
-        n = len(A)
-        if n==0:
-            return []
-        B = [0 for _ in range(n)]
-        ## 计算下三角
-        B[0]=1
-        for i in range(1,n):
-            B[i]=B[i-1]*A[i-1]
-        ## 计算上三角
-        temp = 1
-        for i in range(n-2,-1,-1):
-            temp *= A[i+1]
-            B[i] *= temp
-        return B
+        s = list(s)
+        count = len(s)
+        for i in range(0,count):
+            if s[i] == ' ':
+                s[i] = '%20'
+        return ''.join(s)
 ```
 # 参考：
   - [Python reduce函数用法](https://www.runoob.com/python/python-func-reduce.html)
