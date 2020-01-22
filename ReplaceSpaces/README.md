@@ -29,70 +29,85 @@
 [Python](./ReplaceSpaces.py)
 
 # C++: 
-### 方法一：模拟法
+### 方法一：模拟直接法
 ```c++
 #include <iostream>
 #include <vector>
 using namespace std;
 class Solution {
 public:
-    vector<int> multiply(const vector<int>& A) {
-        if (A.empty())
-            return {};
-        int n = A.size();
-        vector<int> B (n,0);
-        for (int i =0;i<n;i++)
+	void replaceSpace(char *str,int length) {
+        if (str == NULL || length <=0)
+            return;
+        for (int i=0;i<length;i++)
         {
-            int temp = 1;
-            for (int j=0;j<n;j++)
+            if (*(str+i)==' ')
             {
-                if (j==i)
-                    continue;
-                temp *=A[j];
+                length+=2;//长度+2
+                for (int j=length;j>i+2;j--)
+                {
+                    *(str+j)=*(str+j-2);
+                }
+                *(str+i) = '/%';
+                *(str+i+1) = '2';
+                *(str+i+2) = '0';
             }
-            B[i] = temp;
         }
-        return B;
-    }
+	}
 };
 
 int main()
 {
-    vector<int> A = {0,1,2,3,4}; // n=5
-    vector<int> B;
-    B = Solution().multiply(A);
-    for (int i=0;i<B.size();i++)
-    {
-        cout << B[i] << endl;
-    }
+    char str[] = "we are happy.";
+    int length = 12;
+    Solution().replaceSpace(str,length);
+    cout<< str<<endl;
     system("pause");
     return 0;
 }
+
 ```
-### 方法二：观察公式，上三角和下三角连乘
+### 方法二：双指针法，先计算空格的个数，然后计算新字符串的长度，再从后向前进行替换，时间复杂度O(n);
 ```c++
 class Solution {
 public:
-    vector<int> multiply(const vector<int>& A) {
-        if (A.empty())
-            return {};
-        int n = A.size();
-        vector<int> B (n,0);
-        //计算下三角连乘
-        B[0]=1;
-        for (int i=1;i<n;i++)
+	void replaceSpace(char *str,int length) {
+        if (str == NULL || length <=0)
+            return;
+        int i=0;
+        int oldLength = 0; // 原字符串长度
+        int newLength = 0; // 替换后字符串长度
+        int numberofBlank = 0; //空格数量
+        while(str[i]!='\0')
         {
-            B[i] = B[i-1]*A[i-1];
+            oldLength++;
+            if (str[i]==' ')
+            {
+                numberofBlank++;
+            }
+            i++;
         }
-        // 计算上三角连乘
-        int temp = 1;
-        for (int i=n-2;i>=0;i--)
+        newLength = oldLength + numberofBlank*2; // 计算替换后字符串的长度
+        if (newLength > length)  // 如果大于最大长度直接返回 因为无法插入
+            return;
+        // 设置两个指针，一个指向原始字符串的末尾，另一个指向替换之后的字符串的末尾 注意不要减一
+        int p = oldLength; //设置p指针指向旧字符串的末尾
+        int q = newLength; //设置q指针指向新字符串的末尾
+        while (p>=0 && p<q)
         {
-            temp *= A[i+1];
-            B[i] *= temp;
+            if (str[p]==' ')
+            {
+                str[q--] = '0';
+                str[q--] = '2';
+                str[q--] = '/%';
+            }
+            else
+            {
+                str[q--] = str[p];
+            }
+            p--;
         }
-        return B;
-    }
+	}
 };
 ```
 # Python:
@@ -134,29 +149,6 @@ class Solution:
         for i in range(n-2,-1,-1):
             temp *= A[i+1]
             B[i] *= temp
-        return B
-```
-### 方法三:使用Python reduce函数:
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def multiply(self, A):
-        # write code here
-        B = []
-        n = len(A)
-        if n == 0:
-            return B
-        else:
-            for i in range(n):
-                ## 求B[i]，就把A[i]设为1，完了把A[i]值恢复
-                temp = A[i]
-                A[i] = 1
-                B.append(reduce(lambda x,y:x*y, A))
-                # reduce() 函数会对参数序列中元素进行累积。
-                # 函数将一个数据集合（链表，元组等）中的所有数据进行下列操作：用传给 reduce 中的函数 
-                # function（有两个参数）先对集合中的第 1、2 个元素进行操作，
-                # 得到的结果再与第三个数据用 function 函数运算，最后得到一个结果。
-                A[i] = temp
         return B
 ```
 # 参考：
