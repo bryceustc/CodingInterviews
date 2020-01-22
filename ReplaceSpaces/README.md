@@ -141,6 +141,3 @@ class Solution:
                 s[i] = '%20'
         return ''.join(s)
 ```
-# 参考：
-  - [Python reduce函数用法](https://www.runoob.com/python/python-func-reduce.html)
-
