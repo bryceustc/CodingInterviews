@@ -12,16 +12,22 @@
   
   1.) 直接法。最直观的做法是从头到尾扫描字符串，每一次碰到空格字符的时候做替换。由于是把1个字符替换成3个字符，我们必须要把空格后面所有的字符都后移两个字节，否则就有两个字符被覆盖了。下图展示了从前往后把字符串中的空格替换成'%20'的过程：
   
-  ![2](https://github.com/bryceustc/CodingInterviews/blob/master/ReplaceSpaces/Images/2.jpg)
+  ![1](https://github.com/bryceustc/CodingInterviews/blob/master/ReplaceSpaces/Images/1.jpg)
   
   假设字符串的长度是n。对每个空格字符，需要移动后面O(n)个字符，因此对含有O(n)个空格字符的字符串而言总的时间效率是O(n<sup>2</sup>),所以时间复杂度:O(n<sup>2</sup>),空间复杂度:O(n)
 
-  2.) 上三角与下三角连乘，可以把B[i]=A[0]\*A[1]\*.....\*A[i-1]\*A[i+1]\*.....\*A[n-1]。看成A[0]\*A[1]\*.....\*A[i-1]和A[i+1]\*.....A[n-2\*A[n-1]两部分的乘积。
+  2.) Step1.先遍历一次字符串，这样就能统计出字符串中空格的总数，并可以由此计算出替换之后的字符串的总长度。
+
+　　以前面的字符串"We arehappy."为例，"We are happy."这个字符串的长度是14（包括结尾符号'\0'），里面有两个空格，因此替换之后字符串的长度是18。
   
-  即通过A[i]项将B[i]分为两部分的乘积。效果如下图所示
-  ![image](https://github.com/bryceustc/CodingInterviews/blob/master/ConstuctArray/Image/image.png)
+  Step2.从字符串的后面开始复制和替换。
+
+　　准备两个指针，P1和P2。P1指向原始字符串的末尾，而P2指向替换之后的字符串的末尾。接下来向前移动指针P1，逐个把它指向的字符复制到P2指向的位置，直到碰到第一个空格为止。接着向前复制，直到碰到第二、三或第n个空格。
+  ![2](https://github.com/bryceustc/CodingInterviews/blob/master/ReplaceSpaces/Images/2.jpg)
   
-  不妨设定C[i]=A[0]\*A[1]\*...\*A[i-1]，D[i]=A[i+1]\*...\*A[n-2]\*A[n-1]。C[i]可以用自上而下的顺序计算出来，即C[i]=C[i-1]\*A[i-1]。类似的，D[i]可以用自下而上的顺序计算出来，即D[i]=D[i+1]\*A[i+1]。时间复杂度为O(n)，空间复杂度为O(n)
+ 从上面的分析我们可以看出，所有的字符都只复制（移动）一次，因此这个算法的时间效率是O(n)，比第一个思路要快。
+ 
+ 时间复杂度为O(n)，空间复杂度为O(n)
 # 代码
 
 [C++](./ReplaceSpaces.cpp)
