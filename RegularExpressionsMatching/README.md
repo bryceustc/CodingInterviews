@@ -7,22 +7,27 @@
   
 # 解题思路:
   
-  1.) 直接法。最直观的做法是从头到尾扫描字符串，每一次碰到空格字符的时候做替换。由于是把1个字符替换成3个字符，我们必须要把空格后面所有的字符都后移两个字节，否则就有两个字符被覆盖了。下图展示了从前往后把字符串中的空格替换成'%20'的过程：
-  
-  ![2](https://github.com/bryceustc/CodingInterviews/blob/master/ReplaceSpaces/Images/2.jpg)
-  
-  假设字符串的长度是n。对每个空格字符，需要移动后面O(n)个字符，因此对含有O(n)个空格字符的字符串而言总的时间效率是O(n<sup>2</sup>),所以时间复杂度:O(n<sup>2</sup>),空间复杂度:O(n)
+  1.) 先分析下如何匹配一个字符，现在只考虑字符'.'，不考虑'\*'看一下：
 
-  2.) Step1.先遍历一次字符串，这样就能统计出字符串中空格的总数，并可以由此计算出替换之后的字符串的总长度。
+如果字符串和模式串的当前字符相等，那么我们继续匹配它们的下一个字符；如果模式串中的字符是'.'，那么它可以匹配字符串中的任意字符，我们也可以继续匹配它们的下一个字符。
 
-　　以前面的字符串"We arehappy."为例，"We are happy."这个字符串的长度是14（包括结尾符号'\0'），里面有两个空格，因此替换之后字符串的长度是18。
-  
-  Step2.从字符串的后面开始复制和替换。
+接下来，把字符'\*'考虑进去，它可以匹配任意次的字符，当然出现0次也可以。
 
-　　准备两个指针，P1和P2。P1指向原始字符串的末尾，而P2指向替换之后的字符串的末尾。接下来向前移动指针P1，逐个把它指向的字符复制到P2指向的位置，直到碰到第一个空格为止。接着向前复制，直到碰到第二、三或第n个空格。
-  ![3](https://github.com/bryceustc/CodingInterviews/blob/master/ReplaceSpaces/Images/3.jpg)
-  
- 从上面的分析我们可以看出，所有的字符都只复制（移动）一次，因此这个算法的时间效率是O(n)，比第一个思路要快。
+我们分两种情况来看：
+
+模式串的下一个字符不是'\*'，也就是上面说的只有字符'.'的情况。
+如果字符串中的第一个字符和模式串中的第一个字符相匹配，那么字符串的模式串都向后移动一个字符，然后匹配剩余的字符串和模式串。如果字符串中的第一个字符和模式中的第一个字符不相匹配，则直接返回false。
+
+模式串的下一个字符是'\*'，此时就要复杂一些。
+因为可能有多种不同的匹配方式。
+
+选择一：无论字符串和模式串当前字符相不相等，我们都将模式串后移两个字符，相当于把模式串中的当前字符和'*'忽略掉，因为'*'可以匹配任意次的字符，所以出现0次也可以。
+
+选择二：如果字符串和模式串当前字符相等，则字符串向后移动一个字符。而模式串此时有两个选择：
+
+1、我们可以在模式串向后移动两个字符，继续匹配；
+
+2、也可以保持模式串不变，这样相当于用字符'\*'继续匹配字符串，也就是模式串中的字符'\*'匹配字符串中的字符多个的情况。
  
  时间复杂度为O(n)，空间复杂度为O(n)
 # 代码
@@ -32,85 +37,56 @@
 [Python](./RegularExpressionsMatching.py)
 
 # C++: 
-### 方法一：模拟直接法
+###
 ```c++
-#include <iostream>
-#include <vector>
-using namespace std;
+
+/*
+    首先，考虑特殊情况：
+         1>两个字符串都为空，返回true
+         2>当第一个字符串不空，而第二个字符串空了，返回false（因为这样，就无法
+            匹配成功了,而如果第一个字符串空了，第二个字符串非空，还是可能匹配成
+            功的，比如第二个字符串是“a*a*a*a*”,由于‘*’之前的元素可以出现0次，
+            所以有可能匹配成功）
+    之后就开始匹配第一个字符，这里有两种可能：匹配成功或匹配失败。但考虑到pattern
+    下一个字符可能是‘*’， 这里我们分两种情况讨论：pattern下一个字符为‘*’或
+    不为‘*’：
+          1>pattern下一个字符不为‘*’：这种情况比较简单，直接匹配当前字符。如果
+            匹配成功，继续匹配下一个；如果匹配失败，直接返回false。注意这里的
+            “匹配成功”，除了两个字符相同的情况外，还有一种情况，就是pattern的
+            当前字符为‘.’,同时str的当前字符不为‘\0’。
+          2>pattern下一个字符为‘*’时，稍微复杂一些，因为‘*’可以代表0个或多个。
+            这里把这些情况都考虑到：
+               a>当‘*’匹配0个字符时，str当前字符不变，pattern当前字符后移两位，
+                跳过这个‘*’符号；
+               b>当‘*’匹配1个或多个时，str当前字符移向下一个，pattern当前字符
+                不变。（这里匹配1个或多个可以看成一种情况，因为：当匹配一个时，
+                由于str移到了下一个字符，而pattern字符不变，就回到了上边的情况a；
+                当匹配多于一个字符时，相当于从str的下一个字符继续开始匹配）
+    之后再写代码就很简单了。
+*/
 class Solution {
 public:
-	void replaceSpace(char *str,int length) {
-        if (str == NULL || length <=0)
-            return;
-        for (int i=0;i<length;i++)
+    bool match(char* str, char* pattern)
+    {
+        if (*str == '\0' && *pattern == '\0')
+            return true;
+        if (*str != '\0' && *pattern == '\0')
+            return false;
+        if (*(pattern +1) !='*')
         {
-            if (*(str+i)==' ')
-            {
-                length+=2;//长度+2
-                for (int j=length;j>i+2;j--)
-                {
-                    *(str+j)=*(str+j-2);
-                }
-                *(str+i) = '/%';
-                *(str+i+1) = '2';
-                *(str+i+2) = '0';
-            }
-        }
-	}
-};
-
-int main()
-{
-    char str[] = "we are happy.";
-    int length = 12;
-    Solution().replaceSpace(str,length);
-    cout<< str<<endl;
-    system("pause");
-    return 0;
-}
-
-```
-### 方法二：双指针法，先计算空格的个数，然后计算新字符串的长度，再从后向前进行替换，时间复杂度O(n);
-```c++
-class Solution {
-public:
-	void replaceSpace(char *str,int length) {
-        if (str == NULL || length <=0)
-            return;
-        int i=0;
-        int oldLength = 0; // 原字符串长度
-        int newLength = 0; // 替换后字符串长度
-        int numberofBlank = 0; //空格数量
-        while(str[i]!='\0')
-        {
-            oldLength++;
-            if (str[i]==' ')
-            {
-                numberofBlank++;
-            }
-            i++;
-        }
-        newLength = oldLength + numberofBlank*2; // 计算替换后字符串的长度
-        if (newLength > length)  // 如果大于最大长度直接返回 因为无法插入
-            return;
-        // 设置两个指针，一个指向原始字符串的末尾，另一个指向替换之后的字符串的末尾 注意不要减一
-        int p = oldLength; //设置p指针指向旧字符串的末尾
-        int q = newLength; //设置q指针指向新字符串的末尾
-        while (p>=0 && p<q)
-        {
-            if (str[p]==' ')
-            {
-                str[q--] = '0';
-                str[q--] = '2';
-                str[q--] = '/%';
-            }
+            if (* str == * pattern || (*str !='\0'&& *pattern =='.'))
+                return match(str+1,pattern+1);
             else
-            {
-                str[q--] = str[p];
-            }
-            p--;
+                return false;
         }
-	}
+        else
+        {
+            if (* str == * pattern || (*str!='\0')&& *pattern == '.')
+                return (match(str,pattern+2) || match(str+1,pattern));
+            else
+                return (match(str,pattern+2));
+        }
+    }
 };
 ```
 # Python:
