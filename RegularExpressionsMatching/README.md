@@ -3,11 +3,12 @@
 请实现一个函数用来匹配包括’.’和’\*‘的正则表达式。模式中的字符’.’表示任意一个字符，而’\*‘表示它前面的字符可以出现任意次（包含0次）。 在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串”aaa”与模式”a.a”和”abaca”匹配，但是与”aa.a”和”ab\*a”均不匹配
 # 本题考点：
   
-  数学思维能力
+  字符串编程能力，正则表达式的理解，思维的全面性。
   
 # 解题思路:
   
-  1.) 先分析下如何匹配一个字符，现在只考虑字符'.'，不考虑'\*'看一下：
+  1.) 回溯 
+  先分析下如何匹配一个字符，现在只考虑字符'.'，不考虑'\*'看一下：
 
 如果字符串和模式串的当前字符相等，那么我们继续匹配它们的下一个字符；如果模式串中的字符是'.'，那么它可以匹配字符串中的任意字符，我们也可以继续匹配它们的下一个字符。
 
@@ -29,7 +30,7 @@
 
 2、也可以保持模式串不变，这样相当于用字符'\*'继续匹配字符串，也就是模式串中的字符'\*'匹配字符串中的字符多个的情况。
  
- 时间复杂度为O(n)，空间复杂度为O(n)
+![]()
 # 代码
 
 [C++](./RegularExpressionsMatching.cpp)
@@ -89,18 +90,34 @@ public:
     }
 };
 ```
+
+### 方法二：动态规划
+```c++
+
+```
 # Python:
-### 方法一：replace 函数操作
+### 方法一：回溯法
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    # s 源字符串
-    def replaceSpace(self, s):
+    # s, pattern都是字符串
+    def match(self, s, p):
         # write code here
-        s = s.replace(' ','%20')
-        return s
+        if len(s)==0 and len(p)==0:
+            return True
+        if len(s)!=0 and len(p)==0:
+            return False
+        if  len(p)>1 and p[1]=='*':
+            if len(s)>0 and (s[0] == p[0] or p[0]=='.'):
+                return self.match(s,p[2:]) or self.match(s[1:],p)
+            else:
+                return self.match(s,p[2:])
+        if len(s)>0 and (s[0] == p[0] or p[0]=='.'):
+            return self.match(s[1:],p[1:])
+        else:
+            return False
 ```
-### 方法二：join方法
+### 方法二：动态规划
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
