@@ -25,7 +25,7 @@
 
 ### 字符串：
 * [剑指Offer(五)：替换空格](./ReplaceSpaces/README.md)(双指针)
-* [剑指Offer(十九)：正则表达式匹配](./RegularExpressionsMatching/README.md)
+* [剑指Offer(十九)：正则表达式匹配](./RegularExpressionsMatching/README.md)(**重要**，回溯，动态规划)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
