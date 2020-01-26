@@ -1,9 +1,6 @@
-# 题目:替换空格
+# 题目:正则表达式匹配
 ## 题目描述：
-请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
-
-在网络编程中，如果URL参数中含有特殊字符，如空格、'#'等，可能导致服务器端无法获得正确的参数值。我们需要将这些特殊符号转换成服务器可以识别的字符。转换的规则是在'%'后面跟上ASCII码的两位十六进制的表示。比如空格的ASCII码是32，即十六进制的0x20，因此空格被替换成"%20"。再比如'#'的ASCII码为35，即十六进制的0x23，它在URL中被替换为"%23"。
-![1](https://github.com/bryceustc/CodingInterviews/blob/master/ReplaceSpaces/Images/1.jpg)
+请实现一个函数用来匹配包括’.’和’‘的正则表达式。模式中的字符’.’表示任意一个字符，而’‘表示它前面的字符可以出现任意次（包含0次）。 在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串”aaa”与模式”a.a”和”abaca”匹配，但是与”aa.a”和”ab\*a”均不匹配
 # 本题考点：
   
   数学思维能力
@@ -30,9 +27,9 @@
  时间复杂度为O(n)，空间复杂度为O(n)
 # 代码
 
-[C++](./ReplaceSpaces.cpp)
+[C++](./RegularExpressionsMatching.cpp)
 
-[Python](./ReplaceSpaces.py)
+[Python](./RegularExpressionsMatching.py)
 
 # C++: 
 ### 方法一：模拟直接法
