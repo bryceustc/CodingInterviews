@@ -29,8 +29,16 @@
 1、我们可以在模式串向后移动两个字符，继续匹配；
 
 2、也可以保持模式串不变，这样相当于用字符'\*'继续匹配字符串，也就是模式串中的字符'\*'匹配字符串中的字符多个的情况。
- 
-![]()
+
+用一张图表示如下：
+
+![](https://github.com/bryceustc/CodingInterviews/blob/master/RegularExpressionsMatching/Image/1.png)
+
+除此之外，还要注意对空指针的处理
+
+
+复杂度分析：
+![](https://github.com/bryceustc/CodingInterviews/blob/master/RegularExpressionsMatching/Image/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90.png)
 # 代码
 
 [C++](./RegularExpressionsMatching.cpp)
