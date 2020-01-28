@@ -101,7 +101,39 @@ public:
 
 ### 方法二：动态规划
 ```c++
-
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int n = s.size();
+        int m = p.size();
+        vector<vector<bool>> dp(n+1,vector<bool>(m+1,false));
+        dp[0][0]=true;
+        s = ' '+s;
+        p = ' '+p;
+        for (int i=0;i<=n;i++)  // i从0开始，因为dp(0,j)有可能是有意义的
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if (i>0 && (s[i]==p[j] || p[j]=='.'))
+                {
+                    dp[i][j] = dp[i][j] | dp[i-1][j-1];  // | 表示按位或
+                }
+                if (p[j]=='*')
+                {
+                    if (j>=2)
+                    {
+                        dp[i][j] = dp[i][j] | dp[i][j-2];
+                    }
+                    if (i>0 && (s[i]==p[j-1] || p[j-1]=='.'))
+                    {
+                        dp[i][j] = dp[i][j] | dp[i-1][j];
+                    }
+                }
+            }
+        }
+        return dp[n][m];        
+    }
+};
 ```
 # Python:
 ### 方法一：回溯法
@@ -129,14 +161,24 @@ class Solution:
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    # s 源字符串
-    def replaceSpace(self, s):
+    # s, pattern都是字符串
+    def match(self, s, p):
         # write code here
-        s = list(s)
-        count = len(s)
-        for i in range(0,count):
-            if s[i] == ' ':
-                s[i] = '%20'
-        return ''.join(s)
+        n = len(s)
+        m = len(p)
+        dp = [[0 for _ in range(m+2)] for _ in range(n+2)]
+        s = ' ' + s
+        p = ' ' + p
+        dp[0][0] = 1
+        for i in range(n+1):
+            for j in range(1,m+1):
+                if i > 0 and (s[i]==p[j] or p[j]=='.'):
+                    dp[i][j] = dp[i][j] or dp[i-1][j-1]
+                if p[j]=='*':
+                    if j>=2:
+                        dp[i][j] = dp[i][j] or dp[i][j-2]
+                    if i > 0 and (s[i]==p[j-1] or p[j-1]=='.'):
+                        dp[i][j] = dp[i][j] or dp[i-1][j]
+        return dp[n][m]
 ```
 
