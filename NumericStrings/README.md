@@ -48,91 +48,49 @@
 # C++: 
 ###
 ```c++
-
-/*
-    首先，考虑特殊情况：
-         1>两个字符串都为空，返回true
-         2>当第一个字符串不空，而第二个字符串空了，返回false（因为这样，就无法
-            匹配成功了,而如果第一个字符串空了，第二个字符串非空，还是可能匹配成
-            功的，比如第二个字符串是“a*a*a*a*”,由于‘*’之前的元素可以出现0次，
-            所以有可能匹配成功）
-    之后就开始匹配第一个字符，这里有两种可能：匹配成功或匹配失败。但考虑到pattern
-    下一个字符可能是‘*’， 这里我们分两种情况讨论：pattern下一个字符为‘*’或
-    不为‘*’：
-          1>pattern下一个字符不为‘*’：这种情况比较简单，直接匹配当前字符。如果
-            匹配成功，继续匹配下一个；如果匹配失败，直接返回false。注意这里的
-            “匹配成功”，除了两个字符相同的情况外，还有一种情况，就是pattern的
-            当前字符为‘.’,同时str的当前字符不为‘\0’。
-          2>pattern下一个字符为‘*’时，稍微复杂一些，因为‘*’可以代表0个或多个。
-            这里把这些情况都考虑到：
-               a>当‘*’匹配0个字符时，str当前字符不变，pattern当前字符后移两位，
-                跳过这个‘*’符号；
-               b>当‘*’匹配1个或多个时，str当前字符移向下一个，pattern当前字符
-                不变。（这里匹配1个或多个可以看成一种情况，因为：当匹配一个时，
-                由于str移到了下一个字符，而pattern字符不变，就回到了上边的情况a；
-                当匹配多于一个字符时，相当于从str的下一个字符继续开始匹配）
-    之后再写代码就很简单了。
-*/
 class Solution {
 public:
-    bool match(char* str, char* pattern)
+    // 数字的格式可以用A[.[B]][e|EC]或者.B[e|EC]表示，
+    // 其中A和C都是整数（可以有正负号，也可以没有）
+    // 而B是一个无符号整数
+    bool isNumeric(char* str)
     {
-        if (*str == '\0' && *pattern == '\0')
-            return true;
-        if (*str != '\0' && *pattern == '\0')
+        // 非法输入处理
+        if (str == nullptr || *str == '\0')
             return false;
-        if (*(pattern +1) !='*')
+        // 标记符号、小数点、e是否出现过
+        bool sign = false, decimal = false, hasE = false;
+        int n = strlen(str);
+        for (int i=0;i<n;i++)
         {
-            if (* str == * pattern || (*str !='\0'&& *pattern =='.'))
-                return match(str+1,pattern+1);
-            else
+            if (str[i]=='E' || str[i] == 'e')
+            {
+                if (i==n-1)      // e后面一定要接数字
+                    return false;
+                if (hasE)        // 不能同时存在两个e
+                    return false;
+                hasE = true;
+            }
+            if (str[i] == '+' || str[i]=='-')
+            {
+                if (sign && (str[i-1]!='e'||str[i-1]!='E')) // 第二次符号出现必须接在e之后
+                    return false;
+                if (!sign && i>0 && (str[i-1]!='e'||str[i-1]!='E')) // 第一次出现'+''-'符号且不在字符串开头 则必须出现在e之后
+                    return false;
+                sign = true;
+            }
+            if (str[i]=='.')
+            {
+                if (decimal || hasE)
+                    return false;
+                decimal = true;
+            }
+            if (str[i]<'0'||str[i]>'9')
                 return false;
         }
-        else
-        {
-            if (* str == * pattern || (*str!='\0')&& *pattern == '.')
-                return (match(str,pattern+2) || match(str+1,pattern));
-            else
-                return (match(str,pattern+2));
-        }
+        return true;
     }
-};
-```
 
-### 方法二：动态规划
-```c++
-class Solution {
-public:
-    bool isMatch(string s, string p) {
-        int n = s.size();
-        int m = p.size();
-        vector<vector<bool>> dp(n+1,vector<bool>(m+1,false));
-        dp[0][0]=true;
-        s = ' '+s;
-        p = ' '+p;
-        for (int i=0;i<=n;i++)  // i从0开始，因为dp(0,j)有可能是有意义的
-        {
-            for(int j=1;j<=m;j++)
-            {
-                if (i>0 && (s[i]==p[j] || p[j]=='.'))
-                {
-                    dp[i][j] = dp[i][j] | dp[i-1][j-1];  // | 表示按位或
-                }
-                if (p[j]=='*')
-                {
-                    if (j>=2)
-                    {
-                        dp[i][j] = dp[i][j] | dp[i][j-2];
-                    }
-                    if (i>0 && (s[i]==p[j-1] || p[j-1]=='.'))
-                    {
-                        dp[i][j] = dp[i][j] | dp[i-1][j];
-                    }
-                }
-            }
-        }
-        return dp[n][m];        
-    }
 };
 ```
 # Python:
