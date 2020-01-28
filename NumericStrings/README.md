@@ -56,41 +56,38 @@ public:
     bool isNumeric(char* str)
     {
         // 非法输入处理
-        if (str == nullptr || *str == '\0')
+        if (*str == '\0')
             return false;
         // 标记符号、小数点、e是否出现过
         bool sign = false, decimal = false, hasE = false;
         int n = strlen(str);
         for (int i=0;i<n;i++)
         {
-            if (str[i]=='E' || str[i] == 'e')
+            if (str[i]=='e' || str[i] == 'E')
             {
-                if (i==n-1)      // e后面一定要接数字
-                    return false;
-                if (hasE)        // 不能同时存在两个e
-                    return false;
+                if (i == n-1)  return false; // e后面一定要接数字
+                if (hasE)  return false; // 不能同时存在两个e
                 hasE = true;
             }
-            if (str[i] == '+' || str[i]=='-')
+            else if (str[i] == '+' || str[i]=='-')
             {
-                if (sign && (str[i-1]!='e'||str[i-1]!='E')) // 第二次符号出现必须接在e之后
+                if (sign && str[i-1]!='e' && str[i-1]!= 'E') // 第二次符号出现必须接在e之后
                     return false;
-                if (!sign && i>0 && (str[i-1]!='e'||str[i-1]!='E')) // 第一次出现'+''-'符号且不在字符串开头 则必须出现在e之后
+                if (!sign && i>0 && str[i-1]!='e' && str[i-1]!='E') // 第一次出现'+''-'符号且不在字符串开头 则必须出现在e之后
                     return false;
                 sign = true;
             }
-            if (str[i]=='.')
+            else if (str[i]=='.')
             {
-                if (decimal || hasE)
+                if (hasE || decimal)
                     return false;
                 decimal = true;
             }
-            if (str[i]<'0'||str[i]>'9')
+            else if (str[i]<'0'||str[i]>'9')
                 return false;
         }
         return true;
     }
-
 };
 ```
 # Python:
