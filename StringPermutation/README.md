@@ -65,37 +65,35 @@ public:
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    # s字符串
-    def isNumeric(self, s):
+    def Permutation(self, s):
         # write code here
         n = len(s)
+        res = []
         if n==0:
-            return False
-        sign = False
-        decimal = False
-        hasE = False
-        for i in range(0,n):
-            if s[i] == 'e' or s[i]=='E':
-                if i == n-1:
-                    return False
-                if hasE:
-                    return False
-                hasE = True
-            elif s[i]=='+' or s[i]=='-':
-                if sign and s[i-1]!= 'e' and s[i-1] != 'E':
-                    return False
-                if not sign and i>0 and s[i-1] != 'e' and s[i-1]!='E':
-                    return False
-                sign = True
-            elif s[i]=='.':
-                if hasE or decimal:
-                    return False
-                decimal = True
-            elif s[i]<'0' or s[i]>'9':
-                return False
-        return True
+            return res
+        out = ""
+        visited = [0 for _ in range(n)]
+        self.DFS(s,0,visited,out,res)
+        return res
+    def DFS(self,s,level,visited,out,res):
+        n = len(s)
+        if level == n:
+            res.append(out)
+            return
+        for i in range(n):
+            if visited[i]==1:
+                continue
+            if i >= 1 and s[i]==s[i-1] and visited[i-1]==0:
+                continue
+            out += s[i]
+            visited[i]=1
+            self.DFS(s,level+1,visited,out,res)
+            out = out[:-1]
+            visited[i]=0
 ```
-
 ## 参考
-  - [vector去除重复元素](https://blog.csdn.net/u010141928/article/details/78671603)
+  - [C++ vector去除重复元素](https://blog.csdn.net/u010141928/article/details/78671603)
+  - [Python 字符串去除最后一个字符](https://www.codenong.com/15478127/)
+  - [LeetCode—46题—全排列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations/README.md)
+  - [LeetCode—47题—全排列II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations-II/README.md)
 
