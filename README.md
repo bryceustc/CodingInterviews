@@ -27,7 +27,7 @@
 * [剑指Offer(五)：替换空格](./ReplaceSpaces/README.md)(双指针)
 * [剑指Offer(十九)：正则表达式匹配](./RegularExpressionsMatching/README.md)(**重要**，回溯，动态规划)
 * [剑指Offer(二十)：表示数值的字符串](./NumericStrings/README.md)(模拟法，按实际分情况讨论)
-* [剑指Offer(三十八)：字符串的排列](./StringPermutation/README.md)(**重要**，递归DFS)
+* [剑指Offer(三十八)：字符串的排列](./StringPermutation/README.md)(**重要**，递归DFS)(扩展可以看一下)
 * [剑指Offer(四十三)：1~n整数中1出现的次数](./NumberOf1/README.md)(**重要**，递归DFS)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
