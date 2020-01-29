@@ -7,7 +7,7 @@
 ```
 # 本题考点：
   
-  字符串编程能力，正则表达式的理解，思维的全面性。
+  字符串编程能力，递归的理解，思维的全面性。
   
 # 解题思路:
   类似LeetCode中46,47题。递归方法，DFS，深度优先遍历算法。
@@ -19,6 +19,7 @@
 [Python](./StringPermutation.py)
 
 # C++: 
+### 方法一：DFS
 ```c++
 class Solution {
 public:
@@ -61,7 +62,47 @@ public:
     }
 };
 ```
+### 方法二：另一种递归方法
+```c++
+class Solution 
+{
+public:
+    vector<string> Permutation(string str) {
+        //判断输入
+        if(str.length() == 0){
+            return result;
+        }
+        PermutationCore(str, 0);
+        //对结果进行排序
+        sort(result.begin(), result.end());
+        return result;
+    }
+    
+private:
+    void PermutationCore(string str, int begin){
+        //递归结束的条件：第一位和最后一位交换完成
+        int n = str.size();
+        if(begin == n)
+        {
+            result.push_back(str);
+            return;
+        }
+        for(int i = begin; i < n; i++){
+            //如果字符串相同，则不交换
+            if(i != begin && str[i] == str[begin]){
+                continue;
+            }
+            //位置交换
+            swap(str[begin], str[i]);
+            //递归调用，前面begin+1的位置不变，后面的字符串全排列
+            PermutationCore(str, begin + 1);
+        }
+    }
+    vector<string> result;
+};
+```
 # Python:
+### 方法一：
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
@@ -90,6 +131,31 @@ class Solution:
             self.DFS(s,level+1,visited,out,res)
             out = out[:-1]
             visited[i]=0
+```
+### 方法二：
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def __init__(self):
+        self.result = []
+    def Permutation(self, ss):
+        # write code here
+        if len(ss) == 0:
+            return []
+        self.PermutationCore(ss, 0)
+        sorted(self.result)
+        return self.result
+    def PermutationCore(self, str_, begin):
+        if begin == len(str_):
+            self.result.append(str_)
+            return
+        for i in range(begin, len(str_)):
+            if i != begin and str_[i] == str_[begin]:
+                continue
+            str_list = list(str_)
+            str_list[i], str_list[begin] = str_list[begin], str_list[i]
+            str_ = ''.join(str_list)
+            self.PermutationCore(str_, begin+1)
 ```
 ## 参考
   - [C++ vector去除重复元素](https://blog.csdn.net/u010141928/article/details/78671603)
