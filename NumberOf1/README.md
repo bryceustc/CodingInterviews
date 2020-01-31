@@ -90,31 +90,19 @@ private:
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def Permutation(self, s):
+    def NumberOf1Between1AndN_Solution(self, n):
         # write code here
-        n = len(s)
-        res = []
-        if n==0:
-            return res
-        out = ""
-        visited = [0 for _ in range(n)]
-        self.DFS(s,0,visited,out,res)
+        res = 0
+        for i in range(1,n+1):
+            res += self.NumberOf1(i)
         return res
-    def DFS(self,s,level,visited,out,res):
-        n = len(s)
-        if level == n:
-            res.append(out)
-            return
-        for i in range(n):
-            if visited[i]==1:
-                continue
-            if i >= 1 and s[i]==s[i-1] and visited[i-1]==0:
-                continue
-            out += s[i]
-            visited[i]=1
-            self.DFS(s,level+1,visited,out,res)
-            out = out[:-1]
-            visited[i]=0
+    def NumberOf1(self,n):
+        num = 0
+        while n>0:
+            if n%10==1:
+                num+=1
+            n/=10
+        return num
 ```
 ### 方法二：
 ```python
