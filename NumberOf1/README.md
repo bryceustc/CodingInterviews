@@ -83,7 +83,7 @@ public:
 };
 ```
 # Python:
-### 方法一：
+### 方法一：直接暴力遍历
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
@@ -101,35 +101,20 @@ class Solution:
             n/=10
         return num
 ```
-### 方法二：
+### 方法二：数学规律
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def __init__(self):
-        self.result = []
-    def Permutation(self, ss):
+    def NumberOf1Between1AndN_Solution(self, n):
         # write code here
-        if len(ss) == 0:
-            return []
-        self.PermutationCore(ss, 0)
-        sorted(self.result)
-        return self.result
-    def PermutationCore(self, str_, begin):
-        if begin == len(str_):
-            self.result.append(str_)
-            return
-        for i in range(begin, len(str_)):
-            if i != begin and str_[i] == str_[begin]:
-                continue
-            str_list = list(str_)
-            str_list[i], str_list[begin] = str_list[begin], str_list[i]
-            str_ = ''.join(str_list)
-            self.PermutationCore(str_, begin+1)
+        res = 0
+        i = 1
+        while i<=n:
+            a = n//i
+            b = n%i
+            res += (a+8)//10*i + (a%10==1)*(b+1)
+            i*=10
+        return res
 ```
 ## 参考
-  - [C++ vector去除重复元素](https://blog.csdn.net/u010141928/article/details/78671603)
-  - [Python 字符串去除最后一个字符](https://www.codenong.com/15478127/)
-  - [LeetCode—46题—全排列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations/README.md)
-  - [LeetCode—47题—全排列II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations-II/README.md)
-
-
+  - [LeetCode—233题—数字 1 的个数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations/README.md)
