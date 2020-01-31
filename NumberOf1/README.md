@@ -7,8 +7,7 @@
   数学规律的发现，时间效率的提升。
   
 # 解题思路:
-  方法一：对1\~n进行遍历，每一个数字都进行判断，从最高位一直判断到最低位，每次通过对10求余数判断整数的个位数字是不是1，大于10的除以10之后再判断。我们对每个数字都要做除法和求余运算以求出该数字中1出现的次数。如果输入数字n，n有O(logn)位，我们需要判断每一位是不是1，那么时间复杂度为O(n\*logn)
-  时间复杂度O(n\*logn),空间复杂度O(1)。
+  方法一：对1\~n进行遍历，每一个数字都进行判断，从最高位一直判断到最低位，每次通过对10求余数判断整数的个位数字是不是1，大于10的除以10之后再判断。我们对每个数字都要做除法和求余运算以求出该数字中1出现的次数。如果输入数字n，n有O(logn)位，我们需要判断每一位是不是1，那么时间复杂度为O(n\*logn),空间复杂度O(1)。
   
   方法二：数学之美中的方法，利用数学归纳法进行判定，设定整数点（如1、10、100等等）作为位置点i（对应n的个位、十位、百位等等），分别对每个数位上有多少包含1的点进行分析。下边以百位为例，即``i=100``
   
@@ -18,6 +17,7 @@
   - 当i表示百位，且百位对应的数为0,如n=31056,i=100，则a=310,b=56，此时百位为1的次数有a/10=31（最高两位0~30）
   - 综合以上三种情况，当百位对应0或>=2时，有(a+8)/10次包含所有100个点，还有当百位为1(a%10==1)，需要增加局部点b+1
   - 之所以补8，是因为当百位为0，则a/10==(a+8)/10，当百位>=2，补8会产生进位位，效果等同于(a/10+1)
+  时间复杂度O(logn),空间复杂度O(1)。
   
 # 代码
 
@@ -82,6 +82,21 @@ public:
     }
 };
 ```
+### 方法三：转成字符串形式，可以表示更大的数字
+```c++
+class Solution {
+public:
+    int NumberOf1Between1AndN_Solution(int n)
+    {
+        int res = 0;
+        for (int i = 1; i <= n; i++) {
+            string str = to_string(i);
+            res += count(str.begin(), str.end(), '1');
+        }
+        return res;
+    }
+};
+```
 # Python:
 ### 方法一：直接暴力遍历
 ```python
@@ -116,5 +131,19 @@ class Solution:
             i*=10
         return res
 ```
+### 方法三：转成字符串
+```python
+# -*- coding:utf-8 -*-
+class Solution:
+    def NumberOf1Between1AndN_Solution(self, n):
+        # write code here
+        res = 0
+        for i in range(1,n+1):
+            s = str(i)
+            res+=s.count('1')
+        return res
+```
 ## 参考
-  - [LeetCode—233题—数字 1 的个数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-Digit-One/README.md)
+  -  [LeetCode—233题—数字 1 的个数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-Digit-One/README.md)
+  -  [c++ count函数用法](https://blog.csdn.net/qq_36122764/article/details/82429976)
+  -  [Python count()方法](https://www.runoob.com/python/att-string-count.html)
