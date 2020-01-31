@@ -117,4 +117,4 @@ class Solution:
         return res
 ```
 ## 参考
-  - [LeetCode—233题—数字 1 的个数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations/README.md)
+  - [LeetCode—233题—数字 1 的个数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-Digit-One/README.md)
