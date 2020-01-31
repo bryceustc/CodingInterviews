@@ -51,3 +51,16 @@ public:
         return res;
     }
 };
+// Solution 3:
+class Solution {
+public:
+    int NumberOf1Between1AndN_Solution(int n)
+    {
+        int res = 0;
+        for (int i = 1; i <= n; i++) {
+            string str = to_string(i);
+            res += count(str.begin(), str.end(), '1');
+        }
+        return res;
+    }
+};
