@@ -4,7 +4,7 @@
 
 # 本题考点：
   
-  数学规律的发现，时间效率的提升。
+  数组和字符串的编程能力，哈希表的理解运用。
   
 # 解题思路:
   哈希表，C++利用unordered_map<int,int>来进行次数统计，可以用int类型是因为c++会自动将字符转成对应的ASCII码数字，可以利用unordered_map<char,int>来进行次数统计.Python 利用collections.Counter()模块进行次数统计。
@@ -63,7 +63,7 @@ class Solution:
         return res
 ```
 ## 参考
-  -  [LeetCode—387题—字符串中第一个唯一字符](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-Digit-One/README.md)
+  -  [LeetCode—387题—字符串中第一个唯一字符](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/First-Unique-Character-In-A-String/README.md)
   -  [Python collections.Counter()方法](https://docs.python.org/zh-cn/3/library/collections.html)
   -  [Python collections.Counter()计数函数](https://blog.csdn.net/u014755493/article/details/69812244)
 
