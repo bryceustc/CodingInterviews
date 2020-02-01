@@ -10,7 +10,7 @@
 * [剑指Offer(二十九)：顺时针打印矩阵](./PrintMatrix/README.md)
 * [剑指Offer(三十九)：数组中出现次数超过一半的数字](./MoreThanHalfNumber/README.md)
 * [剑指Offer(四十)：最小的k个数](./KLeastNumbers/README.md)(**重要** 小顶堆)
-* [剑指Offer(四十一)：数据流中的中位数](./StreamMedian/README.md)(**重要**小顶堆)
+* [剑指Offer(四十一)：数据流中的中位数](./StreamMedian/README.md)(**重要**,大顶堆+小顶堆)
 * [剑指Offer(四十二)：连续子数组的最大和](./GreatestSumOfSubarrays/README.md)(**重要**,动态规划、分治法再做)
 * [剑指Offer(四十五)：把数组排成最小的数](./SortArrayForMinNumber/README.md)(sort自定义排序)
 * [剑指Offer(四十九)：丑数](./UglyNumber/README.md)(动态规划、小顶堆)
