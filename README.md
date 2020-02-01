@@ -30,7 +30,9 @@
 * [剑指Offer(三十八)：字符串的排列](./StringPermutation/README.md)(**重要**，递归DFS)(扩展可以看一下)
 * [剑指Offer(四十三)：1~n整数中1出现的次数](./NumberOf1/README.md)(数学归纳，非典型字符串题，只是数字转成字符串可表示数字更大)
 * [剑指Offer(五十)：第一个只出现一次的字符 ](./FirstNotRepeatingChar/README.md)(**重要**，哈希表)
-* [剑指Offer(五十)：字符流中第一个只出现一次的字符 ](./FirstCharacterInStream/README.md)()
+* [剑指Offer(五十)：字符流中第一个只出现一次的字符 ](./FirstCharacterInStream/README.md)(**重要**，哈希表)
+* [剑指Offer(五十八)：翻转字符串 ](./ReverseWordsInSentence/README.md)()
+* [剑指Offer(五十八)：左旋转字符串 ](./LeftRotateString/README.md)()
 * [LeetCode(43):字符串相乘](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Multiply-Strings/README.md)
 * [LeetCode(415):字符串相加](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Add-Strings/README.md)
 ### 其他：
