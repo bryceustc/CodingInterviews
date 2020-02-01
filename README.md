@@ -29,6 +29,7 @@
 * [剑指Offer(二十)：表示数值的字符串](./NumericStrings/README.md)(模拟法，按实际分情况讨论)
 * [剑指Offer(三十八)：字符串的排列](./StringPermutation/README.md)(**重要**，递归DFS)(扩展可以看一下)
 * [剑指Offer(四十三)：1~n整数中1出现的次数](./NumberOf1/README.md)(数学归纳，非典型字符串题，只是数字转成字符串可表示数字更大)
+* [剑指Offer(五十)：第一个只出现一次的字符 ](./FirstNotRepeatingChar/README.md)()
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
