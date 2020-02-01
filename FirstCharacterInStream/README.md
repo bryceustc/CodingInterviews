@@ -96,8 +96,13 @@ class Solution:
 ```
 
 ## 参考
-  -  [LeetCode—233题—数字 1 的个数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-Digit-One/README.md)
+  -  [LeetCode—387题—字符串中第一个唯一字符](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/First-Unique-Character-In-A-String/README.md)
+  -  [剑指offer—50题—第一个只出现一次的字符](https://github.com/bryceustc/CodingInterviews/blob/master/FirstNotRepeatingChar/README.md)
   -  [c++ count函数用法](https://blog.csdn.net/qq_36122764/article/details/82429976)
+  -  [Python lambda用法()](https://blog.csdn.net/u011630575/article/details/79450225)
   -  [Python count()方法](https://www.runoob.com/python/att-string-count.html)
+  -  [Python3 filter()函数用法](https://www.runoob.com/python3/python3-func-filter.html)注意：Pyhton2.7 返回列表，Python3.x 返回迭代器对象
+  
+  
 
 
