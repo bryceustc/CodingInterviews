@@ -21,9 +21,9 @@
   
 # 代码
 
-[C++](./NumberOf1.cpp)
+[C++](./FirstNotRepeatingChar.cpp)
 
-[Python](./NumberOf1.py)
+[Python](./FirstNotRepeatingChar.py)
 
 # C++: 
 ### 方法一：直接暴力法，时间复杂度O(n\*logn)
