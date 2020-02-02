@@ -18,28 +18,39 @@
 [Python](./ReverseWordsInSentence.py)
 
 # C++: 
-### 方法一：哈希表，时间复杂度O(n)
+### 方法一：直接法，不推荐
 ```c++
-class Solution
-{
+class Solution {
 public:
-  //Insert one char from stringstream
-    unordered_map<char,int> m;
-    string s;
-    void Insert(char ch)
-    {
-        s += ch;
-        m[ch]++;
-    }
-  //return the first appearence once char in current stringstream
-    char FirstAppearingOnce()
-    {
-        char res = '#';
+    string ReverseSentence(string s) {
+        string res="";
         int n = s.size();
-        for (int i=0;i<n;i++)
+        if (n==0)
+            return res;
+        if (n==1)
+            return s;
+        for (int i=n,j=n-1;j>=0;j--)
         {
-            if (m[s[i]]==1)
-                return s[i];
+            if (s[j]==' ')
+            {
+                for(int k=j+1;k<i;k++)
+                {
+                    res+=s[k];
+                }
+                res += s[j];
+                i=j;
+            }
+            if (j==0 && res!="")
+            {
+                for (int x=j;x<i;x++)
+                {
+                    res+=s[x];
+                }
+            }
+            if (j==0 && res=="")
+            {
+                res = s;
+            }
         }
         return res;
     }
