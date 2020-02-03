@@ -2,19 +2,15 @@
 ## 题目描述：
 字符串的左旋转操作是把字符串前面若干个字符转移到字符串尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串"abcdefg"和数字2，该函数返回左旋转两位得到的结果"cdefgab"。
 
-**输入描述:**
-```
-如果当前字符流没有存在出现一次的字符，返回#字符。
-```
 
 # 本题考点：
   
   数组与字符串的编程能力，哈希表的运用。
   
 # 解题思路:
-  方法一：哈希表，与字符串中第一个出现一次的字符类似。重点理解字符流，需要定义全局变量``string s;``还有``unordered_map<char,int> m;``，Insert函数是插入一个ch字符，那么对应就是string操作就是``s+=ch;``，然后再用哈希表进行操作，``m[ch]++;``，再遍历字符串s,判断第一个只出现一次的字符。
+  方法一：直接法，定义一个左移一位函数leftmove，先定义一个``char temp = s[0];``。其余``s[i]==s[i+1];``，n-1位置最后一个字符替换为temp。左移几位就循环几次左移函数。
   
-  时间复杂度为O(n),空间复杂度O(n)。  
+  方法二：利用字符串翻转的，原理：YX=\left(X^{\top} Y^{\top}\right)^{\top}
 # 代码
 
 [C++](./LeftRotateString.cpp)
@@ -22,51 +18,81 @@
 [Python](./LeftRotateString.py)
 
 # C++: 
-### 方法一：哈希表，时间复杂度O(n)
+### 方法一：直接左移
 ```c++
-class Solution
-{
+class Solution {
 public:
-  //Insert one char from stringstream
-    unordered_map<char,int> m;
-    string s;
-    void Insert(char ch)
+    void move(string &s)
     {
-        s += ch;
-        m[ch]++;
-    }
-  //return the first appearence once char in current stringstream
-    char FirstAppearingOnce()
-    {
-        char res = '#';
         int n = s.size();
+        char temp = s[0];
         for (int i=0;i<n;i++)
         {
-            if (m[s[i]]==1)
-                return s[i];
+            if (i!=n-1)
+                s[i]=s[i+1];
+            else
+                s[i]=temp;
         }
-        return res;
+    }
+    string LeftRotateString(string s, int n) {
+        int m = s.size();
+        if (m<n) return "";
+        for (int i=0;i<n;i++)
+        {
+            move(s);
+        }
+        return s;
+    }
+};
+```
+### 方法二：利用翻转单词顺序中的Reverse函数，YX=\left(X^{\top} Y^{\top}\right)^{\top}
+```c++
+class Solution {
+public:
+    void Reverse(string &s，int i, int j)
+    {
+        while(i<j)
+        {
+            swap(s[i++],s[j--]);
+        }
+    }
+    string LeftRotateString(string s, int n) {
+        int m = s.size();
+        if (m<n) return "";
+        // 将字符分为两部分，一是移动的部分，二是剩余部分
+        // 翻转需要移动的字符
+        Reverse(s,0,n-1);
+        // 翻转剩余部分字符
+        Reverse(s,n,m-1);
+        // 整体翻转
+        Reverse(s,0,m-1);
+        return s;
     }
 };
 ```
 # Python:
-### 哈希表
+### 方法一：直接法
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    # 返回对应char
-    def __init__(self):
-        self.s= ""
-    def FirstAppearingOnce(self):
+    def LeftRotateString(self, s, n):
         # write code here
-        res = "#"
-        for ch in self.s:
-            if self.s.count(ch)==1:
-                return ch
-        return res
-    def Insert(self, char):
-        # write code here
-        self.s+=char
+        m = len(s)
+        if n>m:
+            return ""
+        for i in range(n):
+            s = self.move(s)
+        return s
+    def move(self,s):
+        s = list(s)
+        n = len(s)
+        temp  = s[0]
+        for i in range(n):
+            if i!=n-1:
+                s[i]=s[i+1]
+            else:
+                s[i] = temp
+        return ''.join(s)
 ```
 ### 哈希表另一种写法：
 ```python
@@ -85,7 +111,7 @@ class Solution:
 ```
 
 ## 参考
-  -  [LeetCode—387题—字符串中第一个唯一字符](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/First-Unique-Character-In-A-String/README.md)
+  -  [LeetCode—796题—旋转的字符串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/First-Unique-Character-In-A-String/README.md)
   -  [剑指offer—50题—第一个只出现一次的字符](https://github.com/bryceustc/CodingInterviews/blob/master/FirstNotRepeatingChar/README.md)
   -  [c++ count函数用法](https://blog.csdn.net/qq_36122764/article/details/82429976)
   -  [Python lambda用法()](https://blog.csdn.net/u011630575/article/details/79450225)
