@@ -167,59 +167,90 @@ private:
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def LeftRotateString(self, s, n):
+    def StrToInt(self, s):
         # write code here
-        m = len(s)
-        if n>m:
-            return ""
-        for i in range(n):
-            s = self.move(s)
-        return s
-    def move(self,s):
-        s = list(s)
+        res = 0
         n = len(s)
-        temp  = s[0]
+        if n==0:
+            return 0
+        flag = 1
+        if s[0]=='-':
+            flag = -1
         for i in range(n):
-            if i!=n-1:
-                s[i]=s[i+1]
+            if s[i]=='+' or s[i]=='-' and i==0:
+                continue
+            if s[i]=='+' or s[i]=='-' and i!=0:
+                return 0
+            if s[i]>='0' and s[i]<='9':
+                temp = int (ord(s[i])-ord('0'))
+                res = res*10+temp
             else:
-                s[i] = temp
-        return ''.join(s)
+                return 0
+        res *= flag
+        if res > 2147483647 or res < -2147483648:
+            return 0
+        return res
 ```
-### 方法二：利用翻转函数：
+### 方法二：
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def LeftRotateString(self, s, n):
+    def StrToInt(self, s):
         # write code here
-        m = len(s)
-        if n>m:
-            return ""
-        s = self.Reverse(s,0,n-1)
-        s = self.Reverse(s,n,m-1)
-        s = self.Reverse(s,0,m-1)
-        return s
-    def Reverse(self,s,i,j):
-        s = list(s)
-        while i<j:
-            s[i],s[j]=s[j],s[i]
+        res = 0
+        n = len(s)
+        flag = 1
+        if n==0:
+            return 0
+        i = 0
+        while i<n and (s[i]==' 'or s[i]=='/t'):
             i+=1
-            j-=1
-        return ''.join(s)
+        if i<n and s[i]=='-':
+            flag = -1
+            i+=1
+        if i<n and s[i]=='+':
+            if flag==-1:
+                return 0
+            i+=1
+        for j in range(i,n):
+            if (s[j]>='0' and s[j]<='9'):
+                temp = int(ord(s[j])-ord('0'))
+                res = res*10 + temp
+            else:
+                return 0
+        res*=flag
+        if res > 2147483647 or res < -2147483648:
+            return 0
+        return res
 ```
-### 方法三：取巧法
+### 方法三：字符串转数字,巧妙方法
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def LeftRotateString(self, s, n):
+    def StrToInt(self, s):
         # write code here
-        m = len(s)
-        if m<n:
-            return ""
-        s = s+s
-        s = list(s)
-        s = ''.join(s[n:m+n])
-        return s
+        numlist=['0','1','2','3','4','5','6','7','8','9','+','-']
+        res=0
+        label=1#正负数标记
+        if s=='':
+            return 0
+        for string in s:
+            if string in numlist:#如果是合法字符
+                if string=='+':
+                    label=1
+                    continue
+                if string=='-':
+                    label=-1
+                    continue
+                else:
+                    res=res*10+numlist.index(string)
+            if string not in numlist:#非合法字符
+                res=0
+                break#跳出循环
+        res*=label
+        if res > 2147483647 or res < -2147483648:
+            return 0
+        return res
 ```
 ## 参考
   -  [LeetCode—8题—字符串转换整数(atoi)](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/String-To-Integer-Atoi/README.md)
