@@ -36,6 +36,8 @@
 * [剑指Offer(六十七)：把字符串转换成整数 ](./StringToInt/README.md)
 * [LeetCode(43):字符串相乘](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Multiply-Strings/README.md)
 * [LeetCode(415):字符串相加](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Add-Strings/README.md)
+### 链表：
+* [剑指Offer(六)：从尾到头打印链表](./PrintListInReversedOrder/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
