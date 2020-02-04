@@ -33,7 +33,6 @@
 * [剑指Offer(五十)：字符流中第一个只出现一次的字符 ](./FirstCharacterInStream/README.md)(**重要**，哈希表)
 * [剑指Offer(五十八)：翻转字符串 ](./ReverseWordsInSentence/README.md)
 * [剑指Offer(五十八)：左旋转字符串 ](./LeftRotateString/README.md)
-* [剑指Offer(五十八)：左旋转字符串 ](./LeftRotateString/README.md)
 * [剑指Offer(六十七)：把字符串转换成整数 ](./StringToInt/README.md)
 * [LeetCode(43):字符串相乘](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Multiply-Strings/README.md)
 * [LeetCode(415):字符串相加](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Add-Strings/README.md)
