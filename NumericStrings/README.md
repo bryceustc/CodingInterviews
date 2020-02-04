@@ -96,3 +96,5 @@ class Solution:
                 return False
         return True
 ```
+# 参考
+  - [LeetCode-65-有效数字](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Valid-Number/README.md)
