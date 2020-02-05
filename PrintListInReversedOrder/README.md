@@ -115,7 +115,7 @@ class Solution {
 public:
     vector<int> printListFromTailToHead(ListNode* head) {
         vector<int> res;
-        if (head==NULL || head->next==NULL)
+        if (head==NULL)
             return res;
         ListNode* prev = head;
         ListNode* cur = head->next;
