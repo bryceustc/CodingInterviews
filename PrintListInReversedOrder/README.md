@@ -140,7 +140,6 @@ public:
 
 ## Python
 ### 方法一：保存为列表，然后逆序打印
-
 ```python
 # -*- coding:utf-8 -*-
 # class ListNode:
@@ -152,13 +151,16 @@ class Solution:
     # 返回从尾部到头部的列表值序列，例如[1,2,3]
     def printListFromTailToHead(self, listNode):
         # write code here
-        list_numbers = []
-        while listNode != None:
-            list_numbers.append(listNode.val)
-            listNode = listNode.next
-        list_numbers.reverse()
-        return list_numbers
+        res = []
+        p = listNode
+        while p:
+            res.append(p.val)
+            p = p.next
+        ## 列表反转的两种方法
+        res = res[::-1]
+        # res.reverse()
+        return res
 ```
-
+###  方法二：原地旋转链表(**重要**)
 # 参考
    - [LeetCode-206-反转链表]()
