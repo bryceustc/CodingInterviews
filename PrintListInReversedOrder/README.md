@@ -28,7 +28,7 @@ struct ListNode
   4). 调整链表头和链表尾
 
 
-#代码
+# 代码
 
 - [C++](./PrintListInReversedOrder.cpp)
 
