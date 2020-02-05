@@ -10,10 +10,7 @@ struct ListNode
 ```
 
 # 解题思路
-
-此题考查链表的知识点，个人觉得题目不难，但理解数据结构【链表】反倒是一件困难的事情。
-
-简单来说，链表可以看成一排元素，注意是一排！手拉手的那种！关于链表的理解，请参考[链表（Linked list）](Linkedlist.md)
+此题与LeetCode-206题反转链表类似。
 
 思路1：此题要求打印链表每个节点的值，由于不用考虑链表的生成（其实有点复杂），所以我们直接在函数中依次将链表中的节点值取出来，保存至一个容器（对于C++）或者列表（对于Python）中；然后再逆序打印这个容器或者列表即可。
 
@@ -29,24 +26,21 @@ struct ListNode
 
   4). 调整链表头和链表尾
 
-**思考：**自己实现测试用例，自己提供函数输入，即手写链表，你会写吗？
 
-可以参考
+#代码
 
-- [C++](PrintListInReversedOrder.cpp)
+- [C++](./PrintListInReversedOrder.cpp)
 
 
-- [Python](PrintListInReversedOrder.py)
+- [Python](./PrintListInReversedOrder.py)
 
 **部分重要思想总结：**
 
 - 向链表从后向前添加元素：将新加节点的next指向当前链表（即在首部加节点），生成新的链表，再赋值给当前链表即可
 - 向链表从前向后添加元素：找到当前链表的最后节点，将当前链表最后节点的next指向新的节点，即实现链表的扩展，此时不需要重新赋值（因为是在原来的链表上添加的）
 
-# 代码
-
-[C++](PrintListInReversedOrder.cpp)
-
+## C++
+### 方法一：保存至容器，然后逆序打印
 ```c++
 /**
 *  struct ListNode {
@@ -94,7 +88,8 @@ public:
 };
 ```
 
-[Python](PrintListInReversedOrder.py)
+## Python
+### 方法一：保存为列表，然后逆序打印
 
 ```python
 # -*- coding:utf-8 -*-
@@ -115,3 +110,5 @@ class Solution:
         return list_numbers
 ```
 
+# 参考
+   - [LeetCode-206-反转链表]()
