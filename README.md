@@ -39,7 +39,8 @@
 ### 链表：
 * [剑指Offer(六)：从尾到头打印链表](./PrintListInReversedOrder/README.md)(**重要** 递归和非递归法都要掌握)
 * [剑指Offer(十八)：删除链表的节点](./DeleteNodeInList/README.md)
-* [剑指Offer(十八)：删除链表中重复的节点](./DeleteDuplicatedNode/README.md)(**重要**)
+* [剑指Offer(十八)：删除链表中重复的节点](./DeleteDuplicatedNode/README.md)(**重要**，递归和非递归法都要掌握，多做几遍加深理解)
+* [剑指Offer(二十二)：链表中倒数第k个节点](./KthNodeFromEnd/README.md)(**重要**)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
