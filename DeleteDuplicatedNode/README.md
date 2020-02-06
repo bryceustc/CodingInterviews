@@ -17,6 +17,12 @@
   
   方法二：递归法。
   
+  递归套路解决链表问题：
+
+   - 找终止条件：当head指向链表只剩一个元素的时候，return
+   - 想想应该返回什么值：应该返回的自然是已经去重的链表的头节点
+   - 每一步要做什么：宏观上考虑，如果当前head和head->next相等，相等则需要一直判断并后移``head = head->next;``，此时head指向重复元素的最后一个值，但这个head我们也不能要，就需要重新建立head，所以``head = deleteDuplicates(head->next);``，如果不相等，head->next指向的就是一个去重的链表。然后返回head
+  
 # 代码
 
 [C++](./DeleteDuplicatedNode.cpp)
