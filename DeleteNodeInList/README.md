@@ -17,7 +17,7 @@ void DeleteNode(ListNode* head, ListNode* ToBeDeleted);
   链表的编程能力，创新思维能力，思维的全面性
   
 # 解题思路:
-  ![1]()
+  ![1](https://github.com/bryceustc/CodingInterviews/blob/master/DeleteNodeInList/Images/1.png)
   思路一：删除节点时不一定直接是直接删除，还可以是将下一节点的内容复制到被删除节点的内容，然后把下一节点删掉。
   
   思路二：直接删除该节点，按顺序遍历，被删除节点的前一个节点指向被删除节点的下一节点，即删除指定节点，但此时需要从头指针遍历得到被删除节点的前一个节点(单向链表无法得到指向前一个节点的指针)，所以时间复杂度为O(n)。
