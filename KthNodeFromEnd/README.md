@@ -18,13 +18,15 @@
   
   3.注意**特殊情况**。
   
+  ![1](https://github.com/bryceustc/CodingInterviews/blob/master/KthNodeFromEnd/Images/1.png)
+  
   方法二：双指针法。
   
-  递归套路解决链表问题：
+  我们可以定义两个指针。第一个指针从链表的头指针开始遍历向前走k-1，第二个指针保持不动；从第k步开始，第二个指针也开始从链表的头指针开始遍历。由于两个指针的距离保持在k-1，当第一个（走在前面的）指针到达链表的尾结点时，第二个指针（走在后面的）指针正好是倒数第k个结点。
 
-   - 找终止条件：当head指向链表只剩一个元素的时候，return
-   - 想想应该返回什么值：应该返回的自然是已经去重的链表的头节点
-   - 每一步要做什么：宏观上考虑，如果当前head和head->next相等，相等则需要一直判断并后移``head = head->next;``，此时head指向重复元素的最后一个值，但这个head我们也不能要，就需要重新建立head，所以``head = deleteDuplicates(head->next);``，如果不相等，head->next指向的就是一个去重的链表。然后返回head
+效果示意图，以链表总共6个结点，求倒数第3个结点为例：
+
+![2](https://github.com/bryceustc/CodingInterviews/blob/master/KthNodeFromEnd/Images/2.jpg)
   
 # 代码
 
