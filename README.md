@@ -20,7 +20,7 @@
 * [剑指Offer(五十七)： 和为s的两个数字](./TwoNumbersWithSum/README.md)(双指针)
 * [剑指Offer(五十七)： 和为S的连续正数序列](./ContinuousSquenceWithSum/README.md)(双指针)
 * [剑指Offer(六十一)： 扑克牌的顺子](./ContinousCards/README.md)
-* [剑指Offer(六十二)： 圆圈中最后剩下的数字](./LastNumberInCircle/README.md)(约瑟夫环)
+* [剑指Offer(六十二)： 圆圈中最后剩下的数字](./LastNumberInCircle/README.md)(约瑟夫环，(start+m-1)%len(nums)循环)
 * [剑指Offer(六十六)： 构建乘积数组](./ConstuctArray/README.md)
 
 ### 字符串：
@@ -41,7 +41,8 @@
 * [剑指Offer(十八)：删除链表的节点](./DeleteNodeInList/README.md)
 * [剑指Offer(十八)：删除链表中重复的节点](./DeleteDuplicatedNode/README.md)(**重要**，递归和非递归法都要掌握，多做几遍加深理解)
 * [剑指Offer(二十二)：链表中倒数第k个节点](./KthNodeFromEnd/README.md)(**重要**，直接法，双指针)
-* [剑指Offer(二十三)：链表中环的入口节点](./EntryNodeInListLoop/README.md)(**重要**)
+* [剑指Offer(二十三)：链表中环的入口节点](./EntryNodeInListLoop/README.md)(**重要**，快慢双指针)
+* [剑指Offer(二十四)：反转链表](./ReverseList/README.md)(**重要**，递归和非递归法)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
