@@ -7,9 +7,9 @@
   链表编程能力，代码的鲁棒性。考虑到特殊情况
   
 # 解题思路:
-此题与LeetCode第206题一样，与剑指offer第6题从尾到头打印链表类似。
+此题与LeetCode第21题一样，合并两个有序链表。
 
-  方法一：非递归法，利用两个结点指针和一个中间结点指针temp(用来记录当前结点的下一个节点的位置)，分别指向当前结点和前一个结点，每次循环让当前结点的指针域指向前一个结点。
+  方法一：非递归法，新建一个虚拟节点，然后l3=dummyhead，然后一个一个节点的判断，如果l1->val<=l2->val，l3节点就指向l1，l1指向下一指针，否则指向l2，l2指向下一指针，直到有一个指针为空，然后l3下一指针指向另一非空的，返回dummyhead->next。
   
   方法二：递归法。
   
@@ -34,20 +34,30 @@ struct ListNode {
 };*/
 class Solution {
 public:
-    ListNode* ReverseList(ListNode* head) {
-        if (head==NULL || head->next==NULL)
-            return head;
-        ListNode* prev = NULL;
-        ListNode* cur = head;
-        ListNode* temp = head->next;
-        while(cur)
+    ListNode* Merge(ListNode* l1, ListNode* l2)
+    {
+        ListNode* dummyhead = new ListNode(-1);
+        ListNode* l3 = dummyhead;
+        if (l1==NULL) return l2;
+        if (l2==NULL) return l1;
+        if (l1==NULL && l2==NULL) return NULL;
+        while(l1 && l2)
         {
-            temp = cur->next;
-            cur->next = prev;
-            prev = cur;
-            cur = temp;
+            if (l1->val<=l2->val)
+            {
+                l3->next = l1;
+                l1 = l1->next;
+            }
+            else
+            {
+                l3->next = l2;
+                l2 = l2->next;
+            }
+            l3 = l3->next;
         }
-        return prev;
+        if (l1==NULL) l3->next = l2;
+        if (l2==NULL) l3->next = l1;
+        return dummyhead->next;
     }
 };
 ```
