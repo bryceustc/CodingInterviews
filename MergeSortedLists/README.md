@@ -73,17 +73,20 @@ struct ListNode {
 };*/
 class Solution {
 public:
-    ListNode* ReverseList(ListNode* head) {
-        if (head==NULL || head->next==NULL)
+    ListNode* Merge(ListNode* l1, ListNode* l2)
+    {
+        if (l1==NULL) return l2;
+        if (l2==NULL) return l1;
+        if (l1==NULL && l2==NULL) return NULL;
+        if (l1->val <= l2->val)
         {
-            return head;
+            l1->next = Merge(l1->next,l2);
+            return l1;
         }
         else
         {
-            ListNode* newhead = ReverseList(head->next);// 先反转后面的链表，从最后面两个节点开始，
-            head->next->next = head; // 将后一个链表节点指向前一个链表节点
-            head->next = NULL;  // 将原链表中前一个节点指向后一个节点的指向关系断开
-            return newhead;  
+            l2->next = Merge(l1,l2->next);
+            return l2;
         }
     }
 };
@@ -98,20 +101,30 @@ public:
 #         self.val = x
 #         self.next = None
 class Solution:
-    # 返回ListNode
-    def ReverseList(self, head):
+    # 返回合并后列表
+    def Merge(self, l1, l2):
         # write code here
-        if head == None or head.next == None:
-            return head
-        prev = None
-        cur = head
-        temp = head.next
-        while cur:
-            temp = cur.next
-            cur.next = prev
-            prev = cur
-            cur = temp
-        return prev
+        dummyhead = ListNode(-1)
+        l3 = dummyhead
+        if l1==None:
+            return l2
+        if l2==None:
+            return l1
+        if l1==None and l2==None:
+            return None
+        while l1 and l2:
+            if l1.val<=l2.val:
+                l3.next = l1
+                l1 = l1.next
+            else:
+                l3.next = l2
+                l2 = l2.next
+            l3 = l3.next
+        if l1==None:
+            l3.next = l2
+        if l2==None:
+            l3.next = l1
+        return dummyhead.next
 ```
 ### 方法二：递归法
 ```python
@@ -121,18 +134,21 @@ class Solution:
 #         self.val = x
 #         self.next = None
 class Solution:
-    # 返回ListNode
-    def ReverseList(self, head):
+    # 返回合并后列表
+    def Merge(self, l1, l2):
         # write code here
-        if head == None or head.next == None:
-            return head
+        if l1==None:
+            return l2
+        if l2==None:
+            return l1
+        if l1==None and l2==None:
+            return None
+        if l1.val <= l2.val:
+            l1.next = self.Merge(l1.next,l2)
+            return l1
         else:
-            newhead = self.ReverseList(head.next)
-            head.next.next = head
-            head.next = None
-            return newhead
+            l2.next = self.Merge(l1,l2.next)
+            return l2
 ```
 ## 参考
-  -  [LeetCode—206题—反转链表](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Reverse-Linked-List/README.md)
-  -  [剑指offer—6题—从尾到头打印链表](https://github.com/bryceustc/CodingInterviews/blob/master/PrintListInReversedOrder/README.md)
-
+  -  [LeetCode—21题—合并两个有序链表](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Two-Sorted-Lists/README.md)
