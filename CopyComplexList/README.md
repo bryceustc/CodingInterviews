@@ -15,10 +15,10 @@
   ![4](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/4.png)
   
   2、把复制的结点的random指针指向被复制结点的random指针的下一个结点
-  ![2](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/1.png)
+  ![2](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/2.png)
   
   3、拆分成两个链表，奇数位置组成原链表，偶数位置组成复制链表。
-  ![3](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/1.png)
+  ![3](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/3.png)
   
   ![5](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/5.png)
 # 代码
