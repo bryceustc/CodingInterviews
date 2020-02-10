@@ -10,14 +10,17 @@
   三步法：
   
   1、把复制的结点链接在原始链表的每一对应结点后面
-  ![]()
+  ![1](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/1.png)
+  
+  ![4](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/4.JPG)
   
   2、把复制的结点的random指针指向被复制结点的random指针的下一个结点
-  ![]()
+  ![2](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/1.png)
   
   3、拆分成两个链表，奇数位置组成原链表，偶数位置组成复制链表。
-  ![]()
+  ![3](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/1.png)
   
+  ![5](https://github.com/bryceustc/CodingInterviews/blob/master/CopyComplexList/Images/5.JPG)
 # 代码
 
 [C++](./CopyComplexList.cpp)
