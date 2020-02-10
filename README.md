@@ -44,7 +44,8 @@
 * [剑指Offer(二十三)：链表中环的入口节点](./EntryNodeInListLoop/README.md)(**重要**，快慢双指针)
 * [剑指Offer(二十四)：反转链表](./ReverseList/README.md)(**重要**，递归和非递归法，递归！递归！递归！)
 * [剑指Offer(二十五)：合并两个排序的链表](./MergeSortedLists/README.md)(**重要**，递归与非递归法)
-* [剑指Offer(三十五)：复杂链表的复制](./CopyComplexList/README.md)(**重要**)
+* [剑指Offer(三十五)：复杂链表的复制](./CopyComplexList/README.md)(**重要**，三步法)
+* [剑指Offer(五十二)：两个链表的第一个公共节点](./FirstCommonNodesInLists/README.md)(**重要**)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
