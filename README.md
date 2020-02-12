@@ -48,6 +48,7 @@
 * [剑指Offer(五十二)：两个链表的第一个公共节点](./FirstCommonNodesInLists/README.md)(**重要**)
 ### 栈和队列：
 * [剑指Offer(九)：用两个栈实现队列](./QueueWithTwoStacks/README.md)
+* [剑指Offer(三十)：包含min函数的栈](./MinInStack/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
