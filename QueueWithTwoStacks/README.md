@@ -1,14 +1,12 @@
 # 题目: 用两个栈实现队列
 ## 题目描述：
-用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
+用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。理解题意就是利用两个先进后出的栈实现一个先进先出的队列
 # 本题考点：
   
-  链表编程能力
+  数据结构栈的编程能力
   
 # 解题思路:
-   方法一：暴力遍历法，对l1，l2进行遍历，时间复杂度为O(n\*m)
-    
-   方法二：方法一的时间复杂度有点高，考虑方法二，找出2个链表的长度，然后让长的先走两个链表的长度差，然后再一起走（因为2个链表用公共的尾部）。如果存在共同节点的话，那么从该节点，两个链表之后的元素都是相同的。 也就是说两个链表从尾部往前到某个点，节点都是一样的。
+   理解题意后是要用两个“先进后出”的栈实现一个“先进先出”的队列，先将元素填进stack1，stack1.push(node)，然后stack2为空，但stack1不为空，就将stack1的元素弹出，再压入栈2，这样先进的元素就在栈2顶，这样就实现了先进先出。就是先进后出+后进先出=先进先出。
 # 代码
 
 [C++](./QueueWithTwoStacks.cpp)
@@ -16,166 +14,61 @@
 [Python](./QueueWithTwoStacks.py)
 
 # C++: 
-### 方法一：直接遍历(不推荐)
+### 
 ```c++
-/*
-struct ListNode {
-	int val;
-	struct ListNode *next;
-	ListNode(int x) :
-			val(x), next(NULL) {
-	}
-};*/
-class Solution {
+class Solution
+{
 public:
-    ListNode* FindFirstCommonNode( ListNode* l1, ListNode* l2) {
-        if (l1==NULL || l2 == NULL) return NULL;
-        ListNode* p = l1;
-        ListNode* q = l2;
-        while(p)
-        {
-            q = l2;
-            while(q)
-            {
-                if (p->val==q->val)
-                {
-                    return p;
-                }
-                else
-                {
-                    q = q->next;
-                }
-            }
-            p = p->next;
-        }
-        return NULL;
+    void push(int node) {
+        stack1.push(node);
     }
-};
-```
-### 方法二：
-```c+++
-/*
-struct ListNode {
-	int val;
-	struct ListNode *next;
-	ListNode(int x) :
-			val(x), next(NULL) {
-	}
-};*/
-class Solution {
-public:
-    ListNode* FindFirstCommonNode( ListNode* l1, ListNode* l2) {
-        if (l1==NULL || l2 == NULL) return NULL;
-        ListNode* p = l1;
-        ListNode* q = l2;
-        int n=0,m=0;
-        // 计算l1链表的长度
-        while (p)
+
+    int pop() {
+        int temp = 0;
+        if (stack2.empty())
         {
-            n++;
-            p = p->next;
+            while(!stack1.empty())
+            {
+                temp = stack1.top();
+                stack1.pop();
+                stack2.push(temp);
+            }
         }
-        // 计算l2链表的长度
-        while(q)
-        {
-            m++;
-            q = q->next;
-        }
-        // 如果链表长度不一样，计算两个链表长度的差值
-        int k = 0;
-        ListNode* temp_long = l1;
-        ListNode* temp_short = l2;
-        if (n>=m)
-        {
-            k = n-m;
-        }
-        else
-        {
-            k = m-n;
-            temp_long = l2;
-            temp_short = l1;
-        }
-        // 长的链表先移动差值k,剩余长度与短链表的长度一致
-        for (int i=0;i<k;i++)
-        {
-            temp_long = temp_long->next;
-        }
-        // 然后同时移动，判断是否有公共节点
-        while(temp_long && temp_short && temp_short!=temp_long)
-        {
-            temp_short = temp_short->next;
-            temp_long = temp_long->next;
-        }
-        ListNode* res = temp_long;
+        int res = stack2.top();
+        stack2.pop();
         return res;
     }
+
+private:
+    stack<int> stack1;
+    stack<int> stack2;
 };
 ```
 
 # Python:
-### 方法一：直接遍历法
+### 
 ```python
 # -*- coding:utf-8 -*-
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
 class Solution:
-    def FindFirstCommonNode(self, l1, l2):
+    def __init__(self):
+        self.stack1 = []
+        self.stack2 = []
+    def push(self, node):
         # write code here
-        if l1==None or l2 == None:
-            return None
-        p = l1
-        q = l2
-        while p:
-            q = l2
-            while q:
-                if p.val==q.val:
-                    return p
-                else:
-                    q = q.next
-            p = p.next
-        return None
-```
-### 方法二：
-```python
-# -*- coding:utf-8 -*-
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-class Solution:
-    def FindFirstCommonNode(self, l1, l2):
-        # write code here
-        if l1==None or l2 == None:
-            return None
-        p = l1
-        q = l2
-        n=0
-        m=0
-        while p:
-            n+=1
-            p = p.next
-        while q:
-            m+=1
-            q = q.next
-        temp_long = l1
-        temp_short = l2
-        k = 0
-        if n>=m:
-            k = n-m
-        else:
-            k = m-n
-            temp_long = l2
-            temp_short = l1
-        for i in range(k):
-            temp_long = temp_long.next
-        while temp_long and temp_short and temp_long!=temp_short:
-            temp_long = temp_long.next
-            temp_short = temp_short.next
-        res = temp_long
+        self.stack1.append(node)
+    def pop(self):
+        # return xx
+        l1 = len(self.stack1)
+        l2 = len(self.stack2)
+        if l2==0:
+            while l1!=0:
+                temp = self.stack1.pop()
+                self.stack2.append(temp)
+                l1 = len(self.stack1)
+        res = self.stack2.pop()
         return res
 ```
 ## 参考
-  -  [复杂链表的复制牛客讨论](https://www.nowcoder.com/questionTerminal/6ab1d9a29e88450685099d45c9e31e46?f=discussion)
-
+  -  [C++ stl容器stack栈pop用法](https://blog.csdn.net/l494926429/article/details/52066918)
+  -  [Python list pop()用法](https://www.runoob.com/python/att-list-pop.html)
+  -  [Python栈实现](https://www.jianshu.com/p/1327cc0de255)
