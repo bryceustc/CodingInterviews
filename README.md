@@ -49,6 +49,7 @@
 ### 栈和队列：
 * [剑指Offer(九)：用两个栈实现队列](./QueueWithTwoStacks/README.md)
 * [剑指Offer(三十)：包含min函数的栈](./MinInStack/README.md)(**重要**，利用两个栈)
+* [剑指Offer(三十一)：栈的压入、弹出元素](./StackPushPopOrder/README.md)(**重要**，利用两个栈)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
