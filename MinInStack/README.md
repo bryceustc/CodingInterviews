@@ -88,6 +88,6 @@ class Solution:
 ```
 ## 参考
   -  [C++类成员的访问范围（C++ private、public、protected）](http://c.biancheng.net/view/219.html)
-  -  [LeetCode-155题-最小栈](https://www.runoob.com/python/att-list-pop.html)
+  -  [LeetCode-155题-最小栈](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Min-Stack/README.md)
   -  [Python栈实现](https://www.jianshu.com/p/1327cc0de255)
 
