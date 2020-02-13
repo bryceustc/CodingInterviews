@@ -20,9 +20,9 @@
   栈最小元素：直接返回辅助栈的栈顶元素。
 # 代码
 
-[C++](./QueueWithTwoStacks.cpp)
+[C++](./MinInStack.cpp)
 
-[Python](./QueueWithTwoStacks.py)
+[Python](./MinInStack.py)
 
 # C++: 
 ### 
