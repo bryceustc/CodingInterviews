@@ -50,7 +50,7 @@
 * [剑指Offer(九)：用两个栈实现队列](./QueueWithTwoStacks/README.md)
 * [剑指Offer(三十)：包含min函数的栈](./MinInStack/README.md)(**重要**，利用两个栈，一个数据栈，一个辅助栈存储最小元素)
 * [剑指Offer(三十一)：栈的压入、弹出元素](./StackPushPopOrder/README.md)(**重要**，利用一个辅助栈模拟)
-### 树：（都很重要，比较全）
+### 树：
 * [剑指Offer(七)：重建二叉树](./ConstructBinaryTree/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
