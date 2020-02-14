@@ -11,6 +11,11 @@
    采用模拟法，借助一个辅助的栈，遍历压栈的顺序，依次放进辅助栈中。
    
    对于每一个放进栈中的元素，栈顶元素都与出栈的popIndex对应位置的元素进行比较，是否相等，相等则popIndex++，再判断，直到为空或者不相等为止。
+   
+   具体入栈出栈的操作模拟如下：
+   ![1](https://github.com/bryceustc/CodingInterviews/blob/master/StackPushPopOrder/Images/1.png)
+   
+   ![2](https://github.com/bryceustc/CodingInterviews/blob/master/StackPushPopOrder/Images/2.png)
 # 代码
 
 [C++](./StackPushPopOrder.cpp)
