@@ -31,10 +31,14 @@ public:
         int n = pushV.size();
         int m = popV.size();
         if (n!=m) return false;
+        // 辅助栈
         stack<int> s;
+        //弹出序列的下表索引
         int index = 0;
         for (int i=0;i<n;i++)
         {
+            //不停地将pushV中的元素压入栈中，一旦栈顶元素与popV相等了，则开始出栈
+            //不相等则继续入栈
             s.push(pushV[i]);
             while(!s.empty() && s.top()==popV[index])
             {
@@ -42,6 +46,7 @@ public:
                 index++;
             }
         }
+        //栈中没有元素了说明元素全部一致，并且符合弹出顺序，那么返回true
         return s.empty();
     }
 };
