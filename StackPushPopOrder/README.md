@@ -6,18 +6,11 @@
   数据结构栈的编程能力
   
 # 解题思路:
-  此题与LeetCode-155题一样
+  此题与LeetCode-946题一样
 
-   理解题意后是要用一个数据栈压入元素，另一个为辅助栈存储最小元素。
-   举个例子：
-
-  入栈的时候：首先往空的数据栈里压入数字3，显然现在3是最小值，我们也把最小值压入辅助栈。接下来往数据栈里压入数字4。由于4大于之前的最小值，因此我们只要入数据栈，不压入辅助栈。
-
-  出栈的时候：数据栈和辅助栈都出栈
-
-  获得栈顶元素的时候：直接返回数据栈的栈顶元素。
-
-  栈最小元素：直接返回辅助栈的栈顶元素。
+   采用模拟法，借助一个辅助的栈，遍历压栈的顺序，依次放进辅助栈中。
+   
+   对于每一个放进栈中的元素，栈顶元素都与出栈的popIndex对应位置的元素进行比较，是否相等，相等则popIndex++，再判断，直到为空或者不相等为止。
 # 代码
 
 [C++](./StackPushPopOrder.cpp)
@@ -29,33 +22,23 @@
 ```c++
 class Solution {
 public:
-    void push(int value) {
-        stack1.push(value);
-        if (stack2.empty() || value < stack2.top())
+    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+        int n = pushV.size();
+        int m = popV.size();
+        if (n!=m) return false;
+        stack<int> s;
+        int index = 0;
+        for (int i=0;i<n;i++)
         {
-            stack2.push(value);
+            s.push(pushV[i]);
+            while(!s.empty() && s.top()==popV[index])
+            {
+                s.pop();
+                index++;
+            }
         }
-        else
-        {
-            int t = stack2.top();
-            stack2.push(t);
-        }
+        return s.empty();
     }
-    void pop() {
-        stack1.pop();
-        stack2.pop();
-    }
-    int top() {
-        int a = stack1.top();
-        return a;
-    }
-    int min() {
-        int b = stack2.top();
-        return b;
-    }
-private:
-    stack<int> stack1;
-    stack<int> stack2;
 };
 ```
 
@@ -64,31 +47,25 @@ private:
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
-    def push(self, node):
+    def IsPopOrder(self, pushV, popV):
         # write code here
-        self.stack1.append(node)
-        if len(self.stack2)==0 or node < self.stack2[-1]:
-            self.stack2.append(node)
-        else:
-            temp = self.stack2[-1]
-            self.stack2.append(temp)
-    def pop(self):
-        # write code here
-        self.stack1.pop()
-        self.stack2.pop()
-    def top(self):
-        # write code here
-        return self.stack1[-1]
-    def min(self):
-        # write code here
-        return self.stack2[-1]
+        n = len(pushV)
+        m = len(popV)
+        if n!=m:
+            return False
+        s = []
+        index = 0
+        for i in range(n):
+            s.append(pushV[i])
+            while len(s)>0 and s[-1]==popV[index]:
+                s.pop()
+                index+=1
+        if len(s)==0:
+            return True
+        return False
 ```
 ## 参考
-  -  [C++类成员的访问范围（C++ private、public、protected）](http://c.biancheng.net/view/219.html)
-  -  [LeetCode-155题-最小栈](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Min-Stack/README.md)
+  -  [LeetCode-946题-最小栈](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Validate-Stack-Sequences/README.md)
   -  [Python栈实现](https://www.jianshu.com/p/1327cc0de255)
 
 
