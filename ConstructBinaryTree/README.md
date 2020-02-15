@@ -3,19 +3,16 @@
 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
 # 本题考点：
   
-  数据结构栈的编程能力
+  二叉树的三种遍历（前序遍历(DLR)，中序遍历(LDR)，后序遍历(LRD)）实现。
   
 # 解题思路:
-  此题与LeetCode-946题一样
+  此题与LeetCode-105题一样，与106题从中序与后序遍历序列构造二叉树思路类似
 
-   采用模拟法，借助一个辅助的栈，遍历压栈的顺序，依次放进辅助栈中。
+   理解二叉树以及三种遍历的概念。[二叉树 - 前序遍历、中序遍历、后序遍历](https://www.jianshu.com/p/acb33735b933)
    
-   对于每一个放进栈中的元素，栈顶元素都与出栈的popIndex对应位置的元素进行比较，是否相等，相等则popIndex++，再判断，直到为空或者不相等为止。
+   注意前序遍历中的第一个数字是根节点的值，在中序遍历中根节点的值在序列中间，左子树的节点的值在根节点的值的左边，而右子树的节点的值位于根节点的右边，所以先扫描中序遍历，找到根节点所在位置，然后找到左子树和右子树的前序遍历和中序遍历即可。如图所示：
    
-   具体入栈出栈的操作模拟如下：
-   ![1](https://github.com/bryceustc/CodingInterviews/blob/master/StackPushPopOrder/Images/1.png)
-   
-   ![2](https://github.com/bryceustc/CodingInterviews/blob/master/StackPushPopOrder/Images/2.png)
+   ![1](https://github.com/bryceustc/CodingInterviews/blob/master/ConstructBinaryTree/Images/1.jpg)
 # 代码
 
 [C++](./ConstructBinaryTree.cpp)
