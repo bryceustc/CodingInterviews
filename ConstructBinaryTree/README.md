@@ -77,7 +77,7 @@ public:
 ```
 
 # Python:
-### 
+###  方法一：
 ```python
 # -*- coding:utf-8 -*-
 # class TreeNode:
@@ -114,6 +114,27 @@ class Solution:
         t.left = self.reConstructBinaryTree(left_pre,left_in)
         t.right = self.reConstructBinaryTree(right_pre,right_in)
         return t
+```
+
+### 方法二：简洁
+```python
+# -*- coding:utf-8 -*-
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution:
+    # 返回构造的TreeNode根节点
+    def reConstructBinaryTree(self, pre, tin):
+        # write code here
+        if not pre or not tin:
+            return None
+        root = TreeNode(pre.pop(0))
+        index = tin.index(root.val)
+        root.left = self.reConstructBinaryTree(pre, tin[:index])
+        root.right = self.reConstructBinaryTree(pre, tin[index + 1:])
+        return root
 ```
 ## 参考
   -  [LeetCode-105-从前序与中序遍历序列构造二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Construct-Binary-Tree-From-Preorder-And-Inorder-Traversal/README.md)
