@@ -80,23 +80,41 @@ public:
 ### 
 ```python
 # -*- coding:utf-8 -*-
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 class Solution:
-    def IsPopOrder(self, pushV, popV):
+    # 返回构造的TreeNode根节点
+    def reConstructBinaryTree(self, pre, tin):
         # write code here
-        n = len(pushV)
-        m = len(popV)
-        if n!=m:
-            return False
-        s = []
-        index = 0
+        n = len(pre)
+        if n==0:
+            return None
+        root = pre[0]
+        t = TreeNode(root)
+        if n==1:
+            return t
+        rooot_index = 0
         for i in range(n):
-            s.append(pushV[i])
-            while len(s)>0 and s[-1]==popV[index]:
-                s.pop()
-                index+=1
-        if len(s)==0:
-            return True
-        return False
+            if tin[i]==root:
+                root_index = i
+                break
+        left_pre = []
+        left_in = []
+        right_pre = []
+        right_in = []
+        for i in range(root_index):
+            left_pre.append(pre[i+1])
+            left_in.append(tin[i])
+        for i in range(root_index+1,n):
+            right_pre.append(pre[i])
+            right_in.append(tin[i])
+        t.left = self.reConstructBinaryTree(left_pre,left_in)
+        t.right = self.reConstructBinaryTree(right_pre,right_in)
+        return t
 ```
 ## 参考
   -  [LeetCode-105-从前序与中序遍历序列构造二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Construct-Binary-Tree-From-Preorder-And-Inorder-Traversal/README.md)
+   -  [LeetCode-106-从中序与后序遍历序列构造二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Construct-Binary-Tree-From-Ineorder-And-Postorder-Traversal/README.md)
