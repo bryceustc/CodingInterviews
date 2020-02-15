@@ -25,29 +25,53 @@
 # C++: 
 ### 
 ```c++
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
-    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
-        int n = pushV.size();
-        int m = popV.size();
-        if (n!=m) return false;
-        // 辅助栈
-        stack<int> s;
-        //弹出序列的下表索引
-        int index = 0;
+    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
+        if (pre.empty() || vin.empty())
+            return NULL;
+        int n = pre.size();
+        // 前序遍历的第一个数字是根节点的值
+        int root = pre[0];
+        // 创建根节点
+        TreeNode* t = new TreeNode(root);
+        // 如果长度为1，直接返回根节点
+        if (n==1) return t;
+        // 找到root所在的位置，确定好前序和中序中左子树和右子树序列的范围
+        int root_index = 0;
         for (int i=0;i<n;i++)
         {
-            //不停地将pushV中的元素压入栈中，一旦栈顶元素与popV相等了，则开始出栈
-            //不相等则继续入栈
-            s.push(pushV[i]);
-            while(!s.empty() && s.top()==popV[index])
+            if (vin[i]==root)
             {
-                s.pop();
-                index++;
+                root_index = i;
+                break;
             }
         }
-        //栈中没有元素了说明元素全部一致，并且符合弹出顺序，那么返回true
-        return s.empty();
+        // 左子树
+        vector<int> left_pre,left_in, right_pre, right_in;
+        for (int i=0;i<root_index;i++)
+        {
+            left_pre.push_back(pre[i+1]); // +1 是因为前序遍历的第一个节点是根节点
+            left_in.push_back(vin[i]);
+        }
+        // 右子树
+        for (int i=root_index+1;i<n;i++)
+        {
+            right_pre.push_back(pre[i]);
+            right_in.push_back(vin[i]);
+        }
+        t->left = reConstructBinaryTree(left_pre,left_in);
+        t->right = reConstructBinaryTree(right_pre,right_in);
+        return t;
     }
 };
 ```
@@ -75,4 +99,4 @@ class Solution:
         return False
 ```
 ## 参考
-  -  [LeetCode-946题-最小栈](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Validate-Stack-Sequences/README.md)
+  -  [LeetCode-105-从前序与中序遍历序列构造二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Construct-Binary-Tree-From-Preorder-And-Inorder-Traversal/README.md)
