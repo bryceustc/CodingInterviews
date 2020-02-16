@@ -4,16 +4,11 @@
 输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
 # 本题考点：
   
-  二叉树的三种遍历（前序遍历(DLR)，中序遍历(LDR)，后序遍历(LRD)）实现。
+  二叉树的遍历算法和递归编程能力，代码的鲁棒性。
   
 # 解题思路:
-  此题与LeetCode-105题一样，与106题从中序与后序遍历序列构造二叉树思路类似
-
-   理解二叉树以及三种遍历的概念。[二叉树 - 前序遍历、中序遍历、后序遍历](https://www.jianshu.com/p/acb33735b933)
-   
-   注意前序遍历中的第一个数字是根节点的值，在中序遍历中根节点的值在序列中间，左子树的节点的值在根节点的值的左边，而右子树的节点的值位于根节点的右边，所以先扫描中序遍历，找到根节点所在位置，然后找到左子树和右子树的前序遍历和中序遍历即可。如图所示：
-   
-   ![1](https://github.com/bryceustc/CodingInterviews/blob/master/ConstructBinaryTree/Images/1.jpg)
+  思路：首先现在A中找出B的根节点，也就是要遍历A找出与B根节点相同的值，然后判断树A中以R为根节点的子树是否包含和B一样的结构。
+  根节点值相等就继续判断剩余子树是否相等，直到B为NULL。
 # 代码
 
 [C++](./SubstructureInTree.cpp)
@@ -23,53 +18,50 @@
 # C++: 
 ### 
 ```c++
-/**
- * Definition for binary tree
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
 class Solution {
 public:
-    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
-        if (pre.empty() || vin.empty())
-            return NULL;
-        int n = pre.size();
-        // 前序遍历的第一个数字是根节点的值
-        int root = pre[0];
-        // 创建根节点
-        TreeNode* t = new TreeNode(root);
-        // 如果长度为1，直接返回根节点
-        if (n==1) return t;
-        // 找到root所在的位置，确定好前序和中序中左子树和右子树序列的范围
-        int root_index = 0;
-        for (int i=0;i<n;i++)
+    bool HasSubtree(TreeNode* pRoot1, TreeNode* pRoot2)
+    {
+        bool res = false;
+         //当Tree1和Tree2都不为零的时候，才进行比较。否则直接返回false
+        if (pRoot1 != NULL && pRoot2!=NULL)
         {
-            if (vin[i]==root)
-            {
-                root_index = i;
-                break;
-            }
+            //如果找到了对应Tree2的根节点的点
+            if (pRoot1->val == pRoot2->val)
+                //以这个根节点为为起点判断是否包含Tree2
+                res = helper(pRoot1, pRoot2);
+            //如果找不到，那么就再去Tree1的左子树当作起点，去判断是否包含Tree2
+            if (!res)
+                res = HasSubtree(pRoot1->left,pRoot2);
+            //如果找不到，那么就再去Tree1的右子树当作起点，去判断是否包含Tree2
+            if (!res)
+                res = HasSubtree(pRoot1->right,pRoot2);
         }
-        // 左子树
-        vector<int> left_pre,left_in, right_pre, right_in;
-        for (int i=0;i<root_index;i++)
-        {
-            left_pre.push_back(pre[i+1]); // +1 是因为前序遍历的第一个节点是根节点
-            left_in.push_back(vin[i]);
-        }
-        // 右子树
-        for (int i=root_index+1;i<n;i++)
-        {
-            right_pre.push_back(pre[i]);
-            right_in.push_back(vin[i]);
-        }
-        t->left = reConstructBinaryTree(left_pre,left_in);
-        t->right = reConstructBinaryTree(right_pre,right_in);
-        return t;
+        //返回结果
+        return res;
+    }
+    bool helper(TreeNode* A, TreeNode* B)
+    {
+        //如果Tree2已经遍历完了都能对应的上，返回true
+        if (B==NULL)
+            return true;
+        //如果Tree2还没有遍历完，Tree1却遍历完了。返回false
+        if (A==NULL)
+            return false;
+        //如果其中有一个点没有对应上，返回false
+        if (A->val != B->val)
+            return false;
+        //如果根节点对应的上，那么就分别去子节点里面匹配
+        return helper(A->left,B->left) && helper(A->right, B->right);
     }
 };
 ```
@@ -84,56 +76,25 @@ public:
 #         self.left = None
 #         self.right = None
 class Solution:
-    # 返回构造的TreeNode根节点
-    def reConstructBinaryTree(self, pre, tin):
+    def HasSubtree(self, pRoot1, pRoot2):
         # write code here
-        n = len(pre)
-        if n==0:
-            return None
-        root = pre[0]
-        t = TreeNode(root)
-        if n==1:
-            return t
-        rooot_index = 0
-        for i in range(n):
-            if tin[i]==root:
-                root_index = i
-                break
-        left_pre = []
-        left_in = []
-        right_pre = []
-        right_in = []
-        for i in range(root_index):
-            left_pre.append(pre[i+1])
-            left_in.append(tin[i])
-        for i in range(root_index+1,n):
-            right_pre.append(pre[i])
-            right_in.append(tin[i])
-        t.left = self.reConstructBinaryTree(left_pre,left_in)
-        t.right = self.reConstructBinaryTree(right_pre,right_in)
-        return t
-```
-
-### 方法二：简洁
-```python
-# -*- coding:utf-8 -*-
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-class Solution:
-    # 返回构造的TreeNode根节点
-    def reConstructBinaryTree(self, pre, tin):
-        # write code here
-        if not pre or not tin:
-            return None
-        root = TreeNode(pre.pop(0))
-        index = tin.index(root.val)
-        root.left = self.reConstructBinaryTree(pre, tin[:index])
-        root.right = self.reConstructBinaryTree(pre, tin[index + 1:])
-        return root
+        res = False
+        if pRoot1 is not None and pRoot2 is not None:
+            if pRoot1.val == pRoot2.val:
+                res = self.helper(pRoot1,pRoot2)
+            if not res:
+                res = self.HasSubtree(pRoot1.left, pRoot2)
+            if not res:
+                res = self.HasSubtree(pRoot1.right, pRoot2)
+        return res
+    def helper(self,A,B):
+        if B == None:
+            return True
+        if A == None:
+            return False
+        if A.val != B.val:
+            return False
+        return self.helper(A.left,B.left) and self.helper(A.right, B.right)
 ```
 ## 参考
   -  [LeetCode-105-从前序与中序遍历序列构造二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Construct-Binary-Tree-From-Preorder-And-Inorder-Traversal/README.md)
-   -  [LeetCode-106-从中序与后序遍历序列构造二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Construct-Binary-Tree-From-Ineorder-And-Postorder-Traversal/README.md)
