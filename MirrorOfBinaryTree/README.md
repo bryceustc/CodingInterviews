@@ -28,7 +28,7 @@
   
   思路：先交换根节点的两个子结点之后，我们注意到值为10、6的结点的子结点仍然保持不变，因此我们还需要交换这两个结点的左右子结点。做完这两次交换之后，我们已经遍历完所有的非叶结点。此时变换之后的树刚好就是原始树的镜像。交换示意图如下所示：
   
-  ![1](https://github.com/bryceustc/CodingInterviews/blob/master/MirrorOfBinaryTree/Images/1.jpg)
+  ![1](https://github.com/bryceustc/CodingInterviews/blob/master/MirrorOfBinaryTree/Images/1.png)
 # 代码
 
 [C++](./MirrorOfBinaryTree.cpp)
