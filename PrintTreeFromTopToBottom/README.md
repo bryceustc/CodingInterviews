@@ -132,7 +132,28 @@ class Solution:
                 q.append(temp.right)
         return res
 ```
+### collections.deque实现：
+```python
+class Solution:
+    # 返回从上到下每个节点值列表，例：[1,2,3]
+    def PrintFromTopToBottom(self, root):
+        # write code here
+        res = []
+        if root is None:
+            return res
+        q = collections.deque()
+        q.append(root)
+        while q:
+            node = q.popleft()
+            res.append(node.val)
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+        return res
+```
+
 ## 参考
   -  [STL队列deque用法](https://blog.csdn.net/longshengguoji/article/details/8519812)
   -  [STL队列Queue用法](https://blog.csdn.net/l494926429/article/details/52067004)
-
+  -  [Python3：collections.deque的用法简介](https://blog.csdn.net/liangzuojiayi/article/details/51097008)
