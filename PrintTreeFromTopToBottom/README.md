@@ -20,25 +20,7 @@
   二叉树的遍历算法和递归编程能力，代码的鲁棒性。
   
 # 解题思路:
-  此题与LeetCode101题对称二叉树类似。
-  
-  思路：**递归**
-  
-  1.怎么判断一棵树是不是对称二叉树？ 答案：如果所给根节点，为空，那么是对称。如果不为空的话，当他的左子树与右子树对称时，他对称
-  
-  2.那么怎么知道左子树与右子树对不对称呢？在这我直接叫为左树和右树 答案：如果左树的左孩子与右树的右孩子对称，左树的右孩子与右树的左孩子对称，那么这个左树和右树就对称。
-  
-  那用递归分别比较左右子树
-  
-  递归结束条件：
-   - 都为空指针则返回 true
-   - 只有一个为空则返回 false
-   - 两个指针当前节点值不相等 返回false
-   
- 递归过程：
-   - 判断 A 的右子树与 B 的左子树是否对称
-   - 判断 A 的左子树与 B 的右子树是否对称
-
+  注意此题与之前的前序遍历，中序遍历，后序遍历不一样，是一个层序遍历，需要利用STL中的容器队列来实现，queue是单边队列，先进先出，deque是双边队列，两边都可以进出，push_back()与push_front(),pop_back()与pop_front()。
 # 代码
 
 [C++](./PrintTreeFromTopToBottom.cpp)
@@ -50,38 +32,32 @@
 ```c++
 /*
 struct TreeNode {
-    int val;
-    struct TreeNode *left;
-    struct TreeNode *right;
-    TreeNode(int x) :
-            val(x), left(NULL), right(NULL) {
-    }
-};
-*/
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
 class Solution {
 public:
-    bool isSymmetrical(TreeNode* pRoot)
-    {
-        bool res = true;
-        if (pRoot!=NULL)
+    vector<int> PrintFromTopToBottom(TreeNode* root) {
+        vector<int> res;
+        if (root==NULL)
+            return res;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty())
         {
-            res = helper(pRoot->left,pRoot->right);
+            TreeNode* temp = q.front();
+            q.pop();
+            res.push_back(temp->val);
+            if (temp->left)
+                q.push(temp->left);
+            if (temp->right)
+                q.push(temp->right);
         }
         return res;
-    }
-    bool helper(TreeNode* A, TreeNode* B)
-    {
-        // 先写递归终止条件
-        if (A==NULL && B==NULL)
-            return true;
-        // 如果其中之一为空，也不是对称的
-        if (A==NULL || B==NULL)
-            return false;
-        // 走到这里二者一定不为空
-        if (A->val != B->val)
-            return false;
-        // 前序遍历
-        return helper(A->left,B->right) && helper(A->right,B->left);
     }
 };
 ```
@@ -96,21 +72,24 @@ public:
 #         self.left = None
 #         self.right = None
 class Solution:
-    def isSymmetrical(self, pRoot):
+    # 返回从上到下每个节点值列表，例：[1,2,3]
+    def PrintFromTopToBottom(self, root):
         # write code here
-        res = True
-        if pRoot:
-            res = self.helper(pRoot.left, pRoot.right)
+        res = []
+        if root is None:
+            return res
+        q = []
+        q.append(root)
+        while len(q)>0:
+            temp = q.pop(0)
+            res.append(temp.val)
+            if temp.left:
+                q.append(temp.left)
+            if temp.right:
+                q.append(temp.right)
         return res
-    def helper(self, A, B):
-        if A is None and B is None:
-            return True
-        if A is None or B is None:
-            return False
-        if A.val != B.val:
-            return False
-        return self.helper(A.left, B.right) and self.helper(A.right,B.left)
 ```
 ## 参考
-  -  [LeetCode-101-对称二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Symmetric-Tree/README.md)
+  -  [STL队列deque用法](https://blog.csdn.net/longshengguoji/article/details/8519812)
+  -  [STL队列Queue用法](https://blog.csdn.net/l494926429/article/details/52067004)
 
