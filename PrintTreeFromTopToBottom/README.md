@@ -21,6 +21,16 @@
   
 # 解题思路:
   注意此题与之前的前序遍历，中序遍历，后序遍历不一样，是一个层序遍历，需要利用STL中的容器队列来实现，queue是单边队列，先进先出，deque是双边队列，两边都可以进出，push_back()与push_front(),pop_back()与pop_front()。
+  
+  借助队列实现：
+  
+  1、将第一个元素加入队列
+  
+  2、队列不为空时取队首元素
+  
+  3、将下一层元素加入队尾
+  
+  4、调到第二步，直到队列为空
 # 代码
 
 [C++](./PrintTreeFromTopToBottom.cpp)
@@ -28,7 +38,7 @@
 [Python](./PrintTreeFromTopToBottom.py)
 
 # C++: 
-### 
+###  queue实现
 ```c++
 /*
 struct TreeNode {
@@ -56,6 +66,39 @@ public:
                 q.push(temp->left);
             if (temp->right)
                 q.push(temp->right);
+        }
+        return res;
+    }
+};
+```
+### deque实现
+```c++
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    vector<int> PrintFromTopToBottom(TreeNode* root) {
+        vector<int> res;
+        if (root==NULL)
+            return res;
+        deque<TreeNode*> q;
+        q.push_back(root);
+        while(q.size())
+        {
+            TreeNode* temp = q.front();
+            q.pop_front();
+            res.push_back(temp->val);
+            if (temp->left)
+                q.push_back(temp->left);
+            if (temp->right)
+                q.push_back(temp->right);
         }
         return res;
     }
