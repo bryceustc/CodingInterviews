@@ -55,9 +55,9 @@
 * [剑指Offer(二十六)：树的子结构](./SubstructureInTree/README.md)(**重要**，递归遍历思想)
 * [剑指Offer(二十七)：二叉树的镜像](./MirrorOfBinaryTree/README.md)(**重要**，翻转二叉树，**递归**)
 * [剑指Offer(二十八)：对称的二叉树](./SymmetricalBinaryTree/README.md)(**重要**，递归！！！)
-* [剑指Offer(三十二)：从上往下打印二叉树](./PrintTreeFromTopToBottom/README.md)(**重要**，递归！！！)
-* [剑指Offer(三十二)：分行从上往下打印二叉树](./PrintTreesInLines/README.md)(**重要**，递归！！！)
-* [剑指Offer(三十二)：之字形打印二叉树](./PrintTreesInZigzag/README.md)(**重要**，递归！！！)
+* [剑指Offer(三十二)：从上往下打印二叉树](./PrintTreeFromTopToBottom/README.md)(**重要**，层序遍历，利用队列实现)
+* [剑指Offer(三十二)：分行从上往下打印二叉树](./PrintTreesInLines/README.md)(**重要**，)
+* [剑指Offer(三十二)：之字形打印二叉树](./PrintTreesInZigzag/README.md)(**重要**，)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
