@@ -22,3 +22,22 @@ class Solution:
             res.append(out[:])
         return res
 ### Python Solution 2:
+class Solution:
+    # 返回二维列表[[1,2],[4,5]]
+    def Print(self, root):
+        # write code here
+        res = []
+        if root is None:
+            return res
+        self.helper(root, res, 0)
+        return res
+    def helper(self, root, res, level):
+        if root is None:
+            return
+        if len(res) == level:
+            res.append([])
+        res[level].append(root.val)
+        if root.left:
+            self.helper(root.left,res,level+1)
+        if root.right:
+            self.helper(root.right, res, level+1)
