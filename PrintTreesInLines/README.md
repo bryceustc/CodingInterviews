@@ -126,17 +126,16 @@ public:
 # Python:
 ###  迭代
 ```python
-# -*- coding:utf-8 -*-
+# Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
+
 class Solution:
-    # 返回二维列表[[1,2],[4,5]]
-    def Print(self, root):
-        # write code here
-        res =[]
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        res = []
         if root is None:
             return res
         q = []
