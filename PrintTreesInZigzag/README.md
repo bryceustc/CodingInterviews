@@ -24,29 +24,11 @@
   二叉树的遍历算法和递归编程能力，代码的鲁棒性。
   
 # 解题思路:
-  此题与LeetCode-102题-二叉树的层次遍历类似，与剑指offer-32题-从上到下打印二叉树思路类似。
+  此题与LeetCode-103题-二叉树的矩形层次遍历一样
   
-  方法一：迭代
+  因为奇偶层的打印顺序不一样是相反的，可以用reverse来解决，但是海量数据时这个效率很低。
   
-  同样借助队列实现，不过注意，与之前不同，此题要注意计算出当前层有多少个元素：等于队列的长度，按照顺序遍历完队列加入out中。
-  
-  第 0 层只包含根节点 root，算法实现如下：
-
-  - 初始化队列只包含一个节点 root。
-  - 当队列非空的时候：
-      - 计算当前层有多少个元素：等于队列的长度。
-      - 初始化一个空列表out
-      - 利用循环将这些元素从队列中弹出，并加入out空列表中。
-      - 将他们的孩子节点作为下一层压入队列中。
-      - 将out列表加入res中，进入下一层。
-      
-  方法二：递归
-  
-  递归，首先确认树非空，然后调用递归函数 ``helper(node, level)``，参数是当前节点和节点的层次。程序过程如下：
-
-  - 输出为 ``res``，**当前最高层数就是``res``的长度 ``res.size()``**。比较访问节点所在的层次 ``level`` 和当前最高层次 ``res.size()`` 的大小(当前所在层次level始终是不大于当前最高层次res.size()的)，如果``level == res.size()``了，就向``res``添加一个空``res.push_back(vector<int>())``。
- -  将当前节点插入到对应层的列表 ``res[level]`` 中。
- -  递归非空的孩子节点：``helper(node->left / node->right, level + 1)``。
+  因为奇数层的打印顺序是从左到右，偶数层的打印顺序是从右到左，可以利用STL容器deque中push_back(),push_front(),front(),back(),pop(),popfront()来解决，实现**前取后放，后取前放**，因为deque队列中的元素，都是从左到右的，当``zigzag==true;``，从左到右打印，就从前边开始取出元素，下一层的元素从后边压入，同理，从右向左打印时，从后边取出元素，下一层的元素就从前边压入，注意先压入右子树的，后压入左子树，这样新的队列还是从左到右，然后继续，直至队列为空。
   
 # 代码
 
@@ -55,7 +37,7 @@
 [Python](./PrintTreesInZigzag.py)
 
 # C++: 
-### 迭代：
+### 
 ```c++
 /*
 struct TreeNode {
@@ -69,92 +51,50 @@ struct TreeNode {
 */
 class Solution {
 public:
-        vector<vector<int> > Print(TreeNode* root) {
-            vector<vector<int>> res;
-            if (root==NULL)
-                return res;
-            queue<TreeNode*> q;
-            q.push(root);
-            while(!q.empty())
-            {
-                int count = q.size();
-                vector<int> out;
-                while(count>0)
-                {
-                    TreeNode* node = q.front();
-                    q.pop();
-                    out.push_back(node->val);
-                    if (node->left)
-                        q.push(node->left);
-                    if (node->right)
-                        q.push(node->right);
-                    count--;
-                }
-                res.push_back(out);
-            }
-            return res;
-        }
-    
-};
-```
-### 递归
-```c++
-class Solution {
-public:
-    vector<vector<int>> Print(TreeNode* root) {
+    vector<vector<int> > Print(TreeNode* root) {
         vector<vector<int>> res;
         if (root==NULL)
             return res;
-        helper(root, res,0);
+        deque<TreeNode*> q;
+        q.push_back(root);
+        bool zigzag = true; // 从右打印为True，从左打印为False
+        while (!q.empty())
+        {
+            int count = q.size();
+            vector<int> out;
+            TreeNode* node;
+            while (count>0)
+            {
+                if (zigzag) //前取后放：从左向右，所以从前边取，后边放入
+                {
+                    node = q.front();
+                    q.pop_front();
+                    if (node->left)
+                        q.push_back(node->left);
+                    if (node->right)
+                        q.push_back(node->right);
+                } 
+                else  // 后取前放：从右向左，从后边取，前边放入
+                {
+                    node = q.back();
+                    q.pop_back();
+                    if (node->right)
+                        q.push_front(node->right);
+                    if (node->left)
+                        q.push_front(node->left);
+                }
+                out.push_back(node->val);
+                count--;
+            }
+            res.push_back(out);
+            zigzag = !zigzag;
+        }
         return res;
-    }
-
-    void helper(TreeNode* root, vector<vector<int>> &res, int level)
-    {
-        if (root==NULL)
-            return;
-        if (res.size()==level)
-            res.push_back(vector<int>());
-        res[level].push_back(root->val);
-        if (root->left)
-            helper(root->left,res,level+1);
-        if (root->right)
-            helper(root->right,res,level+1);
     }
 };
 ```
 # Python:
-###  迭代
-```python
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
-        res = []
-        if root is None:
-            return res
-        q = []
-        q.append(root)
-        while q:
-            n = len(q)
-            out = []
-            while n>0:
-                node = q.pop(0)
-                out.append(node.val)
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-                n-=1
-            res.append(out[:])
-        return res
-```
-### 递归
+###  
 ```python
 # -*- coding:utf-8 -*-
 # class TreeNode:
@@ -163,24 +103,38 @@ class Solution:
 #         self.left = None
 #         self.right = None
 class Solution:
-    # 返回二维列表[[1,2],[4,5]]
     def Print(self, root):
         # write code here
         res = []
         if root is None:
             return res
-        self.helper(root, res, 0)
+        import collections
+        q = collections.deque()
+        q.append(root)
+        zigzag = True
+        while q:
+            n = len(q)
+            out = []
+            node = None
+            while n>0:
+                if zigzag:
+                    node = q.popleft()
+                    if node.left:
+                        q.append(node.left)
+                    if node.right:
+                        q.append(node.right)
+                else:
+                    node = q.pop()
+                    if node.right:
+                        q.appendleft(node.right)
+                    if node.left:
+                        q.appendleft(node.left)
+                out.append(node.val)
+                n-=1
+            res.append(out[:])
+            zigzag = not zigzag
         return res
-    def helper(self, root, res, level):
-        if root is None:
-            return
-        if len(res) == level:
-            res.append([])
-        res[level].append(root.val)
-        if root.left:
-            self.helper(root.left,res,level+1)
-        if root.right:
-            self.helper(root.right, res, level+1)
 ```
 ## 参考
-  -  [LeetCode-102题-二叉树的层次遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Level-Order-Traversal/README.md)
+  -  [LeetCode-103题-二叉树的锯齿形层次遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Zigzag-Level-Order-Traversal/README.md)
+  -  [Python：collections.deque的用法](https://docs.python.org/zh-cn/3/library/collections.html?highlight=deque#collections.deque)
