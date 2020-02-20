@@ -58,6 +58,7 @@
 * [剑指Offer(三十二)：从上往下打印二叉树](./PrintTreeFromTopToBottom/README.md)(**重要**，层序遍历，利用队列实现)
 * [剑指Offer(三十二)：分行从上往下打印二叉树](./PrintTreesInLines/README.md)(**重要**，利用队列实现，递归)
 * [剑指Offer(三十二)：之字形打印二叉树](./PrintTreesInZigzag/README.md)(**重要**，利用双端队列实现前取后放，后取前放)
+* [剑指Offer(三十三)：二叉搜索树的后序遍历序列](./SquenceOfBST/README.md)(**重要**)
 * [LeetCode(144):二叉树的前序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Preorder-Traversal/README.md)(**重要**)
 * [LeetCode(94):二叉树的中序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Inorder-Traversal/README.md)(**重要**)
 * [LeetCode(145):二叉树的后序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Postorder-Traversal/README.md)(**重要**)
