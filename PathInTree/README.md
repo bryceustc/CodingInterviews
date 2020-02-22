@@ -25,11 +25,14 @@
   二叉树的遍历算法和递归编程能力，代码的鲁棒性。
   
 # 解题思路:
-  此题与LeetCode-113题-二叉树的矩形层次遍历一样
+  此题与LeetCode-113题-路径总和 II一样
   
-  因为奇偶层的打印顺序不一样是相反的，可以用reverse来解决，但是海量数据时这个效率很低。
+  典型的带记忆的DFS来解决
   
-  因为奇数层的打印顺序是从左到右，偶数层的打印顺序是从右到左，可以利用STL容器deque中push_back(),push_front(),front(),back(),pop(),popfront()来解决，实现**前取后放，后取前放**，因为deque队列中的元素，都是从左到右的，当``zigzag==true;``，从左到右打印，就从前边开始取出元素，下一层的元素从后边压入，同理，从右向左打印时，从后边取出元素，下一层的元素就从前边压入，注意先压入右子树的，后压入左子树，这样新的队列还是从左到右，然后继续，直至队列为空。
+  思路： 
+     - 递归前序遍历树， 把结点加入路径。
+     - 若该结点是叶子结点则比较当前路径和是否等于期待和。
+     - 弹出结点，每一轮递归返回到父结点时，当前路径也应该回退一个结点
   
 # 代码
 
@@ -42,55 +45,39 @@
 ```c++
 /*
 struct TreeNode {
-    int val;
-    struct TreeNode *left;
-    struct TreeNode *right;
-    TreeNode(int x) :
-            val(x), left(NULL), right(NULL) {
-    }
-};
-*/
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
 class Solution {
 public:
-    vector<vector<int> > Print(TreeNode* root) {
-        vector<vector<int>> res;
-        if (root==NULL)
+    vector<vector<int>> res;
+    vector<vector<int> > FindPath(TreeNode* root,int expectNumber) {
+        if (root == NULL)
             return res;
-        deque<TreeNode*> q;
-        q.push_back(root);
-        bool zigzag = true; // 从右打印为True，从左打印为False
-        while (!q.empty())
-        {
-            int count = q.size();
-            vector<int> out;
-            TreeNode* node;
-            while (count>0)
-            {
-                if (zigzag) //前取后放：从左向右，所以从前边取，后边放入
-                {
-                    node = q.front();
-                    q.pop_front();
-                    if (node->left)
-                        q.push_back(node->left);
-                    if (node->right)
-                        q.push_back(node->right);
-                } 
-                else  // 后取前放：从右向左，从后边取，前边放入
-                {
-                    node = q.back();
-                    q.pop_back();
-                    if (node->right)
-                        q.push_front(node->right);
-                    if (node->left)
-                        q.push_front(node->left);
-                }
-                out.push_back(node->val);
-                count--;
-            }
-            res.push_back(out);
-            zigzag = !zigzag;
-        }
+        vector<int> path;
+        dfs(root,path,expectNumber);
         return res;
+    }
+    void dfs(TreeNode* root, vector<int>& path, int expectNumber)
+    {
+        if (root == NULL)
+            return;
+        path.push_back(root->val);
+        // 如果是叶节点，并且路径上的节点值的和为输入的值，就像结果中添加这一path
+        bool isLeaf = (root->left == NULL && root->right == NULL);
+        if (expectNumber == root->val && isLeaf)
+        {
+            res.push_back(path);
+        }
+        // 不是叶节点就遍历他的子节点
+        dfs(root->left, path, expectNumber-root->val);
+        dfs(root->right, path, expectNumber-root->val);
+        // 到这一步说明不满足要求，要返回父节点，需要删除路径上的当前节点
+        path.pop_back();
     }
 };
 ```
@@ -104,39 +91,25 @@ public:
 #         self.left = None
 #         self.right = None
 class Solution:
-    def Print(self, root):
+    # 返回二维列表，内部每个列表表示找到的路径
+    def __init__(self):
+        self.res = []
+        self.path = []
+    def FindPath(self, root, expectNumber):
         # write code here
-        res = []
         if root is None:
-            return res
-        import collections
-        q = collections.deque()
-        q.append(root)
-        zigzag = True
-        while q:
-            n = len(q)
-            out = []
-            node = None
-            while n>0:
-                if zigzag:
-                    node = q.popleft()
-                    if node.left:
-                        q.append(node.left)
-                    if node.right:
-                        q.append(node.right)
-                else:
-                    node = q.pop()
-                    if node.right:
-                        q.appendleft(node.right)
-                    if node.left:
-                        q.appendleft(node.left)
-                out.append(node.val)
-                n-=1
-            res.append(out[:])
-            zigzag = not zigzag
-        return res
+            return self.res
+        self.dfs(root, self.path, expectNumber)
+        return self.res
+    def dfs(self, root, path, expectNumber):
+        if root is None:
+            return
+        self.path.append(root.val)
+        if expectNumber == root.val and (root.left is None and root.right is None):
+            self.res.append(self.path[:])
+        self.dfs(root.left, self.path, expectNumber - root.val)
+        self.dfs(root.right, self.path, expectNumber - root.val)
+        self.path.pop()
 ```
 ## 参考
-  -  [LeetCode-103题-二叉树的锯齿形层次遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Zigzag-Level-Order-Traversal/README.md)
-  -  [Python：collections.deque的用法](https://docs.python.org/zh-cn/3/library/collections.html?highlight=deque#collections.deque)
-
+  -  [LeetCode-113题-路径总和 II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Path-Sum-II/README.md)
