@@ -24,11 +24,15 @@
   二叉树的遍历算法和递归编程能力，代码的鲁棒性。
   
 # 解题思路:
-  此题与LeetCode-103题-二叉树的矩形层次遍历一样
-  
-  因为奇偶层的打印顺序不一样是相反的，可以用reverse来解决，但是海量数据时这个效率很低。
-  
-  因为奇数层的打印顺序是从左到右，偶数层的打印顺序是从右到左，可以利用STL容器deque中push_back(),push_front(),front(),back(),pop(),popfront()来解决，实现**前取后放，后取前放**，因为deque队列中的元素，都是从左到右的，当``zigzag==true;``，从左到右打印，就从前边开始取出元素，下一层的元素从后边压入，同理，从右向左打印时，从后边取出元素，下一层的元素就从前边压入，注意先压入右子树的，后压入左子树，这样新的队列还是从左到右，然后继续，直至队列为空。
+已知条件：后序序列最后一个值为root；二叉搜索树左子树值都比root小，右子树值都比root大。
+
+1、确定root；
+
+2、遍历序列（除去root结点），找到第一个大于root的位置，则该位置左边为左子树，右边为右子树；
+
+3、遍历右子树，若发现有小于root的值，则直接返回false；
+
+4、分别判断左子树和右子树是否仍是二叉搜索树（即递归步骤1、2、3）。
   
 # 代码
 
@@ -39,57 +43,54 @@
 # C++: 
 ### 
 ```c++
-/*
-struct TreeNode {
-    int val;
-    struct TreeNode *left;
-    struct TreeNode *right;
-    TreeNode(int x) :
-            val(x), left(NULL), right(NULL) {
-    }
-};
-*/
 class Solution {
 public:
-    vector<vector<int> > Print(TreeNode* root) {
-        vector<vector<int>> res;
-        if (root==NULL)
+    bool VerifySquenceOfBST(vector<int> sequence) {
+        bool res = false;
+        if (sequence.empty())
             return res;
-        deque<TreeNode*> q;
-        q.push_back(root);
-        bool zigzag = true; // 从右打印为True，从左打印为False
-        while (!q.empty())
-        {
-            int count = q.size();
-            vector<int> out;
-            TreeNode* node;
-            while (count>0)
-            {
-                if (zigzag) //前取后放：从左向右，所以从前边取，后边放入
-                {
-                    node = q.front();
-                    q.pop_front();
-                    if (node->left)
-                        q.push_back(node->left);
-                    if (node->right)
-                        q.push_back(node->right);
-                } 
-                else  // 后取前放：从右向左，从后边取，前边放入
-                {
-                    node = q.back();
-                    q.pop_back();
-                    if (node->right)
-                        q.push_front(node->right);
-                    if (node->left)
-                        q.push_front(node->left);
-                }
-                out.push_back(node->val);
-                count--;
-            }
-            res.push_back(out);
-            zigzag = !zigzag;
-        }
+        int n = sequence.size();
+        res = helper(sequence,0,n-1);
         return res;
+    }
+    bool helper(vector<int> seq, int start, int end)
+    {
+        if (seq.empty() || start > end)
+        {
+            return false;
+        }
+        //根结点
+        int root = seq[end];
+        
+        //在二叉搜索树中左子树的结点小于根结点
+        int i = start;
+        for (;i<end;i++)
+        {
+            if (seq[i]>root)
+                break;
+        }
+        
+        //在二叉搜索书中右子树的结点大于根结点
+        for (int j =i;j<end;j++)
+        {
+            if (seq[j]<root)
+                return false;
+        }
+        
+        //判断左子树是不是二叉搜索树
+        bool left = true;
+        if (i>start)
+        {
+            left = helper(seq, start, i-1);
+        }
+        
+        //判断右子树是不是二叉搜索树
+        bool right = true;
+        if (i < end-1)
+        {
+            right = helper(seq, i, end-1);
+        }
+        return left && right;
     }
 };
 ```
@@ -97,45 +98,27 @@ public:
 ###  
 ```python
 # -*- coding:utf-8 -*-
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
 class Solution:
-    def Print(self, root):
+    def VerifySquenceOfBST(self, sequence):
         # write code here
-        res = []
-        if root is None:
-            return res
-        import collections
-        q = collections.deque()
-        q.append(root)
-        zigzag = True
-        while q:
-            n = len(q)
-            out = []
-            node = None
-            while n>0:
-                if zigzag:
-                    node = q.popleft()
-                    if node.left:
-                        q.append(node.left)
-                    if node.right:
-                        q.append(node.right)
-                else:
-                    node = q.pop()
-                    if node.right:
-                        q.appendleft(node.right)
-                    if node.left:
-                        q.appendleft(node.left)
-                out.append(node.val)
-                n-=1
-            res.append(out[:])
-            zigzag = not zigzag
-        return res
+        if sequence is None or len(sequence) == 0:
+            return False
+        root = sequence[-1]
+        n = len(sequence)
+        i=0
+        for i in range(n):
+            if sequence[i] > root:
+                break
+        for j in range(i,n):
+            if sequence[j] < root:
+                return False
+        left = True
+        if i > 0:
+            left = self.VerifySquenceOfBST(sequence[:i])  # a[ : n]表示从第0个元素到第n个元素(不包括n)
+        right = True
+        if i < n - 1:
+            right = self.VerifySquenceOfBST(sequence[i:-1])
+        return left and right
 ```
 ## 参考
-  -  [LeetCode-103题-二叉树的锯齿形层次遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Zigzag-Level-Order-Traversal/README.md)
-  -  [Python：collections.deque的用法](https://docs.python.org/zh-cn/3/library/collections.html?highlight=deque#collections.deque)
-
+  -  [python 列表的中括号[]与冒号:的作用](https://blog.csdn.net/jingyu7/article/details/82934446)
