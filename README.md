@@ -60,6 +60,7 @@
 * [剑指Offer(三十二)：之字形打印二叉树](./PrintTreesInZigzag/README.md)(**重要**，利用双端队列实现前取后放，后取前放)
 * [剑指Offer(三十三)：二叉搜索树的后序遍历序列](./SquenceOfBST/README.md)(**重要**，递归的思想，注意下标)
 * [剑指Offer(三十四)：二叉树中和为某一值的路径](./PathInTree/README.md)(**重要**，典型带记忆的（&引用）DFS递归方法)
+* [剑指Offer(三十六)：二叉搜索树与双向链表](./ConvertBinarySearchTree/README.md)(**重要**，典型带记忆的（&引用）DFS递归方法)
 * [LeetCode(144):二叉树的前序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Preorder-Traversal/README.md)(**重要**)
 * [LeetCode(94):二叉树的中序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Inorder-Traversal/README.md)(**重要**)
 * [LeetCode(145):二叉树的后序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Postorder-Traversal/README.md)(**重要**)
