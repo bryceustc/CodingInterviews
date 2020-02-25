@@ -3,15 +3,21 @@
 给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。
 # 本题考点：
   
-  二叉树的三种遍历（前序遍历(DLR)，中序遍历(LDR)，后序遍历(LRD)）实现。
+  二叉树的中序遍历(LDR)，以及分情况讨论。
   
 # 解题思路:
 
-   理解二叉树以及三种遍历的概念。[二叉树 - 前序遍历、中序遍历、后序遍历](https://www.jianshu.com/p/acb33735b933)
+   ![](https://cuijiahua.com/wp-content/uploads/2018/01/basis_57_1.png)
    
-   注意前序遍历中的第一个数字是根节点的值，在中序遍历中根节点的值在序列中间，左子树的节点的值在根节点的值的左边，而右子树的节点的值位于根节点的右边，所以先扫描中序遍历，找到根节点所在位置，然后找到左子树和右子树的前序遍历和中序遍历即可。如图所示：
-   
-   ![1](https://github.com/bryceustc/CodingInterviews/blob/master/ConstructBinaryTree/Images/1.jpg)
+  我们以上图为例进行讲解，上图二叉树的中序遍历是d,b,h,e,i,a,f,c,g。我们以这棵树为例来分析如何找出二叉树的下一个结点。
+
+如果一个结点有右子树，那么它的下一个结点就是它的右子树的最左子结点。也就是说从右子结点出发一直沿着指向左子树结点的指针，我们就能找到它的下一个结点。例如，图中结点b的下一个结点是h，结点a的下一个结点是f。
+
+接着我们分析一下结点没有右子树的情形。如果结点是它父结点的左子结点，那么它的下一个结点就是它的父结点。例如，途中结点d的下一个结点是b，f的下一个结点是c。
+
+如果一个结点既没有右子树，并且它还是父结点的右子结点，这种情形就比较复杂。我们可以沿着指向父结点的指针一直向上遍历，直到找到一个是它父结点的左子结点的结点。如果这样的结点存在，那么这个结点的父结点就是我们要找的下一个结点。例如，为了找到结点g的下一个结点，我们沿着指向父结点的指针向上遍历，先到达结点c。由于结点c是父结点a的右结点，我们继续向上遍历到达结点a。由于结点a是树的根结点。它没有父结点。因此结点g没有下一个结点。
+
+
 # 代码
 
 [C++](./NextNodeInBinaryTrees.cpp)
@@ -21,116 +27,81 @@
 # C++: 
 ### 
 ```c++
-/**
- * Definition for binary tree
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+/*
+struct TreeLinkNode {
+    int val;
+    struct TreeLinkNode *left;
+    struct TreeLinkNode *right;
+    struct TreeLinkNode *next;
+    TreeLinkNode(int x) :val(x), left(NULL), right(NULL), next(NULL) {
+        
+    }
+};
+*/
 class Solution {
 public:
-    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
-        if (pre.empty() || vin.empty())
+    TreeLinkNode* GetNext(TreeLinkNode* Node)
+    {
+        if (Node== NULL)
             return NULL;
-        int n = pre.size();
-        // 前序遍历的第一个数字是根节点的值
-        int root = pre[0];
-        // 创建根节点
-        TreeNode* t = new TreeNode(root);
-        // 如果长度为1，直接返回根节点
-        if (n==1) return t;
-        // 找到root所在的位置，确定好前序和中序中左子树和右子树序列的范围
-        int root_index = 0;
-        for (int i=0;i<n;i++)
+        TreeLinkNode* res = NULL;
+        // 当前结点有右子树，那么它的下一个结点就是它的右子树中最左子结点
+        if (Node->right != NULL)
         {
-            if (vin[i]==root)
+            TreeLinkNode* pRight = Node->right;
+            while(pRight->left!=NULL)
             {
-                root_index = i;
-                break;
+                pRight = pRight->left;
             }
+            res = pRight;
         }
-        // 左子树
-        vector<int> left_pre,left_in, right_pre, right_in;
-        for (int i=0;i<root_index;i++)
+        // 当前结点无右子树，则需要找到一个是它父结点的左子树结点的结点
+        else if (Node->next!=NULL)
         {
-            left_pre.push_back(pre[i+1]); // +1 是因为前序遍历的第一个节点是根节点
-            left_in.push_back(vin[i]);
+            // 当前结点
+            TreeLinkNode* pCur = Node;
+            // 父节点
+            TreeLinkNode* pNext = Node->next;
+            while( pNext != NULL && pNext->right == pCur)
+            {
+                pCur = pNext;
+                pNext = pNext->next;
+            }
+            res = pNext;
         }
-        // 右子树
-        for (int i=root_index+1;i<n;i++)
-        {
-            right_pre.push_back(pre[i]);
-            right_in.push_back(vin[i]);
-        }
-        t->left = reConstructBinaryTree(left_pre,left_in);
-        t->right = reConstructBinaryTree(right_pre,right_in);
-        return t;
+        return res;
     }
 };
 ```
-
 # Python:
-###  方法一：
+###  
 ```python
 # -*- coding:utf-8 -*-
-# class TreeNode:
+# class TreeLinkNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
+#         self.next = None
 class Solution:
-    # 返回构造的TreeNode根节点
-    def reConstructBinaryTree(self, pre, tin):
+    def GetNext(self, Node):
         # write code here
-        n = len(pre)
-        if n==0:
+        if Node is None:
             return None
-        root = pre[0]
-        t = TreeNode(root)
-        if n==1:
-            return t
-        rooot_index = 0
-        for i in range(n):
-            if tin[i]==root:
-                root_index = i
-                break
-        left_pre = []
-        left_in = []
-        right_pre = []
-        right_in = []
-        for i in range(root_index):
-            left_pre.append(pre[i+1])
-            left_in.append(tin[i])
-        for i in range(root_index+1,n):
-            right_pre.append(pre[i])
-            right_in.append(tin[i])
-        t.left = self.reConstructBinaryTree(left_pre,left_in)
-        t.right = self.reConstructBinaryTree(right_pre,right_in)
-        return t
-```
-
-### 方法二：简洁
-```python
-# -*- coding:utf-8 -*-
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-class Solution:
-    # 返回构造的TreeNode根节点
-    def reConstructBinaryTree(self, pre, tin):
-        # write code here
-        if not pre or not tin:
-            return None
-        root = TreeNode(pre.pop(0))
-        index = tin.index(root.val)
-        root.left = self.reConstructBinaryTree(pre, tin[:index])
-        root.right = self.reConstructBinaryTree(pre, tin[index + 1:])
-        return root
+        res = None
+        if Node.right:
+            pRight = Node.right
+            while pRight.left:
+                pRight = pRight.left
+            res = pRight
+        elif Node.next:
+            pCur = Node
+            pNext = Node.next
+            while pNext and pNext.right == pCur:
+                pCur = pNext
+                pNext = pNext.next
+            res = pNext
+        return res
 ```
 ## 参考
   -  [LeetCode-105-从前序与中序遍历序列构造二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Construct-Binary-Tree-From-Preorder-And-Inorder-Traversal/README.md)
