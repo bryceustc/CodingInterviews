@@ -52,7 +52,7 @@
 * [剑指Offer(三十一)：栈的压入、弹出元素](./StackPushPopOrder/README.md)(**重要**，利用一个辅助栈模拟)
 ### 树：
 * [剑指Offer(七)：重建二叉树](./ConstructBinaryTree/README.md)(**重要**，前序遍历，中序遍历，后序遍历要掌握)
-* [剑指Offer(八：二叉树的下一个节点](./NextNodeInBinaryTrees/README.md)(**重要**)
+* [剑指Offer(八：二叉树的下一个节点](./NextNodeInBinaryTrees/README.md)(**重要**，中序遍历，分情况讨论)
 * [剑指Offer(二十六)：树的子结构](./SubstructureInTree/README.md)(**重要**，递归遍历思想)
 * [剑指Offer(二十七)：二叉树的镜像](./MirrorOfBinaryTree/README.md)(**重要**，翻转二叉树，**递归**)
 * [剑指Offer(二十八)：对称的二叉树](./SymmetricalBinaryTree/README.md)(**重要**，递归！！！)
@@ -62,6 +62,7 @@
 * [剑指Offer(三十三)：二叉搜索树的后序遍历序列](./SquenceOfBST/README.md)(**重要**，递归的思想，注意下标)
 * [剑指Offer(三十四)：二叉树中和为某一值的路径](./PathInTree/README.md)(**重要**，典型带记忆的（&引用）DFS递归方法)
 * [剑指Offer(三十六)：二叉搜索树与双向链表](./ConvertBinarySearchTree/README.md)(**重要**，利用中序遍历进行递归)
+* [剑指Offer(三十七)：序列化二叉树](./SerializeBinaryTrees/README.md)(**重要**)
 * [LeetCode(144):二叉树的前序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Preorder-Traversal/README.md)(**重要**)
 * [LeetCode(94):二叉树的中序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Inorder-Traversal/README.md)(**重要**)
 * [LeetCode(145):二叉树的后序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Postorder-Traversal/README.md)(**重要**)
