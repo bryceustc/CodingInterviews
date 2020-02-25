@@ -232,4 +232,4 @@ class Solution:
 ```
 
 ## 参考
-  -  [LeetCode-297题-二叉树的序列化与反序列化](https://blog.csdn.net/longshengguoji/article/details/8519812)
+  -  [LeetCode-297题-二叉树的序列化与反序列化](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Serialize-And-Deserialize-Binary-Tree/README.md)
