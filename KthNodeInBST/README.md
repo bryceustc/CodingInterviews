@@ -13,6 +13,7 @@
 
   如上图所示，如果使用中序遍历，则得到的序列式为{2,3,4,5,6,7,8}。因此，只需要用中序遍历一棵二叉搜索树，就很容易找出它的第k大结点。
   
+  主要就是中序遍历，用递归，迭代两种方法实现
   
 # 代码
 
@@ -191,36 +192,6 @@ class Solution:
             return
         self.helper(root.left, k)
 ```
-###  迭代
-```python
-# -*- coding:utf-8 -*-
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-class Solution:
-    def Convert(self, root):
-        # write code here
-        if root is None:
-            return None
-        pre = None
-        self.helper(root, pre)
-        res = root
-        while res.left:
-            res = res.left
-        return res
-    def helper(self, cur, pre):
-        if cur is None:
-            return pre
-        pre = self.helper(cur.left, pre)
-        cur.left = pre
-        if pre:
-            pre.right = cur
-        pre = cur
-        return self.helper(cur.right, pre)
-```
-
 ### 迭代
 ```python
 class Solution:
@@ -241,4 +212,3 @@ class Solution:
 ```
 ## 参考
   -  [LeetCode-94 题-中序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Inorder-Traversal/README.md)
-  -  [python 可变与不可变变量](https://blog.csdn.net/god_wen/article/details/78423621)
