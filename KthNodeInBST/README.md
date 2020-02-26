@@ -1,29 +1,17 @@
-# 题目: 二叉搜索树与双向链表
+# 题目: 二叉搜索树的第k大结点
 ## 题目描述：
-给定一棵二叉搜索树，请找出其中的第k小的结点。例如， （5，3，7，2，4，6，8） 中，按结点数值大小顺序第三小结点的值为4。
+给定一颗二叉搜索树，请找出其中的第k大的结点。例如，在下图中，按结点数值大小顺序第三个结点的值为4。
 
+![](https://cuijiahua.com/wp-content/uploads/2018/01/basis_62_1_modify.png)
+
+这棵树是二叉搜索树，首先想到的是二叉搜索树的一个特点：左子结点的值 < 根结点的值 < 右子结点的值。
 # 本题考点：
   
   二叉搜索树与双向链表的理解，以及中序遍历算法和递归编程能力，复杂问题的思维能力。
   
 # 解题思路:
-  此题与LeetCode-426题-将二叉搜索树转换为双向链表类似
-  
-  思路：
-  
-  举例说明：
-  
-  ![](https://cuijiahua.com/wp-content/uploads/2017/12/basis_26_1.jpg)
-  
-  二叉搜索树如上图所示，我们将其转换为配需双向链表。
 
-根据二叉搜索树的特点：左结点的值<根结点的值<右结点的值，我们不难发现，使用二叉树的中序遍历出来的数据的数序，就是排序的顺序。因此，首先，确定了二叉搜索树的遍历方法。
-
-接下来，我们看下图，我们可以把树分成三个部分：值为10的结点、根结点为6的左子树、根结点为14的右子树。根据排序双向链表的定义，值为10的结点将和它的左子树的最大一个结点链接起来，同时它还将和右子树最小的结点链接起来。
-  
-  ![](https://cuijiahua.com/wp-content/uploads/2017/12/basis_26_3.jpg)
-  
-  按照中序遍历的顺序，当我们遍历到根结点时，它的左子树已经转换成一个排序的好的双向链表了，并且处在链表中最后一个的结点是当前值最大的结点。我们把值为8的结点和根结点链接起来，10就成了最后一个结点，接着我们就去遍历右子树，并把根结点和右子树中最小的结点链接起来。
+  如上图所示，如果使用中序遍历，则得到的序列式为{2,3,4,5,6,7,8}。因此，只需要用中序遍历一棵二叉搜索树，就很容易找出它的第k大结点。
   
   
 # 代码
@@ -33,57 +21,134 @@
 [Python](./KthNodeInBST.py)
 
 # C++: 
-### 
+### 递归
 ```c++
 /*
 struct TreeNode {
-	int val;
-	struct TreeNode *left;
-	struct TreeNode *right;
-	TreeNode(int x) :
-			val(x), left(NULL), right(NULL) {
-	}
-};*/
-class Solution {
-public:
-    TreeNode* Convert(TreeNode* root)
-    {
-        if (root == NULL)
-            return NULL;
-	// 定义一个pre指针
-        TreeNode* pre = NULL;
-        helper(root, pre);
-        TreeNode* res = root; 
-	// 寻找到头结点
-        while (res->left)
-        {
-            res = res->left;
-        }
-        return res;
-    }
-    void helper(TreeNode* cur, TreeNode* &pre)  // 中序遍历
-    {
-        if (cur == NULL)
-            return;
-        // 先递归遍历左子树
-        helper(cur->left, pre);
-        // 修改为双向链表
-	//左指针
-        cur->left = pre;
-	 //右指针
-        if(pre != NULL)
-        {
-            pre->right = cur;
-        }
-	 //更新双向链表尾结点
-        pre = cur;
-        // 再递归遍历右子树
-        helper(cur->right, pre);
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
     }
 };
+*/
+class Solution {
+public:
+    TreeNode* KthNode(TreeNode* root, int k)
+    {
+        if (root == NULL || k < 1)
+            return NULL;
+        helper(root,k);
+        return res;
+    }
+    void helper(TreeNode* root, int k)
+    {
+        if (root == NULL)
+            return;
+	// 第k小，正常中序遍历，第k大，逆中序遍历
+        helper(root->left, k);
+        if (++count == k)
+        {
+            res = root;
+            return;
+        }
+        helper(root->right, k);
+    }
+private:
+    TreeNode* res = NULL;
+    int count = 0;
+};
 ```
+## 递归 (返回第k大数字，空间复杂度O(n))
+```c++
+class Solution {
+public:
+    int kthLargest(TreeNode* root, int k) {
+        int res = 0;
+        if (root == NULL || k<1)
+        {
+            return res;
+        }
+        vector<int> out;
+        helper(root, out);
+        int n = out.size();
+        res = out[n-k];
+        return res;
+    }
+    void helper(TreeNode* root, vector<int> &v)
+    {
+        if (root==NULL)
+            return;
+        helper(root->left, v);
+        v.push_back(root->val);
+        helper(root->right,v);
+    }
+}
+```
+
+## 递归 (返回第k大数字，空间复杂度O(1))
+```c++
+class Solution {
+public:
+    int kthLargest(TreeNode* root, int k) {
+        if (root == NULL || k<1)
+        {
+            return 0;
+        }
+        helper(root, k);
+        return res;
+    }
+    void helper(TreeNode* root, int k)
+    {
+        if (root==NULL)
+            return;
+        helper(root->right, k);
+        if (++count==k)
+        {
+            res = root->val;
+            return;
+        }
+        helper(root->left, k);
+    }
+private:
+    int res = 0;
+    int count = 0;
+};
+```
+
+
 # Python:
-###  
+###  递归
+```python
+# -*- coding:utf-8 -*-
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution:
+    def Convert(self, root):
+        # write code here
+        if root is None:
+            return None
+        pre = None
+        self.helper(root, pre)
+        res = root
+        while res.left:
+            res = res.left
+        return res
+    def helper(self, cur, pre):
+        if cur is None:
+            return pre
+        pre = self.helper(cur.left, pre)
+        cur.left = pre
+        if pre:
+            pre.right = cur
+        pre = cur
+        return self.helper(cur.right, pre)
+```
+###  迭代
 ```python
 # -*- coding:utf-8 -*-
 # class TreeNode:
