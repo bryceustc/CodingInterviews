@@ -116,37 +116,80 @@ private:
     int count = 0;
 };
 ```
-
+### 迭代
+```c++
+class Solution {
+public:
+    int kthLargest(TreeNode* root, int k) {
+        int n=0;
+        stack<TreeNode*> s;
+        TreeNode* p = root;
+        while (!s.empty() || p!=NULL)
+        {
+            while(p!=NULL)
+            {
+                s.push(p);
+                p = p->right;
+            }
+            p =s.top();
+            s.pop();
+            if (++n==k)
+            {
+                return p->val;
+            }
+            p = p->left;
+        }
+        return 0;
+    }
+};
+```
 
 # Python:
-###  递归
+###  递归  空间复杂度O(n)
 ```python
-# -*- coding:utf-8 -*-
+class Solution:
+    def kthLargest(self, root: TreeNode, k: int) -> int:
+        res = 0
+        if root is None or k < 1:
+            return res
+        out = []
+        self.helper(root, out)
+        res = out[-k]
+        return res
+    def helper(self, root, out):
+        if root is None:
+            return
+        self.helper(root.left, out)
+        out.append(root.val)
+        self.helper(root.right, out)
+```
+###  递归  空间复杂度O(1)
+```python
+# Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
+
 class Solution:
-    def Convert(self, root):
-        # write code here
-        if root is None:
-            return None
-        pre = None
-        self.helper(root, pre)
-        res = root
-        while res.left:
-            res = res.left
-        return res
-    def helper(self, cur, pre):
-        if cur is None:
-            return pre
-        pre = self.helper(cur.left, pre)
-        cur.left = pre
-        if pre:
-            pre.right = cur
-        pre = cur
-        return self.helper(cur.right, pre)
+    def __init__(self):
+        self.res = 0
+        self.count = 0
+    def kthLargest(self, root: TreeNode, k: int) -> int:
+        if root is None or k < 1:
+            return self.res
+        self.helper(root, k)
+        return self.res
+    def helper(self, root, k):
+        if (root==None):
+            return
+        self.helper(root.right, k)
+        self.count =  self.count + 1
+        if self.count == k:
+            self.res = root.val
+            return
+        self.helper(root.left, k)
 ```
 ###  迭代
 ```python
@@ -177,6 +220,25 @@ class Solution:
         pre = cur
         return self.helper(cur.right, pre)
 ```
+
+### 迭代
+```python
+class Solution:
+    def kthLargest(self, root: TreeNode, k: int) -> int:
+        n = 0
+        s = []
+        p = root
+        while s or p:
+            while p:
+                s.append(p)
+                p = p.right
+            p = s.pop()
+            n+=1
+            if n == k:
+                return p.val
+            p = p.left
+        return 0
+```
 ## 参考
-  -  [LeetCode-426 题-将二叉搜索树转换为双向链表](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Convert-Binary-Search-Tree-To-Sorted-Doubly-Lnked-List/README.md)
+  -  [LeetCode-94 题-中序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Inorder-Traversal/README.md)
   -  [python 可变与不可变变量](https://blog.csdn.net/god_wen/article/details/78423621)
