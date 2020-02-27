@@ -3,13 +3,13 @@
 输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。
 # 本题考点：
   
-  二叉搜索树与双向链表的理解，以及中序遍历算法和递归编程能力，复杂问题的思维能力。
+  二叉树递归编程能力，复杂问题的思维能力。
   
 # 解题思路:
-
-  如上图所示，如果使用中序遍历，则得到的序列式为{2,3,4,5,6,7,8}。因此，只需要用中序遍历一棵二叉搜索树，就很容易找出它的第k大结点。
   
-  主要就是中序遍历，用递归，迭代两种方法实现
+  推荐用递归，取左右子树最大的深度加上1
+  
+  两种方法：可以是递归的方法，属于DFS（深度优先搜索）；另一种方法是按照层次遍历，属于BFS（广度优先搜索）。
   
 # 代码
 
@@ -18,149 +18,62 @@
 [Python](./TreeDepth.py)
 
 # C++: 
-### 递归
+###  DFS 递归
 ```c++
 /*
 struct TreeNode {
-    int val;
-    struct TreeNode *left;
-    struct TreeNode *right;
-    TreeNode(int x) :
-            val(x), left(NULL), right(NULL) {
-    }
-};
-*/
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
 class Solution {
 public:
-    TreeNode* KthNode(TreeNode* root, int k)
-    {
-        if (root == NULL || k < 1)
-            return NULL;
-        helper(root,k);
-        return res;
-    }
-    void helper(TreeNode* root, int k)
+    int TreeDepth(TreeNode* root)
     {
         if (root == NULL)
-            return;
-	// 第k小，正常中序遍历，第k大，逆中序遍历
-        helper(root->left, k);
-        if (++count == k)
-        {
-            res = root;
-            return;
-        }
-        helper(root->right, k);
-    }
-private:
-    TreeNode* res = NULL;
-    int count = 0;
-};
-```
-## 递归 (返回第k大数字，空间复杂度O(n))
-```c++
-class Solution {
-public:
-    int kthLargest(TreeNode* root, int k) {
-        int res = 0;
-        if (root == NULL || k<1)
-        {
-            return res;
-        }
-        vector<int> out;
-        helper(root, out);
-        int n = out.size();
-        res = out[n-k];
-        return res;
-    }
-    void helper(TreeNode* root, vector<int> &v)
-    {
-        if (root==NULL)
-            return;
-        helper(root->left, v);
-        v.push_back(root->val);
-        helper(root->right,v);
-    }
-}
-```
-
-## 递归 (返回第k大数字，空间复杂度O(1))
-```c++
-class Solution {
-public:
-    int kthLargest(TreeNode* root, int k) {
-        if (root == NULL || k<1)
-        {
             return 0;
-        }
-        helper(root, k);
-        return res;
+        int left = TreeDepth(root->left);
+        int right = TreeDepth(root->right);
+        return max(left, right) + 1;
     }
-    void helper(TreeNode* root, int k)
-    {
-        if (root==NULL)
-            return;
-        helper(root->right, k);
-        if (++count==k)
-        {
-            res = root->val;
-            return;
-        }
-        helper(root->left, k);
-    }
-private:
-    int res = 0;
-    int count = 0;
 };
 ```
-### 迭代
+## BFS 迭代
 ```c++
 class Solution {
 public:
-    int kthLargest(TreeNode* root, int k) {
-        int n=0;
-        stack<TreeNode*> s;
-        TreeNode* p = root;
-        while (!s.empty() || p!=NULL)
+    int TreeDepth(TreeNode* root)
+    {
+        int depth = 0;
+        if (root == NULL)
+            return depth;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty())
         {
-            while(p!=NULL)
+            int count = q.size();
+            while(count>0)
             {
-                s.push(p);
-                p = p->right;
+                TreeNode* node = q.front();
+                q.pop();
+                if (node->left)
+                    q.push(node->left);
+                if (node->right)
+                    q.push(node->right);
+                count--;
             }
-            p =s.top();
-            s.pop();
-            if (++n==k)
-            {
-                return p->val;
-            }
-            p = p->left;
+            depth++;
         }
-        return 0;
+        return depth;
     }
 };
 ```
 
 # Python:
-###  递归  空间复杂度O(n)
-```python
-class Solution:
-    def kthLargest(self, root: TreeNode, k: int) -> int:
-        res = 0
-        if root is None or k < 1:
-            return res
-        out = []
-        self.helper(root, out)
-        res = out[-k]
-        return res
-    def helper(self, root, out):
-        if root is None:
-            return
-        self.helper(root.left, out)
-        out.append(root.val)
-        self.helper(root.right, out)
-```
-###  递归  空间复杂度O(1)
+###  DFS 递归
 ```python
 # Definition for a binary tree node.
 # class TreeNode:
@@ -170,42 +83,38 @@ class Solution:
 #         self.right = None
 
 class Solution:
-    def __init__(self):
-        self.res = 0
-        self.count = 0
-    def kthLargest(self, root: TreeNode, k: int) -> int:
-        if root is None or k < 1:
-            return self.res
-        self.helper(root, k)
-        return self.res
-    def helper(self, root, k):
-        if (root==None):
-            return
-        self.helper(root.right, k)
-        self.count =  self.count + 1
-        if self.count == k:
-            self.res = root.val
-            return
-        self.helper(root.left, k)
+    def TreeDepth(self, root):
+        # write code here
+        if root is None:
+            return 0
+        left = self.TreeDepth(root.left)
+        right = self.TreeDepth(root.right)
+        return max(left, right)+1
 ```
-### 迭代
+### BFS 迭代
 ```python
 class Solution:
-    def kthLargest(self, root: TreeNode, k: int) -> int:
-        n = 0
-        s = []
-        p = root
-        while s or p:
-            while p:
-                s.append(p)
-                p = p.right
-            p = s.pop()
-            n+=1
-            if n == k:
-                return p.val
-            p = p.left
-        return 0
+    def TreeDepth(self, root):
+        # write code here
+        depth = 0
+        if root is None:
+            return depth
+        q = []
+        q.append(root)
+        while q:
+	    # count 是每一层的节点数
+            count = len(q)
+            while count > 0:
+                node = q.pop(0)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+                count-=1
+	    # 遍历完一层后，深度+1
+            depth+=1
+        return depth
 ```
 ## 参考
-  -  [LeetCode-94 题-中序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Inorder-Traversal/README.md)
+  -  [LeetCode-104题-二叉树的最大深度](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Maximum-Depth-Of-Binary-Tree/README.md)
 
