@@ -69,6 +69,11 @@
 * [LeetCode(144):二叉树的前序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Preorder-Traversal/README.md)(**重要**)
 * [LeetCode(94):二叉树的中序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Inorder-Traversal/README.md)(**重要**)
 * [LeetCode(145):二叉树的后序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Postorder-Traversal/README.md)(**重要**)
+### 位运算：
+* [剑指Offer(十五)：二进制中1的个数](./NumberOf1InBinary/README.md)
+* [剑指Offer(十六)：数值的整数次方](./Power/README.md)
+* [剑指Offer(五十六)：数组中只出现一次的数字](./NumbersAppearOnce/README.md)
+* [剑指Offer(六十四)：求1+2+3+…+n](./Accumulate/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
