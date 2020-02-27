@@ -6,10 +6,20 @@
   二叉树递归编程能力，复杂问题的思维能力。
   
 # 解题思路:
-  
-  推荐用递归，取左右子树最大的深度加上1
-  
-  两种方法：可以是递归的方法，属于DFS（深度优先搜索）；另一种方法是按照层次遍历，属于BFS（广度优先搜索）。
+ 解题思路有两种，只遍历一次的方法最优。
+
+**重复遍历多次：自顶向下** 
+
+
+时间复杂度O(nlogn), 空间复杂度O(n)[复杂度分析](https://leetcode-cn.com/problems/balanced-binary-tree/solution/ping-heng-er-cha-shu-by-leetcode/)
+
+自顶向下在遍历树的每个结点的时候，调用函数TreeDepth得到它的左右子树的深度。如果每个结点的左右子树的深度相差都不超过1，则这是一颗平衡的二叉树。这种方法的缺点是，首先判断根结点是不是平衡的，需要使用TreeDepth获得左右子树的深度，然后还需要继续判断子树是不是平衡的，还是需要使用TreeDepth获得子树的左右子树的深度，这样就导致了大量的重复遍历。
+
+**只遍历一次：自底向上**
+
+时间复杂度O(n), 空间复杂度O(n)[复杂度分析](https://leetcode-cn.com/problems/balanced-binary-tree/solution/ping-heng-er-cha-shu-by-leetcode/)
+
+自底向上与自顶向下的逻辑相反，首先判断子树是否平衡，然后比较子树高度判断父节点是否平衡。检查子树是否平衡。如果平衡，则使用它们的高度判断父节点是否平衡，并计算父节点的高度。自底向上计算，每个子树的高度只会计算一次。可以递归先计算当前节点的子节点高度，然后再通过子节点高度判断当前节点是否平衡，从而消除冗余。
   
 # 代码
 
@@ -18,19 +28,19 @@
 [Python](./BalancedBinaryTree.py)
 
 # C++: 
-###  DFS 递归
+###  重复遍历多次 时间复杂度O(nlogn)
 ```c++
-/*
-struct TreeNode {
-	int val;
-	struct TreeNode *left;
-	struct TreeNode *right;
-	TreeNode(int x) :
-			val(x), left(NULL), right(NULL) {
-	}
-};*/
 class Solution {
 public:
+    bool IsBalanced_Solution(TreeNode* root) {
+        if (root == NULL)
+            return true;
+        int left = TreeDepth(root->left);
+        int right = TreeDepth(root->right);
+        if (left-right > 1 || left-right<-1)
+            return false;
+        return IsBalanced_Solution(root->left) && IsBalanced_Solution(root->right);
+    }
     int TreeDepth(TreeNode* root)
     {
         if (root == NULL)
@@ -41,79 +51,74 @@ public:
     }
 };
 ```
-## BFS 迭代
+### 只遍历一次
 ```c++
 class Solution {
 public:
-    int TreeDepth(TreeNode* root)
-    {
-        int depth = 0;
+    bool IsBalanced_Solution(TreeNode* root) {
         if (root == NULL)
-            return depth;
-        queue<TreeNode*> q;
-        q.push(root);
-        while(!q.empty())
+            return true;
+        int depth = 0;
+        return helper(root, depth);
+    }
+    bool helper(TreeNode* root, int &depth)
+    {
+        if (root == NULL)
         {
-            int count = q.size();
-            while(count>0)
-            {
-                TreeNode* node = q.front();
-                q.pop();
-                if (node->left)
-                    q.push(node->left);
-                if (node->right)
-                    q.push(node->right);
-                count--;
-            }
-            depth++;
+            depth = 0;
+            return true;
         }
-        return depth;
+        int left, right;
+        if (helper(root->left, left) && helper(root->right, right) && abs(left-right)<=1)
+        {
+            depth = max(left,right)+1;
+            return true;
+        }
+        return false;
     }
 };
 ```
 
 # Python:
-###  DFS 递归
+###   重复遍历多次
 ```python
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution:
-    def TreeDepth(self, root):
+    def IsBalanced_Solution(self, root):
         # write code here
+        if root is None:
+            return True
+        left = self.TreeDepth(root.left)
+        right = self.TreeDepth(root.right)
+        if left - right > 1 or left - right < -1:
+            return False
+        return self.IsBalanced_Solution(root.left) and self.IsBalanced_Solution(root.right)
+    def TreeDepth(self, root):
         if root is None:
             return 0
         left = self.TreeDepth(root.left)
         right = self.TreeDepth(root.right)
-        return max(left, right)+1
+        return max(left, right) + 1
 ```
-### BFS 迭代
+### 只遍历一次
 ```python
 class Solution:
-    def TreeDepth(self, root):
+    def __init__(self):
+        self.depth = 0
+    def IsBalanced_Solution(self, root):
         # write code here
-        depth = 0
         if root is None:
-            return depth
-        q = []
-        q.append(root)
-        while q:
-	    # count 是每一层的节点数
-            count = len(q)
-            while count > 0:
-                node = q.pop(0)
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-                count-=1
-	    # 遍历完一层后，深度+1
-            depth+=1
-        return depth
+            return True
+        return self.helper(root)[0]
+    def helper(self,root):
+        if root is None:
+            return True, 0
+        leftIsBalanced, left = self.helper(root.left)
+        if not leftIsBalanced:
+            return False, 0
+        rightIsBalanced, right = self.helper(root.right)
+        if not rightIsBalanced:
+            return False, 0
+        return abs(left-right)<=1, max(left,right)+1
 ```
 ## 参考
   -  [LeetCode-110题-平衡二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Balanced-Binary-Tree/README.md)
