@@ -71,7 +71,7 @@
 * [LeetCode(145):二叉树的后序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Postorder-Traversal/README.md)(**重要**)
 ### 位运算：
 * [剑指Offer(十五)：二进制中1的个数](./NumberOf1InBinary/README.md)(**重要**，n与n-1做&运算）
-* [剑指Offer(十六)：数值的整数次方](./Power/README.md)
+* [剑指Offer(十六)：数值的整数次方](./Power/README.md)（二分法）
 * [剑指Offer(五十六)：数组中只出现一次的数字](./NumbersAppearOnce/README.md)
 * [剑指Offer(六十四)：求1+2+3+…+n](./Accumulate/README.md)
 * [剑指Offer(六十五)：不用加减乘除的加法](./AddTwoNumbers/README.md)（**重要**，异或 和与的结合，(a^b) ^((a&b)<<1) ）
