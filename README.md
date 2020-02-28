@@ -74,6 +74,7 @@
 * [剑指Offer(十六)：数值的整数次方](./Power/README.md)
 * [剑指Offer(五十六)：数组中只出现一次的数字](./NumbersAppearOnce/README.md)
 * [剑指Offer(六十四)：求1+2+3+…+n](./Accumulate/README.md)
+* [剑指Offer(六十五)：不用加减乘除的加法](./AddTwoNumbers/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
