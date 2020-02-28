@@ -10,8 +10,11 @@
   
   方法二：使用折半计算，每次把n缩小一半，这样n最终会缩小到0，任何数的0次方都为1，这时候我们再往回乘，如果此时n是偶数，直接把上次递归得到的值算个平方返回即可，如果是奇数，则还需要乘上个x的值。还有一点需要引起我们的注意的是n有可能为负数，对于n是负数的情况，我们可以先用其绝对值计算出一个结果再取其倒数即可。我们让i初始化为n，然后看i是否是2的倍数，是的话x乘以自己，否则res乘以x，i每次循环缩小一半，直到为0停止循环。最后看n的正负，如果为负，返回其倒数
 # 时间复杂度：
+
   方法一：O(N)
+  
   方法二：O(log(N))
+  
 # 空间复杂度
   方法一和方法二都为O(1)
   
@@ -72,16 +75,20 @@ public:
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def Add(self, num1, num2):
+    def Power(self, x, n):
         # write code here
-        MAX = 0x7fffffff
-        mask = 0xffffffff
-        while num2 != 0:
-            num1, num2 = (num1 ^ num2), ((num1 & num2) << 1)
-            num1 = num1 & mask
-            num2 = num2 & mask
-        return num1 if num1 <= MAX else ~(num1 ^ mask)
+        if x==0.0 and n<0:
+            return 0.0
+        res = 1.0
+        if n <0:
+            x=1.0/x
+            n=-n
+        while n:
+            if n&1==1:
+                res*=x
+            x*=x
+            n=n>>1
+        return res
 ```
 ## 参考
-  -  [Python 运算符](https://www.runoob.com/python/python-operators.html)
-
+  -  [LeetCode-50题-Pow(x, n)](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/PowX-N/README.md)
