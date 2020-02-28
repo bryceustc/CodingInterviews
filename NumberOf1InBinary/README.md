@@ -74,26 +74,28 @@ public:
      }
 };
 ```
+在Python中，由于负数使用补码表示的，对于负数，最高位为1，而负数在计算机是以补码存在的，往右移，符号位不变，符号位1往右移，最终可能会出现全1的情况，导致死循环。与0xffffffff相与，去掉负数前面的负号,就可以消除负数的影响。[Python 对于负数的存储方式和 c++/c/java 不一样](https://www.runoob.com/w3cnote/python-negative-storage.html)
 # Python:
-###   
 ```python
+# -*- coding:utf-8 -*-
 class Solution:
-    def NumberOf1(self, n: int) -> int:
-        res = 0
+    def NumberOf1(self, n):
+        # write code here
+        count = 0
+        if n<0:
+            n = n & 0xffffffff
         while n:
-            res += n&1
-            n = n>>1
-        return res
-```
-### 
-```python
-class Solution:
-    def hammingWeight(self, n: int) -> int:
-        count= 0
-        while n:
-            count+=1
-            n&=n-1
+            count += 1
+            n = n & (n-1)
         return count
+```
+```python
+Python
+# -*- coding:utf-8 -*-
+class Solution:
+    def NumberOf1(self, n):
+        # write code here
+        return sum([(n >> i & 1) for i in range(0,32)])
 ```
 ## 参考
   -  [LeetCode-191题-位1的个数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-1-Bits/README.md)
