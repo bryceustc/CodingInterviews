@@ -7,16 +7,11 @@
   
 # 解题思路:
 
-根据 与运算 定义，设二进制数字 n ，则有：
-    - 若 n&1=0 ，则 n 二进制 最右一位 为 0
-    - 若 n&1=1 ，则 n 二进制 最右一位 为 1
+^ 亦或 ----相当于 无进位的求和，即：1+0=1, 0+1=1, 0+0 =0,1+1=0;
 
-如果一个整数不为0，那么这个整数至少有一位是1。如果我们把这个整数减1，那么原来处在整数最右边的1就会变为0，原来在1后面的所有的0都会变成1(如果最右边的1后面还有0的话)。其余所有位将不会受到影响。
+& 与 ----相当于求每位的进位数， 先看定义：1&1=1；1&0=0；0&0=0；即都为1的时候才为1，正好可以模拟进位数的情况,还是想象10进制下模拟情况：（9+1=10，如果是用&的思路来处理，则9+1得到的进位数为1，而不是10，所以要用<<1向左再移动一位，这样就变为10了）；
 
-举个例子：一个二进制数1100，从右边数起第三位是处于最右边的一个1。减去1后，第三位变成0，它后面的两位0变成了1，而前面的1保持不变，因此得到的结果是1011.我们发现减1的结果是把最右边的一个1开始的所有位都取反了。这个时候如果我们再把原来的整数和减去1之后的结果做与运算，从原来整数最右边一个1那一位开始所有位都会变成0。如1100&1011=1000.也就是说，把一个整数减去1，再和原整数做与运算，会把该整数最右边一个1变成0.那么一个整数的二进制有多少个1，就可以进行多少次这样的操作。
-
-  如图所示：
-  ![](https://pic.leetcode-cn.com/abfd6109e7482d70d20cb8fc1d632f90eacf1b5e89dfecb2e523da1bcb562f66-image.png)
+这样公式就是：（a^b) ^ ((a&b)<<1) 即：每次无进位求 + 每次得到的进位数--------我们需要不断重复这个过程，直到进位数为0为止；
   
 # 代码
 
@@ -25,77 +20,36 @@
 [Python](./AddTwoNumbers.py)
 
 # C++: 
-###  尝试一：只能通过正数情况，负数右移不是除以2，未通过OJ
+###  
 ```c++
 class Solution {
 public:
-     int  NumberOf1(int n) {
-         int count = 0;
-         while(n!=0)
-         {
-             if (n&1==1)
-                 count++;
-             n = n>>1;
-         }
-         return count;
-     }
+    int Add(int num1, int num2)
+    {
+        while(num2!=0)
+        {
+            int a = num1;
+            num1 = num1^num2;
+            num2 = (unsigned int)(a&num2)<<1;
+        }
+        return num1;
+    }
 };
 ```
-###  数字右移不行，换个思路，1左移
-```c++
-class Solution {
-public:
-     int  NumberOf1(int n) {
-         int count = 0;
-         unsigned int flag = 1;
-         // 循环次数等于二进制整数的位数
-         while(flag)
-         {
-             if (n&flag)
-                 count++;
-             flag = flag << 1;
-         }
-         return count;
-     }
-};
-```
-###  最优解法
-```c++
-class Solution {
-public:
-     int  NumberOf1(int n) {
-         int count = 0;
-         while(n)
-         {
-             count++;
-             n = (n-1)&n;
-         }
-         return count;
-     }
-};
-```
-在Python中，由于负数使用补码表示的，对于负数，最高位为1，而负数在计算机是以补码存在的，往右移，符号位不变，符号位1往右移，最终可能会出现全1的情况，导致死循环。与0xffffffff相与，去掉负数前面的负号,就可以消除负数的影响。[Python 对于负数的存储方式和 c++/c/java 不一样](https://www.runoob.com/w3cnote/python-negative-storage.html)
+C/C++版本输出负数时，是采用补码格式输出的，其实和python输出的前32项是一模一样的。问题是在于C语言版本中int是32位的，进入下最后一个循环后，b左移一位后，最高位的1就溢出了，那么b就变成了0. 但是python由于支持大int值，它的整数不是32位，而是某种程度上可以无限扩展，结果左移的1跑到33位，b仍然不是0，实际上永远也不是0，于是就无限循环了......
 # Python:
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def NumberOf1(self, n):
+    def Add(self, num1, num2):
         # write code here
-        count = 0
-        if n<0:
-            n = n & 0xffffffff
-        while n:
-            count += 1
-            n = n & (n-1)
-        return count
-```
-```python
-Python
-# -*- coding:utf-8 -*-
-class Solution:
-    def NumberOf1(self, n):
-        # write code here
-        return sum([(n >> i & 1) for i in range(0,32)])
+        MAX = 0x7fffffff
+        mask = 0xffffffff
+        while num2 != 0:
+            num1, num2 = (num1 ^ num2), ((num1 & num2) << 1)
+            num1 = num1 & mask
+            num2 = num2 & mask
+        return num1 if num1 <= MAX else ~(num1 ^ mask)
 ```
 ## 参考
-  -  [LeetCode-191题-位1的个数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-1-Bits/README.md)
+  -  [Python 运算符](https://www.runoob.com/python/python-operators.html)
