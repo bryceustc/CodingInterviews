@@ -3,23 +3,20 @@
 请实现一个函数，输入一个整数，输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。
 # 本题考点：
   
-  二叉树递归编程能力，复杂问题的思维能力。
+  二进制与位运算的理解。
   
 # 解题思路:
- 解题思路有两种，只遍历一次的方法最优。
 
-**重复遍历多次：自顶向下** 
+根据 与运算 定义，设二进制数字 n ，则有：
+    - 若 n&1=0 ，则 n 二进制 最右一位 为 0
+    - 若 n&1=1 ，则 n 二进制 最右一位 为 1
 
+如果一个整数不为0，那么这个整数至少有一位是1。如果我们把这个整数减1，那么原来处在整数最右边的1就会变为0，原来在1后面的所有的0都会变成1(如果最右边的1后面还有0的话)。其余所有位将不会受到影响。
 
-时间复杂度O(nlogn), 空间复杂度O(n)[复杂度分析](https://leetcode-cn.com/problems/balanced-binary-tree/solution/ping-heng-er-cha-shu-by-leetcode/)
+举个例子：一个二进制数1100，从右边数起第三位是处于最右边的一个1。减去1后，第三位变成0，它后面的两位0变成了1，而前面的1保持不变，因此得到的结果是1011.我们发现减1的结果是把最右边的一个1开始的所有位都取反了。这个时候如果我们再把原来的整数和减去1之后的结果做与运算，从原来整数最右边一个1那一位开始所有位都会变成0。如1100&1011=1000.也就是说，把一个整数减去1，再和原整数做与运算，会把该整数最右边一个1变成0.那么一个整数的二进制有多少个1，就可以进行多少次这样的操作。
 
-自顶向下在遍历树的每个结点的时候，调用函数TreeDepth得到它的左右子树的深度。如果每个结点的左右子树的深度相差都不超过1，则这是一颗平衡的二叉树。这种方法的缺点是，首先判断根结点是不是平衡的，需要使用TreeDepth获得左右子树的深度，然后还需要继续判断子树是不是平衡的，还是需要使用TreeDepth获得子树的左右子树的深度，这样就导致了大量的重复遍历。
-
-**只遍历一次：自底向上**
-
-时间复杂度O(n), 空间复杂度O(n)[复杂度分析](https://leetcode-cn.com/problems/balanced-binary-tree/solution/ping-heng-er-cha-shu-by-leetcode/)
-
-自底向上与自顶向下的逻辑相反，首先判断子树是否平衡，然后比较子树高度判断父节点是否平衡。检查子树是否平衡。如果平衡，则使用它们的高度判断父节点是否平衡，并计算父节点的高度。自底向上计算，每个子树的高度只会计算一次。可以递归先计算当前节点的子节点高度，然后再通过子节点高度判断当前节点是否平衡，从而消除冗余。
+  如图所示：
+  ![](https://pic.leetcode-cn.com/abfd6109e7482d70d20cb8fc1d632f90eacf1b5e89dfecb2e523da1bcb562f66-image.png)
   
 # 代码
 
@@ -28,98 +25,75 @@
 [Python](./NumberOf1InBinary.py)
 
 # C++: 
-###  重复遍历多次 时间复杂度O(nlogn)
+###  尝试一：只能通过正数情况，负数右移不是除以2，未通过OJ
 ```c++
 class Solution {
 public:
-    bool IsBalanced_Solution(TreeNode* root) {
-        if (root == NULL)
-            return true;
-        int left = TreeDepth(root->left);
-        int right = TreeDepth(root->right);
-        if (left-right > 1 || left-right<-1)
-            return false;
-        return IsBalanced_Solution(root->left) && IsBalanced_Solution(root->right);
-    }
-    int TreeDepth(TreeNode* root)
-    {
-        if (root == NULL)
-            return 0;
-        int left = TreeDepth(root->left);
-        int right = TreeDepth(root->right);
-        return max(left, right) + 1;
-    }
+     int  NumberOf1(int n) {
+         int count = 0;
+         while(n!=0)
+         {
+             if (n&1==1)
+                 count++;
+             n = n>>1;
+         }
+         return count;
+     }
 };
 ```
-### 只遍历一次
+###  数字右移不行，换个思路，1左移
 ```c++
 class Solution {
 public:
-    bool IsBalanced_Solution(TreeNode* root) {
-        if (root == NULL)
-            return true;
-        int depth = 0;
-        return helper(root, depth);
-    }
-    bool helper(TreeNode* root, int &depth)
-    {
-        if (root == NULL)
-        {
-            depth = 0;
-            return true;
-        }
-        int left, right;
-        if (helper(root->left, left) && helper(root->right, right) && abs(left-right)<=1)
-        {
-            depth = max(left,right)+1;
-            return true;
-        }
-        return false;
-    }
+     int  NumberOf1(int n) {
+         int count = 0;
+         unsigned int flag = 1;
+         // 循环次数等于二进制整数的位数
+         while(flag)
+         {
+             if (n&flag)
+                 count++;
+             flag = flag << 1;
+         }
+         return count;
+     }
 };
 ```
-
+###  最优解法
+```c++
+class Solution {
+public:
+     int  NumberOf1(int n) {
+         int count = 0;
+         while(n)
+         {
+             count++;
+             n = (n-1)&n;
+         }
+         return count;
+     }
+};
+```
 # Python:
-###   重复遍历多次
+###   
 ```python
 class Solution:
-    def IsBalanced_Solution(self, root):
-        # write code here
-        if root is None:
-            return True
-        left = self.TreeDepth(root.left)
-        right = self.TreeDepth(root.right)
-        if left - right > 1 or left - right < -1:
-            return False
-        return self.IsBalanced_Solution(root.left) and self.IsBalanced_Solution(root.right)
-    def TreeDepth(self, root):
-        if root is None:
-            return 0
-        left = self.TreeDepth(root.left)
-        right = self.TreeDepth(root.right)
-        return max(left, right) + 1
+    def NumberOf1(self, n: int) -> int:
+        res = 0
+        while n:
+            res += n&1
+            n = n>>1
+        return res
 ```
-### 只遍历一次
+### 
 ```python
 class Solution:
-    def __init__(self):
-        self.depth = 0
-    def IsBalanced_Solution(self, root):
-        # write code here
-        if root is None:
-            return True
-        return self.helper(root)[0]
-    def helper(self,root):
-        if root is None:
-            return True, 0
-        leftIsBalanced, left = self.helper(root.left)
-        if not leftIsBalanced:
-            return False, 0
-        rightIsBalanced, right = self.helper(root.right)
-        if not rightIsBalanced:
-            return False, 0
-        return abs(left-right)<=1, max(left,right)+1
+    def hammingWeight(self, n: int) -> int:
+        count= 0
+        while n:
+            count+=1
+            n&=n-1
+        return count
 ```
 ## 参考
-  -  [LeetCode-110题-平衡二叉树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Balanced-Binary-Tree/README.md)
-
+  -  [LeetCode-191题-位1的个数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-1-Bits/README.md)
