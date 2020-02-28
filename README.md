@@ -17,6 +17,8 @@
 * [剑指Offer(五十三)： 数字在排序数组中出现的次数](./NumberOfK/README.md)(二分查找)
 * [剑指Offer(五十三)： 0~n-1中缺失的数字](./MissingNumber/README.md)(数学方法：异或, 二分查找)
 * [剑指Offer(五十三)： 数组中数值和下标相等的元素](./IntegerIdenticalToIndex/README.md)(数学方法：异或, 二分查找)
+* [剑指Offer(五十六)：数组中只出现一次的数字](./NumberAppearingOnce/README.md)（异或）
+* [剑指Offer(五十六)： 数字在排序数组中出现的次数](./NumbersAppearOnce/README.md)(二分查找)
 * [剑指Offer(五十七)： 和为s的两个数字](./TwoNumbersWithSum/README.md)(双指针)
 * [剑指Offer(五十七)： 和为S的连续正数序列](./ContinuousSquenceWithSum/README.md)(双指针)
 * [剑指Offer(六十一)： 扑克牌的顺子](./ContinousCards/README.md)
@@ -72,7 +74,6 @@
 ### 位运算：
 * [剑指Offer(十五)：二进制中1的个数](./NumberOf1InBinary/README.md)(**重要**，n与n-1做&运算）
 * [剑指Offer(十六)：数值的整数次方](./Power/README.md)（二分法）
-* [剑指Offer(五十六)：数组中只出现一次的数字](./NumbersAppearOnce/README.md)
 * [剑指Offer(六十四)：求1+2+3+…+n](./Accumulate/README.md)
 * [剑指Offer(六十五)：不用加减乘除的加法](./AddTwoNumbers/README.md)（**重要**，异或 和与的结合，(a^b) ^((a&b)<<1) ）
 ### 其他：
