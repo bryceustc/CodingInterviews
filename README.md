@@ -17,7 +17,7 @@
 * [剑指Offer(五十三)： 数字在排序数组中出现的次数](./NumberOfK/README.md)(二分查找)
 * [剑指Offer(五十三)： 0~n-1中缺失的数字](./MissingNumber/README.md)(数学方法：异或, 二分查找)
 * [剑指Offer(五十三)： 数组中数值和下标相等的元素](./IntegerIdenticalToIndex/README.md)(数学方法：异或, 二分查找)
-* [剑指Offer(五十六)：数组中只出现一次的数字](./NumberAppearingOnce/README.md)（异或）
+* [剑指Offer(五十六)：数组中只出现一次的数字](./NumberAppearingOnce/README.md)（**重要**，lowbit异或）
 * [剑指Offer(五十六)： 数字在排序数组中出现的次数](./NumbersAppearOnce/README.md)(二分查找)
 * [剑指Offer(五十七)： 和为s的两个数字](./TwoNumbersWithSum/README.md)(双指针)
 * [剑指Offer(五十七)： 和为S的连续正数序列](./ContinuousSquenceWithSum/README.md)(双指针)
