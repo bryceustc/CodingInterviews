@@ -1,55 +1,39 @@
 # 题目: 求1+2+…+n
 
 ## 题目描述：
-大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。
-n<=39
-
-![](https://cuijiahua.com/wp-content/uploads/2017/11/basis_7_3.jpg)
+一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法。
   
 # 解题思路:
-  1. 传统递归，复杂多较高
-  
-  2. 动态规划，避免用递归，只用前两个数计算节省空间。
+  首先我们考虑最简单的情况。如果只有1级台阶，那么显然只一种跳法。如果有2级台阶，那就有两种跳法：一种是分两次跳，每次跳1级；另一种是一次跳2级。
+
+接着，我们来讨论一般情况。我们把n级台阶时的跳法看成是n的函数，记为f(n)。当n>2时，第一次跳的时候就有两种不同的选择：一是第一次只跳1级，此时跳法数目等于后面剩下的n-1级台阶的跳法数目，即为f(n-1)；另外一种选择是跳一次跳2级，此时跳法数目等于后面剩下的n-2级台阶的跳法数目，即为f(n-2)。因此n级台阶的不同跳法的总数f(n)=f(n-1)+f(n-2)。分析到这里，我们不难看出这实际上就是斐波那契数列了。
+
+注意，f(2) = 2, f(1) =1,f(0) =0
 # 时间复杂度：
-1： O(n!)
- 
-2:  O(n);
+ O(n);
 # 空间复杂度
   O(1)
   
 # 代码
 
-[C++](./Fibonacci.cpp)
+[C++](./JumpFloor.cpp)
 
-[Python](./Fibonacci.py)
+[Python](./JumpFloor.py)
 
 # C++: 
-###  递归
+###  动态规划
 ```c++
 class Solution {
 public:
-    int Fibonacci(int n) {
-        if (n==0)
-            return 0;
+    int jumpFloor(int n) {
         if (n<=2)
-            return 1;
-        return Fibonacci(n-1) + Fibonacci(n-2);
-    }
-};
-```
-### 动态规划
-```c++
-class Solution {
-public:
-    int Fibonacci(int n) {
-        if (n<2)
             return n;
-        int fn_one = 1;
-        int fn_two = 0;
+        int fn_one = 2;
+        int fn_two = 1;
         int fn = 0;
-        for (int i=2;i<=n;i++)
+        for (int i=3;i<=n;i++)
         {
-            fn = fn_one + fn_two;
+           fn = fn_one + fn_two;
             fn_two = fn_one;
             fn_one = fn;
         }
@@ -58,28 +42,18 @@ public:
 };
 ```
 # Python:
-###  递归 未通过OJ
-```python
-# -*- coding:utf-8 -*-
-class Solution:
-    def Fibonacci(self, n):
-        # write code here
-        if n<2:
-            return n
-        return self.Fibonacci(n-1) + self.Fibonacci(n-2)
-```
 ### 动态规划
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
-    def Fibonacci(self, n):
+    def jumpFloor(self, n):
         # write code here
-        if n<2:
+        if n<=2:
             return n
-        fn_one = 1
-        fn_two = 0
+        fn_one = 2
+        fn_two = 1
         fn = 0
-        for i in range(2,n+1):
+        for i in range(3,n+1):
             fn = fn_one + fn_two
             fn_two = fn_one
             fn_one = fn
