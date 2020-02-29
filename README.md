@@ -79,6 +79,7 @@
 ### 动态规划：
 * [剑指Offer(十)：斐波那契数列](./Fibonacci/README.md)
 * [剑指Offer(十)：跳台阶](./JumpFloor/README.md)
+* [剑指Offer(十)：变态跳台阶](./JumpFloorII/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
