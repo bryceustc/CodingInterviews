@@ -1,19 +1,28 @@
-# 题目描述:数字在排序数组中出现的次数
+# 题目描述:数组中唯一只出现一次的数字
 ## 题目：
-统计一个数字在排序数组中出现的次数。
+在一个数组 nums 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。
+
+**示例1：**
+```
+输入：nums = [3,4,3,3]
+输出：4
+```
 
 # 本题考点：
   
-  1). 二分查找  
+  1). 哈希表
   
 # 解题思路:
-  此题与LeetCode第34题在排序数组中查找元素的第一个和最后一个位置问题类似，
   
-  1.) 直接暴力遍历，遍历数组所有元素，k。时间复杂度:O(n),空间复杂度O(1)
+  1.) 碰到次数，首先想到用哈希表。时间复杂度:O(n),空间复杂度O(n)
   
-  2.) 利用动态规划的思想，假设要找下标i对应的丑数dp[i],可以用i之前的所有丑数乘若干个2直到大于上一个丑数dp[i-1]，记此数为num1;同理用i之前的所有丑数乘若干个3直到大于上一个丑数dp[i-1]，记此数为num2；用i之前的所有丑数乘若干个5直到大于上一个丑数dp[i-1]，记此数为num3。这三个数中的最小数字就是第i个丑数dp[i]。其实没必要把i之前的所有丑数乘2或者乘3或者乘5。在i之前的丑数中，肯定存在一个丑数（下标记为index2），乘2以后正好大于i的上一个丑数dp[i-1],index2之前的丑数乘2都小于等于dp[i-1];我们只需要记录index2，每次直接用这个下标对应的数乘2就行，并且在下标不满足时更新下标。同理我们也要记录乘3和乘5对应的下标。时间复杂度:O(n),空间复杂度:O(n)
+  2.) 排序数组中寻找只出现一次，时间复杂度:O(nlogn),空间复杂度O(1)
   
-  3). 最小堆
+  3.) hash_set， 将输入数组存储到 HashSet，然后使用 HashSet 中数字和的三倍与数组之和比较。时间复杂度:O(n),空间复杂度O(n)
+  ```
+  3×(a+b+c)−(a+a+a+b+b+b+c)=2c
+  ```
+  4.) 时间复杂度:O(n),空间复杂度:O(1)
 
 # 代码
 
@@ -22,169 +31,138 @@
 [Python](./NumbersAppearOnce.py)
 
 # C++:
-## 方法一：暴力遍历
+
+###  方法一：unordered_set
 ```c++
-#include <iostream>
-#include <vector>
-using namespace std;
 class Solution {
 public:
-    int GetNumberOfK(vector<int> nums ,int k) {
+    int singleNumber(vector<int>& nums) {
         int res = 0;
-        if (nums.empty())
-            return 0;
-        int n = nums.size();
-        for (int i=0;i<n;i++)
+        long sum_set = 0;
+        long sum_array = 0;
+        unordered_set<long> s;
+        for (int n : nums)
         {
-            if (nums[i]==k)
-                res++;
+            sum_array+=n;
+            s.insert((long)n);
+        }
+        for (auto num : s)
+        {
+            sum_set+=num;
+        }
+        res =(3 * sum_set - sum_array)/2;
+        return res;
+    }
+};
+```
+
+## 方法一：哈希表unordered_map
+```c++
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int res = 0;
+        unordered_map<int, int> m;
+        for (int num : nums)
+        {
+            m[num]++;
+        }
+        for (auto num :nums)
+        {
+            if (m[num]==1)
+            {
+                res = num;
+                break;
+            }
         }
         return res;
     }
 };
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,3,3,4};
-	int k = 3;
-	int res = Solution().GetNumberOfK(nums,k);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
 ```
 
-## 方法二：二分查找
+## 方法二：位运算
 ```c++
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
 class Solution {
 public:
-    int GetNumberOfK(vector<int> nums ,int k) {
-        int res = 0;
-        if (nums.empty())
-            return 0;
-        int n = nums.size();
-        int start = 0;
-        int end = n;
-        while (end > start)
+    int singleNumber(vector<int>& nums) {
+        int ans = 0;
+        for (int i = 0; i < 32; i++)
         {
-            int mid = start + (end-start)/2;
-            if (nums[mid]==k)
+            int count = 0;
+            for (auto n : nums)
             {
-                end=mid;
+                if ((1 << i ) & n) 
+                    count++;
             }
-            if (nums[mid]<k)
-                start = mid+1;
-            if (nums[mid]>k)
-                end = mid;
+            if (count % 3) 
+                ans += (1 << i);
         }
-        int temp1 = start; // 一次二分查找寻找左侧边界，
-        start = 0;
-        end = n;
-        while (end > start)
-        {
-            int mid = start + (end-start)/2;
-            if (nums[mid]==k)
-            {
-                start=mid+1;
-            }
-            if (nums[mid]<k)
-                start = mid+1;
-            if (nums[mid]>k)
-                end = mid;
-        }
-        int temp2 = end-1;   // 一次二分查找寻找右侧边界，注意寻找右侧边界要减一
-        res = temp2-temp1+1;
-        return res;
+        return ans;
     }
 };
-
-
-int main()
-{
-	vector<int> nums = {1,2,3,3,3,4,5};
-	int k = 3;
-	int res = Solution().GetNumberOfK(nums,k);
-	cout << res << endl;
-	system("pause");
-	return 0;
-}
 ```
 
-
+## 方法二：位运算(未搞懂)
+```c++
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int b1 = 0;
+        int b2 = 0;
+        for (int x : nums)
+        {
+            b1 = (b1^x) & ~b2;
+            b2 = (b2^x) & ~b1;
+        }
+        return b1;
+    }
+};
+```
 
 # Python:
-## 方法一：暴力遍历
+## 方法一：hast_set
 ```python
-# -*- coding:utf-8 -*-
 class Solution:
-    def GetNumberOfK(self, nums, k):
-        # write code here
-        res = 0
-        n = len(nums)
-        if n==0:
-            return 0
-        for i in range(n):
-            if nums[i]==k:
-                res+=1
-        return res
-
-if __name__ == '_ main__':
-    nums = [1,2,3,3,3,4,5]
-    k = 3
-    res = Solution().GetNumberOfK(nums,k)    
-    print(res)
+    def singleNumber(self, nums: List[int]) -> int:
+        return  (3*sum(set(nums)) - (sum(nums))) // 2
 ```
 
-## 方法二：二分查找
+## 方法一：哈希表
 ```python
-# -*- coding:utf-8 -*-
+from collections import Counter
 class Solution:
-    def GetNumberOfK(self, nums, k):
-        # write code here
-        res = 0
-        n = len(nums)
-        if n==0:
-            return 0
-        start = 0
-        end = n
-        while end > start:
-            mid = start + (end-start)//2
-            if nums[mid]==k:
-                end = mid
-            if nums[mid] < k:
-                start = mid+1
-            if nums[mid] > k:
-                end = mid
-        temp1 = start ## 一次二分查找寻找左侧边界
-        start = 0
-        end = n
-        while end > start:
-            mid = start + (end - start)//2
-            if nums[mid] == k:
-                start = mid + 1
-            if nums[mid] < k:
-                start = mid + 1
-            if nums[mid] > k:
-                end = mid
-        temp2 = end - 1  ## 一次二分查找寻找右侧边界，注意右侧边界要减一
-        res = temp2-temp1+1
-        return res
-
-if __name__ == '_ main__':
-    nums = [1,2,3,3,3,4,5]
-    k = 3
-    res = Solution().GetNumberOfK(nums,k)    
-    print(res)
+    def singleNumber(self, nums):
+        hashmap = Counter(nums)
+            
+        for k in hashmap.keys():
+            if hashmap[k] == 1:
+                return k
 ```
-
+## 方法二：位运算
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        res = 0
+        for i in range(0,32):
+            count = 0
+            for num in nums:
+                if (num&(1<<i)):
+                    count+=1
+            if (count%3):
+                res += 1<<i
+        return res
+```
+### 方法二：位运算（最简版）未搞懂
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        b1,b2 = 0,0#出现一次的位，和两次的位
+        for n in nums:
+            b1 = (b1 ^ n) & ~ b2 #既不在出现一次的b1，也不在出现两次的b2里面，我们就记录下来，出现了一次，再次出现则会抵消
+            b2 = (b2 ^ n) & ~ b1 #既不在出现两次的b2里面，也不再出现一次的b1里面(不止一次了)，记录出现两次，第三次则会抵消
+        return b1
+```
 
 
 # 参考：
-  -  [二分查找总结](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-First-And-Last-Position-Of-Element-In-Sorted-Array/BinarySearch.md)
-  -  [LeetCode_34题——在排序数组中查找元素的第一个和最后一个位置](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-First-And-Last-Position-Of-Element-In-Sorted-Array/README.md)
-
+  -  [力扣题解](https://leetcode-cn.com/problems/single-number-ii/solution/zhi-chu-xian-yi-ci-de-shu-zi-ii-by-leetcode/)
