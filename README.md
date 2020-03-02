@@ -90,5 +90,6 @@
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
+* [剑指Offer(五十九)：滑动窗口的最大值](./MaxInSlidingWindow/README.md) 
 ### 排序：
 * [冒泡排序](./CMyString/README.md)
