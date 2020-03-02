@@ -126,7 +126,7 @@ public:
 };
 ```
 # Python:
-###  动态规划
+###  回溯
 ```python
 # -*- coding:utf-8 -*-
 class Solution:
