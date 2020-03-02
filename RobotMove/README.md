@@ -21,9 +21,9 @@
 3）当前节点满足limit限制。
 
 # 时间复杂度：
-O(n^2)
+O(mn)
 # 空间复杂度
- O(n)
+ O(mn)
 # 代码
 
 [C++](./RobotMove.cpp)
