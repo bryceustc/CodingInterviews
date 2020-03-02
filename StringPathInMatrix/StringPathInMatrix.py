@@ -27,3 +27,32 @@ class Solution:
             return True
         visited[i][j]=0
         return False
+## Solution 2:
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        if board == None:
+            return False
+        rows = len(board)
+        cols = len(board[0])
+        visited = [[0 for x in range(cols)] for y in range(rows)]
+        for i in range(rows):
+            for j in range(cols):
+                if self.dfs(board, rows,  cols, i, j, word, 0, visited):
+                    return True
+        return False
+    def dfs(self, board, rows, cols, i, j, word, k, visited):
+        if i<0 or i>=rows or j<0 or j>=cols or board[i][j]!=word[k] or visited[i][j]==1:
+            return False
+        if k==len(word)-1:
+            return True
+        visited[i][j]=1
+        if self.dfs(board, rows, cols, i-1, j, word, k+1, visited):
+            return True
+        if self.dfs(board, rows, cols, i+1, j, word, k+1, visited):
+            return True
+        if self.dfs(board, rows, cols, i, j-1, word, k+1, visited):
+            return True
+        if self.dfs(board, rows, cols, i, j+1, word, k+1, visited):
+            return True
+        visited[i][j]=0
+        return False
