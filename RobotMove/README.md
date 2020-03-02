@@ -10,19 +10,16 @@
   ```
   
 # 解题思路:
-0.根据给定数组，初始化一个标志位数组visited，初始化为0，表示未走过，1表示已经走过，不能走第二次
+1.从(0,0)开始走，每成功走一步标记当前位置为true,然后从当前位置往四个方向探索，返回1 + 4 个方向的探索值之和。
 
-1.根据行数和列数，遍历数组，先找到一个与str字符串的第一个元素相匹配的矩阵元素，进入dfs
+2.探索时，判断当前节点是否可达的标准为：
 
-2.根据i和j先确定一维数组的位置，因为给定的matrix是一个一维数组
+1）当前节点在矩阵内；
 
-3.确定递归终止条件：越界，当前找到的矩阵值不等于数组对应位置的值，已经走过的，这三类情况，都直接false，说明这条路不通
+2）当前节点未被访问过；
 
-4.若k，就是待判定的字符串str的索引已经判断到了最后一位，此时说明是匹配成功的
+3）当前节点满足limit限制。
 
-5.下面就是本题的精髓，递归不断地寻找周围四个格子是否符合条件，只要有一个格子符合条件，就继续再找这个符合条件的格子的四周是否存在符合条件的格子，直到k到达末尾或者不满足递归条件就停止。
-
-6.走到这一步，说明本次是不成功的，我们要还原一下标志位数组index处的标志位，进入下一轮的判断。
 # 时间复杂度：
 O(n^2)
 # 空间复杂度
@@ -38,149 +35,71 @@ O(n^2)
 ```c++
 class Solution {
 public:
-    bool hasPath(char* matrix, int rows, int cols, char* str)
+    int movingCount(int threshold, int rows, int cols)
     {
-        if(matrix == NULL || rows <1 || cols < 1 || str == NULL)
-            return false;
+        int res = 0;
         vector<vector<int>> visited (rows, vector<int>(cols,0));
-        for (int i=0;i<rows;i++)
-        {
-            for (int j=0;j<cols;j++)
-            {
-                if (helper(matrix, rows, cols, i, j, str, 0, visited))
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
+        res = helper(threshold, rows, cols,0, 0, visited);
+        return res;
     }
-    bool helper(char* matrix, int rows, int cols, int i, int j, char* str, int k, vector<vector<int>> &visited)
+    int helper(int threshold, int rows, int cols, int i, int j, vector<vector<int>> &visited)
     {
-        //因为是一维数组存放二维的值，index值就是相当于二维数组的（i，j）在一维数组的下标
-        int index = i*cols + j;
-        if(i<0||i>=rows||j<0||j>=cols||matrix[index]!=str[k]||visited[i][j]==1)
-            return false;
-        //字符串已经查找结束，说明找到该路径了
-        if (str[k+1]=='\0')
-            return true;
-        //标记访问过
+        int sum = bitSum(i) + bitSum(j);
+        // 或者转成字符串来计算
+        //string s1 = to_string(i);
+        // string s2 = to_string(j);
+        // int sum = 0;
+        // for (int x =0; x<s1.size();x++)
+        // {
+        //     sum+=s1[x]-'0';
+        // }
+        // for (int y =0; y<s2.size();y++)
+        // {
+        //     sum+=s2[y]-'0';
+        // }
+        // if (sum> k|| i<0|| i>=m || j<0|| j>=n||visited[i][j]==1)
+        // {
+        //     return 0;
+        // }
+        if (sum > threshold || i<0 || i>=rows || j<0 || j>=cols || visited[i][j]==1)
+            return 0;
         visited[i][j]=1;
-        //向四个方向进行递归查找,向左，向右，向上，向下查找
-        if (helper(matrix, rows, cols, i, j-1, str, k+1, visited)||
-           helper(matrix, rows, cols, i, j+1, str, k+1, visited)||
-           helper(matrix, rows, cols, i-1, j, str, k+1, visited)||
-           helper(matrix, rows, cols, i+1, j, str, k+1, visited))
-        {
-            return true;
-        }
-        visited[i][j]=0;
-        return false;
+        return helper(threshold, rows, cols,i-1, j, visited) + helper(threshold, rows, cols,i+1, j, visited) +
+            helper(threshold, rows, cols,i, j-1, visited) + helper(threshold, rows, cols,i, j+1, visited) + 1;
     }
-};
-```
-### 回溯（力扣）
-```c++
-class Solution {
-public:
-    bool exist(vector<vector<char>>& board, string word) {
-        if (board.empty()) return false;
-        int rows = board.size();
-        int cols = board[0].size();
-        vector<vector<int>> visited (rows, vector<int>(cols, 0));
-        for (int i=0;i<rows;i++)
-        {
-            for(int j =0;j<cols;j++)
-            {
-                if (dfs(board,rows, cols, i, j, word, 0, visited))
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    bool dfs(vector<vector<char>>& board, int rows, int cols, int i, int j, string word, int k, vector<vector<int>> &visited)
+     //计算位置的数值
+    int bitSum(int num)
     {
-        if (i<0||i>=rows||j<0||j>=cols||board[i][j]!=word[k]||visited[i][j]==1)
-            return false;
-        if (k==word.size()-1)
-            return true;
-        visited[i][j]=1;
-        if (dfs(board,rows, cols, i-1, j, word, k+1, visited)||
-        dfs(board,rows, cols, i+1, j, word, k+1, visited)||
-        dfs(board,rows, cols, i, j-1, word, k+1, visited)||
-        dfs(board,rows, cols, i, j+1, word, k+1, visited))
+        int sum = 0;
+        while(num>0)
         {
-            return true;
+            sum+=num%10;
+            num/=10;
         }
-        visited[i][j]=0;
-        return false;
+        return sum;
     }
 };
 ```
 # Python:
 ###  回溯
 ```python
-# -*- coding:utf-8 -*-
 class Solution:
-    def hasPath(self, matrix, rows, cols, path):
-        # write code here
-        if matrix == None or rows<1 or cols<1 or path == None:
-            return False
-        visited = [[0 for x in range(cols)] for y in range(rows)]
-        for i in range(0,rows):
-            for j in range(0,cols):
-                if (self.dfs(matrix, rows, cols, i, j, path, 0, visited)):
-                    return True
-        return False
-    def dfs(self, matrix, rows, cols, i, j, path, k, visited):
-        index = i*cols+j
-        if i<0 or i>=rows or j<0 or j>=cols or matrix[index]!=path[k] or visited[i][j]==1:
-            return False
-        if k==len(path)-1:
-            return True
+    def movingCount(self, m: int, n: int, k: int) -> int:
+        if (m<=0 or n<=0 or k<0):
+            return 0
+        visited = [[0 for _ in range(n)]for _ in range(m)]
+        res = self.dfs(m,n,0,0,k,visited)
+        return res
+    def dfs(self, m, n, i, j, k, visited):
+        if i<0 or i>=m or j<0 or j>=n or self.bitSum(i) + self.bitSum(j) >k or visited[i][j]==1:
+            return 0
         visited[i][j]=1
-        if self.dfs(matrix, rows, cols, i-1, j, path, k+1, visited):
-            return True
-        if self.dfs(matrix, rows, cols, i+1, j, path, k+1, visited):
-            return True
-        if self.dfs(matrix, rows, cols, i, j-1, path, k+1, visited):
-            return True
-        if self.dfs(matrix, rows, cols, i, j+1, path, k+1, visited):
-            return True
-        visited[i][j]=0
-        return False
-```
-### 回溯法（力扣）
-```python
-class Solution:
-    def exist(self, board: List[List[str]], word: str) -> bool:
-        if board == None:
-            return False
-        rows = len(board)
-        cols = len(board[0])
-        visited = [[0 for x in range(cols)] for y in range(rows)]
-        for i in range(rows):
-            for j in range(cols):
-                if self.dfs(board, rows,  cols, i, j, word, 0, visited):
-                    return True
-        return False
-    def dfs(self, board, rows, cols, i, j, word, k, visited):
-        if i<0 or i>=rows or j<0 or j>=cols or board[i][j]!=word[k] or visited[i][j]==1:
-            return False
-        if k==len(word)-1:
-            return True
-        visited[i][j]=1
-        if self.dfs(board, rows, cols, i-1, j, word, k+1, visited):
-            return True
-        if self.dfs(board, rows, cols, i+1, j, word, k+1, visited):
-            return True
-        if self.dfs(board, rows, cols, i, j-1, word, k+1, visited):
-            return True
-        if self.dfs(board, rows, cols, i, j+1, word, k+1, visited):
-            return True
-        visited[i][j]=0
-        return False
+        return self.dfs(m,n,i-1,j,k,visited) + self.dfs(m,n,i+1,j,k,visited) + self.dfs(m,n,i,j+1,k,visited) +  self.dfs(m,n,i,j-1,k,visited) + 1
+    def bitSum(self, num):
+        s = 0
+        while num:
+            s+=num%10
+            num = num//10
+        return s
 ```
 
