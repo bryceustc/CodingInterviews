@@ -84,6 +84,10 @@
 * [剑指Offer(十)：矩形覆盖问题](./RectCover/README.md)
 * [剑指Offer(十四)：剪绳子](./CuttingRope/README.md)
 * [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)
+### 回溯：
+* [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
+### 排序：
+* [冒泡排序](./CMyString/README.md)
