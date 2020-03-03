@@ -45,7 +45,7 @@ O(n)
 [Python](./MaxInSlidingWindow.py)
 
 # C++: 
-###  回溯
+###  
 ```c++
 class Solution {
 public:
@@ -80,7 +80,7 @@ public:
 };
 ```
 # Python:
-###  回溯
+###  
 ```python
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
