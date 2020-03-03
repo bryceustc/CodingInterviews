@@ -53,7 +53,7 @@
 * [剑指Offer(三十)：包含min函数的栈](./MinInStack/README.md)(**重要**，利用两个栈，一个数据栈，一个辅助栈存储最小元素)
 * [剑指Offer(三十一)：栈的压入、弹出元素](./StackPushPopOrder/README.md)(**重要**，利用一个辅助栈模拟)
 * [剑指Offer(五十九)：滑动窗口的最大值](./MaxInSlidingWindow/README.md) (**重要**，利用deque双端队列)
-* [剑指Offer(五十九)：队列的最大值](./MaxQueue/README.md) (**重要**，利用deque双端队列)
+* [剑指Offer(五十九)：队列的最大值](./MaxQueue/README.md) (**重要**，两个队列，一个普通队列正常存取元素，一个deque双端队列存取单调元素)
 * [LeetCode(225):用队列实现栈](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Implement-Stack-Using-Queues/README.md)(**重要**)
 ### 树：
 * [剑指Offer(七)：重建二叉树](./ConstructBinaryTree/README.md)(**重要**，前序遍历，中序遍历，后序遍历要掌握)
