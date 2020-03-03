@@ -80,12 +80,12 @@
 * [剑指Offer(六十四)：求1+2+3+…+n](./Accumulate/README.md)
 * [剑指Offer(六十五)：不用加减乘除的加法](./AddTwoNumbers/README.md)（**重要**，异或 和与的结合，(a^b) ^((a&b)<<1) ）
 ### 动态规划：
-* [剑指Offer(十)：斐波那契数列](./Fibonacci/README.md)
-* [剑指Offer(十)：跳台阶](./JumpFloor/README.md)
-* [剑指Offer(十)：变态跳台阶](./JumpFloorII/README.md)
-* [剑指Offer(十)：矩形覆盖问题](./RectCover/README.md)
-* [剑指Offer(十四)：剪绳子](./CuttingRope/README.md)
-* [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)
+* [剑指Offer(十)：斐波那契数列](./Fibonacci/README.md)(**重要**)
+* [剑指Offer(十)：跳台阶](./JumpFloor/README.md)(**重要**，注意初始值)
+* [剑指Offer(十)：变态跳台阶](./JumpFloorII/README.md)(**重要**，注意初始值)
+* [剑指Offer(十)：矩形覆盖问题](./RectCover/README.md)(**重要**，注意初始值)
+* [剑指Offer(十四)：剪绳子](./CuttingRope/README.md)(**重要**，动规，贪心)
+* [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-1])
 ### 回溯：
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)
 * [剑指Offer(十三)：机器人的运动范围](./RobotMove/README.md)
