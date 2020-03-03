@@ -1,29 +1,43 @@
-# 题目: 机器人的运动范围
+# 题目:滑动窗口的最大值
 
 ## 题目描述：
-地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。但它不能进入方格 [35, 38]，因为3+5+3+8=19。请问该机器人能够到达多少个格子？
+给定一个数组 nums 和滑动窗口的大小 k，请找出所有滑动窗口里的最大值。
   
   **示例：**
   ```
-输入：m = 2, n = 3, k = 1
-输出：3
+输入: nums = [1,3,-1,-3,5,3,6,7], 和 k = 3
+输出: [3,3,5,5,6,7] 
+解释: 
+
+  滑动窗口的位置                最大值
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+ 1 [3  -1  -3] 5  3  6  7       3
+ 1  3 [-1  -3  5] 3  6  7       5
+ 1  3  -1 [-3  5  3] 6  7       5
+ 1  3  -1  -3 [5  3  6] 7       6
+ 1  3  -1  -3  5 [3  6  7]      7
   ```
   
 # 解题思路:
-1.从(0,0)开始走，每成功走一步标记当前位置为true,然后从当前位置往四个方向探索，返回1 + 4 个方向的探索值之和。
+我们可以使用一个双端队列deque。
 
-2.探索时，判断当前节点是否可达的标准为：
+我们可以用STL中的deque来实现，接下来我们以数组{2,3,4,2,6,2,5,1}为例，来细说整体思路。
 
-1）当前节点在矩阵内；
+数组的第一个数字是2，把它存入队列中。第二个数字是3，比2大，所以2不可能是滑动窗口中的最大值，因此把2从队列里删除，再把3存入队列中。第三个数字是4，比3大，同样的删3存4。此时滑动窗口中已经有3个数字，而它的最大值4位于队列的头部。
 
-2）当前节点未被访问过；
+第四个数字2比4小，但是当4滑出之后它还是有可能成为最大值的，所以我们把2存入队列的尾部。下一个数字是6，比4和2都大，删4和2，存6。就这样依次进行，最大值永远位于队列的头部。
 
-3）当前节点满足limit限制。
+但是我们怎样判断滑动窗口是否包括一个数字？应该在队列里存入数字在数组里的下标，而不是数值。当一个数字的下标与当前处理的数字的下标之差大于或者相等于滑动窗口大小时，这个数字已经从窗口中滑出，可以从队列中删除。
+
+整体过程示意图：
+
+![](https://cuijiahua.com/wp-content/uploads/2018/02/basis_64_2.png)
 
 # 时间复杂度：
-O(mn)
+O(n)
 # 空间复杂度
- O(mn)
+ O(1)
 # 代码
 
 [C++](./MaxInSlidingWindow.cpp)
@@ -35,48 +49,33 @@ O(mn)
 ```c++
 class Solution {
 public:
-    int movingCount(int threshold, int rows, int cols)
-    {
-        int res = 0;
-        vector<vector<int>> visited (rows, vector<int>(cols,0));
-        res = helper(threshold, rows, cols,0, 0, visited);
-        return res;
-    }
-    int helper(int threshold, int rows, int cols, int i, int j, vector<vector<int>> &visited)
-    {
-        int sum = bitSum(i) + bitSum(j);
-        // 或者转成字符串来计算
-        //string s1 = to_string(i);
-        // string s2 = to_string(j);
-        // int sum = 0;
-        // for (int x =0; x<s1.size();x++)
-        // {
-        //     sum+=s1[x]-'0';
-        // }
-        // for (int y =0; y<s2.size();y++)
-        // {
-        //     sum+=s2[y]-'0';
-        // }
-        // if (sum> k|| i<0|| i>=m || j<0|| j>=n||visited[i][j]==1)
-        // {
-        //     return 0;
-        // }
-        if (sum > threshold || i<0 || i>=rows || j<0 || j>=cols || visited[i][j]==1)
-            return 0;
-        visited[i][j]=1;
-        return helper(threshold, rows, cols,i-1, j, visited) + helper(threshold, rows, cols,i+1, j, visited) +
-            helper(threshold, rows, cols,i, j-1, visited) + helper(threshold, rows, cols,i, j+1, visited) + 1;
-    }
-     //计算位置的数值
-    int bitSum(int num)
-    {
-        int sum = 0;
-        while(num>0)
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> res;
+        if (nums.empty())
+            return res;
+        int n = nums.size();
+        //deque q中存储的是num的下标
+        deque<int> q;
+        for(int i=0;i<n;i++)
         {
-            sum+=num%10;
-            num/=10;
+            while(!q.empty() && nums[i]>nums[q.back()])  // 因为q中存的是下标，如果当前nums[i]更大，就从后面弹出队列中比num[i]小的元素
+            {
+                q.pop_back();
+            }
+            // 队列首部的下标超出滑动窗口范畴时就无效了 弹出
+            while(!q.empty() && i-q.front()+1>k)
+            {
+                q.pop_front();
+            }
+            // 压入下标
+            q.push_back(i);
+            // 当下标大于滑动窗口的时候 才会滑动 压入结果
+            if(i>=k-1)
+            {
+                res.push_back(nums[q.front()]);
+            }
         }
-        return sum;
+        return res;
     }
 };
 ```
@@ -84,23 +83,21 @@ public:
 ###  回溯
 ```python
 class Solution:
-    def movingCount(self, m: int, n: int, k: int) -> int:
-        if (m<=0 or n<=0 or k<0):
-            return 0
-        visited = [[0 for _ in range(n)]for _ in range(m)]
-        res = self.dfs(m,n,0,0,k,visited)
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        res = []
+        if nums is None:
+            return res
+        q = collections.deque()
+        n = len(nums)
+        for i in range(n):
+            while q and nums[i] > nums[q[-1]]:
+                q.pop()
+            while q and i-q[0]+1 > k:
+                q.popleft()
+            q.append(i)
+            if i>=k-1:
+                res.append(nums[q[0]])
         return res
-    def dfs(self, m, n, i, j, k, visited):
-        if i<0 or i>=m or j<0 or j>=n or self.bitSum(i) + self.bitSum(j) >k or visited[i][j]==1:
-            return 0
-        visited[i][j]=1
-        return self.dfs(m,n,i-1,j,k,visited) + self.dfs(m,n,i+1,j,k,visited) + self.dfs(m,n,i,j+1,k,visited) +  self.dfs(m,n,i,j-1,k,visited) + 1
-    def bitSum(self, num):
-        s = 0
-        while num:
-            s+=num%10
-            num = num//10
-        return s
 ```
 
 
