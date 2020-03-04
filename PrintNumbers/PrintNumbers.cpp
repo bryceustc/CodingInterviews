@@ -50,3 +50,54 @@ public:
         res.push_back(num);
     }
 };
+
+
+
+
+class Solution {
+public:
+    vector<int> res;
+    vector<int> printNumbers(int n) {
+        if (n<=0) return res;
+        string number(n, '0');
+        helper(0, n, number);
+        return res;
+    }
+    void helper(int index, int n, string &number)
+    {
+        if (index == n)
+        {
+            saveNumber(number);
+            return;
+        }
+        for (int i=0;i<=9;i++)
+        {
+            number[index] = i +'0';
+            helper(index+1, n, number);
+        }
+    }
+    void saveNumber (string number) //由于此处输出，不需要修改number，因此不需要加引用
+    {
+        string s = "";
+        int index = 0;
+        // 找到第一不为'0'的位数
+        for (;index<number.size();index++)
+        {
+            if (number[index]!='0')
+            {
+                break;
+            }
+        }
+        // 拼接成一个完整数字
+        for (; index<number.size();index++)
+        {
+            s+=number[index];
+        }
+        // 转为整数存入结果  因为存在"0000"这中情况 所以需要判断一下
+        if (s!="")
+        {
+            int num = stoi(s);
+            res.push_back(num);
+        }
+    }
+};
