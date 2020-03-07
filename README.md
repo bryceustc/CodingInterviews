@@ -34,6 +34,7 @@
 * [剑指Offer(三十八)：字符串的排列](./StringPermutation/README.md)(**重要**，递归DFS)(扩展可以看一下)
 * [剑指Offer(四十三)：1~n整数中1出现的次数](./NumberOf1/README.md)(数学归纳，非典型字符串题，只是数字转成字符串可表示数字更大)
 * [剑指Offer(四十四)：数字序列中某一位的数字](./FindNthDigit/README.md)(数学模拟，非典型字符串题)
+* [剑指Offer(四十六)：把数字翻译成字符串](./TranslateNum/README.md)(数学模拟，非典型字符串题)
 * [剑指Offer(五十)：第一个只出现一次的字符 ](./FirstNotRepeatingChar/README.md)(**重要**，哈希表)
 * [剑指Offer(五十)：字符流中第一个只出现一次的字符 ](./FirstCharacterInStream/README.md)(**重要**，哈希表)
 * [剑指Offer(五十八)：翻转字符串 ](./ReverseWordsInSentence/README.md)
