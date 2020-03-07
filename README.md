@@ -86,8 +86,8 @@
 ### 动态规划：
 * [剑指Offer(十)：斐波那契数列](./Fibonacci/README.md)(**重要**)
 * [剑指Offer(十)：跳台阶](./JumpFloor/README.md)(**重要**，注意初始值)
-* [剑指Offer(十)：变态跳台阶](./JumpFloorII/README.md)(**重要**，注意初始值)
-* [剑指Offer(十)：矩形覆盖问题](./RectCover/README.md)(**重要**，注意初始值)
+* [剑指Offer(十)：变态跳台阶](./JumpFloorII/README.md)(通项公式数学归纳)
+* [剑指Offer(十)：矩形覆盖问题](./RectCover/README.md)(斐波那契数列)
 * [剑指Offer(十四)：剪绳子](./CuttingRope/README.md)(**重要**，动规，贪心)
 * [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-1])
 ### 回溯：
