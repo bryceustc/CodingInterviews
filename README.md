@@ -89,7 +89,7 @@
 * [剑指Offer(十)：变态跳台阶](./JumpFloorII/README.md)(通项公式数学归纳)
 * [剑指Offer(十)：矩形覆盖问题](./RectCover/README.md)(斐波那契数列)
 * [剑指Offer(十四)：剪绳子](./CuttingRope/README.md)(**重要**，动规，贪心)
-* [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-1])
+* [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-coin])
 ### 回溯：
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)
 * [剑指Offer(十三)：机器人的运动范围](./RobotMove/README.md)
