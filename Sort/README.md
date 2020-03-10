@@ -227,14 +227,18 @@ void Shell_sort(int a[],size_t n)
 
 // 稳定排序，平均 O(nlogn)-O(n^2)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
 
- Paritition1(int A[], int low, int high) {
+ int Paritition (int A[], int low, int high) 
+ {
    int pivot = A[low];
-   while (low < high) {
-     while (low < high && A[high] >= pivot) {
+   while (low < high) 
+   {
+     while (low < high && A[high] >= pivot) 
+     {
        --high;
      }
      A[low] = A[high];
-     while (low < high && A[low] <= pivot) {
+     while (low < high && A[low] <= pivot) 
+     {
        ++low;
      }
      A[high] = A[low];
@@ -245,7 +249,8 @@ void Shell_sort(int a[],size_t n)
 
  void QuickSort(int A[], int low, int high) //快排母函数
  {
-   if (low < high) {
+   if (low < high) 
+   {
      int pivot = Paritition1(A, low, high);
      QuickSort(A, low, pivot - 1);
      QuickSort(A, pivot + 1, high);
@@ -256,24 +261,25 @@ void Shell_sort(int a[],size_t n)
 ```c++
 void quick_sort(vector<int> &nums, int low, int high)
 {
-	int pivot = nums[low];
-	int l = low;
-	int r = high;
-	if (l<r)
+	if(low < high)
 	{
-		while(l<r && nums[l] >= pivot) //从右向左找小于基准值的数
+		int l = low, r = high, pivot = nums[low];
+		while(l<r)
 		{
-			r--;
+			while(l<r && nums[r] >=pivot)
+			{
+				r--;
+			}
+			nums[l] = nums[r];
+			while(l<r && nums[l] < pivot)
+			{
+				i++;
+			}
+			nums[r] = nums[l];
 		}
-		nums[l] = nums[r];
-		while(l<r && nums[l] >= pivot) // 从左向右找大于基准值的数
-		{
-			l++;
-		}
-		nums[r] = nums[l];
+		nums[l] = pivot;
+		quick_sort(nums, low, l-1);
+		quick_sort(nums, l+1, high);
 	}
-	nums[l] = pivot;
-	quick_sort(nums, low, l-1);  // 递归调用
-	quick_sort(nums, l+1, high);
 }
 ```
