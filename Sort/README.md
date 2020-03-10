@@ -252,6 +252,7 @@ void Shell_sort(int a[],size_t n)
    }
  }
 ```
+### 精简版
 ```c++
 void quick_sort(vector<int> &nums, int low, int high)
 {
