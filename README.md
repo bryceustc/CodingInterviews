@@ -100,4 +100,10 @@
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
 ### 排序：
-* [冒泡排序](./CMyString/README.md)
+* [冒泡排序](./Sort/README.md)
+* [选择排序](./Sort/README.md)
+* [插入排序](./Sort/README.md)（**重要**）
+* [归并排序](./Sort/README.md)（**重要**）
+* [希尔排序](./Sort/README.md)
+* [快速排序](./Sort/README.md)（**重要**）
+* [堆排序](./Sort/README.md)（**重要**）
