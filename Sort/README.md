@@ -225,7 +225,7 @@ void Shell_sort(int a[],size_t n)
     3. 再对左右区间递归执行第二步，直至各区间只有一个数。
 */
 
-// 稳定排序，平均 O(nlogn)-O(n^2)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
+// 不稳定排序，平均 O(nlogn)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(logn)
 
  int Paritition (int A[], int low, int high) 
  {
@@ -289,40 +289,53 @@ void quick_sort(vector<int> &nums, int low, int high)
 代码：
 ```c++
 /*
-    1. 从数列中挑出一个元素作为基准数。
-    2. 重新排序数列，将比基准数大的放到右边，小于或等于它的数都放到左边。
-    3. 再对左右区间递归执行第二步，直至各区间只有一个数。
+堆排序的基本思想是：将待排序序列构造成一个大顶堆，此时，整个序列的最大值就是堆顶的根节点。将其与末尾元素进行交换，此时末尾就为最大值。然后将剩余n-1个元素重新构造成一个堆，这样会得到n个元素的次小值。如此反复执行，便能得到一个有序序列了
+
+    1.将无需序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;
+
+　2.将堆顶元素与末尾元素交换，将最大元素"沉"到数组末端;
+
+　3.重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，反复执行调整+交换步骤，直到整个序列有序。
+
 */
 
-// 稳定排序，平均 O(nlogn)-O(n^2)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
+// 不稳定排序，平均 O(nlogn)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
 
- int Paritition (int A[], int low, int high) 
- {
-   int pivot = A[low];
-   while (low < high) 
-   {
-     while (low < high && A[high] >= pivot) 
-     {
-       --high;
-     }
-     A[low] = A[high];
-     while (low < high && A[low] <= pivot) 
-     {
-       ++low;
-     }
-     A[high] = A[low];
-   }
-   A[low] = pivot;
-   return low;
- }
-
- void QuickSort(int A[], int low, int high) //快排母函数
- {
-   if (low < high) 
-   {
-     int pivot = Paritition1(A, low, high);
-     QuickSort(A, low, pivot - 1);
-     QuickSort(A, pivot + 1, high);
-   }
- }
+//堆排序的核心是建堆,传入参数为数组，根节点位置，数组长度
+void Heap_build(int a[],int root,int length)
+{
+	int lchild = root*2+1;//根节点的左子结点下标
+	if (lchild < length)//左子结点下标不能超出数组的长度
+	{
+		int flag = lchild;//flag保存左右节点中最大值的下标
+		int rchild = lchild+1;//根节点的右子结点下标
+		if (rchild < length)//右子结点下标不能超出数组的长度(如果有的话)
+		{
+			if (a[rchild] > a[flag])//找出左右子结点中的最大值
+			{
+				flag = rchild;
+			}
+		}
+		if (a[root] < a[flag])
+		{
+			//交换父结点和比父结点大的最大子节点
+			Swap(a[root],a[flag]);
+			//从此次最大子节点的那个位置开始递归建堆
+			Heap_build(a,flag,length);
+		}
+	}
+}
+ 
+void Heap_sort(int a[],int len)
+{
+	for (int i = len/2; i >= 0; --i)//从最后一个非叶子节点的父结点开始建堆
+	{
+		Heap_build(a,i,len);
+	}
+	for (int j = len-1; j > 0; --j)//j表示数组此时的长度，因为len长度已经建过了，从len-1开始
+	{
+		Swap(a[0],a[j]);//交换首尾元素,将最大值交换到数组的最后位置保存
+		Heap_build(a,0,j);//去除最后位置的元素重新建堆，此处j表示数组的长度，最后一个位置下标变为len-2
+	}
+}
 ```
