@@ -266,14 +266,14 @@ void quick_sort(vector<int> &nums, int low, int high)
 		int l = low, r = high, pivot = nums[low];
 		while(l<r)
 		{
-			while(l<r && nums[r] >=pivot)
+			while(l<r && nums[r] >=pivot) // 从右向左找第一个小于基准的数
 			{
-				r--;
+			    r--;
 			}
 			nums[l] = nums[r];
-			while(l<r && nums[l] < pivot)
+			while(l<r && nums[l] < pivot) // 从左向右找第一个大于等于基准的数
 			{
-				i++;
+			    l++;
 			}
 			nums[r] = nums[l];
 		}
