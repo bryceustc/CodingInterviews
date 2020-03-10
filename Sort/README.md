@@ -184,21 +184,9 @@ void mergesort(int data[],int first,int last)
 ```c++
 /*
    数组列在一个表中并对列分别进行插入排序，重复这过程，不过每次用更长的列（步长更长了，列数更少了）来进行。
-   
-1、确定数组的大小，以及输入数组中的元素值；
-
-2、将输入的数组进行分组归并；
-
-3、将整个数组分成左右两个数组，左右两个数组再向下分，直至子数组的元素少于2个时，子数组将停止分割；
-
-4、当左右子数组不能再分割，也是都是一个元素时，比较他们的大小，进行排序合并；
-
-5、再排序合并上一级子数组为两个元素的数组，接着再排序合并上一级子数组为四个元素的数组；直至到排序合并刚开始的两个子数组，最后成为拍好序的数组；
-
 */
 
 // 不稳定排序，平均 O(nlogn)-O(n^2)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
-
 
 void Shell_sort(int a[],size_t n)
 {
@@ -224,5 +212,67 @@ void Shell_sort(int a[],size_t n)
 			}
 		}
 	}
+}
+```
+### 6. 快速排序（重要）
+
+![](https://images2015.cnblogs.com/blog/1024555/201611/1024555-20161128110416068-1421707828.png)
+代码：
+```c++
+/*
+    1. 从数列中挑出一个元素作为基准数。
+    2. 重新排序数列，将比基准数大的放到右边，小于或等于它的数都放到左边。
+    3. 再对左右区间递归执行第二步，直至各区间只有一个数。
+*/
+
+// 稳定排序，平均 O(nlogn)-O(n^2)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
+
+ Paritition1(int A[], int low, int high) {
+   int pivot = A[low];
+   while (low < high) {
+     while (low < high && A[high] >= pivot) {
+       --high;
+     }
+     A[low] = A[high];
+     while (low < high && A[low] <= pivot) {
+       ++low;
+     }
+     A[high] = A[low];
+   }
+   A[low] = pivot;
+   return low;
+ }
+
+ void QuickSort(int A[], int low, int high) //快排母函数
+ {
+   if (low < high) {
+     int pivot = Paritition1(A, low, high);
+     QuickSort(A, low, pivot - 1);
+     QuickSort(A, pivot + 1, high);
+   }
+ }
+```
+```c++
+void quick_sort(vector<int> &nums, int low, int high)
+{
+	int pivot = nums[low];
+	int l = low;
+	int r = high;
+	if (l<r)
+	{
+		while(l<r && nums[l] >= pivot) //从右向左找小于基准值的数
+		{
+			r--;
+		}
+		nums[l] = nums[r];
+		while(l<r && nums[l] >= pivot) // 从左向右找大于基准值的数
+		{
+			l++;
+		}
+		nums[r] = nums[l];
+	}
+	nums[l] = pivot;
+	quick_sort(nums, low, l-1);  // 递归调用
+	quick_sort(nums, l+1, high);
 }
 ```
