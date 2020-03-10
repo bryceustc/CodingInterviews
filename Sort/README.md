@@ -301,41 +301,41 @@ void quick_sort(vector<int> &nums, int low, int high)
 
 // 不稳定排序，平均 O(nlogn)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
 
-//堆排序的核心是建堆,传入参数为数组，根节点位置，数组长度
-void Heap_build(int a[],int root,int length)
+void adjustHeap(int nums[],int i,int length)
 {
-	int lchild = root*2+1;//根节点的左子结点下标
-	if (lchild < length)//左子结点下标不能超出数组的长度
+	int temp = arr[i];//先取出当前元素i
+        for(int k=i*2+1;k<length;k=k*2+1)     //从i结点的左子结点开始，也就是2i+1处开始
 	{
-		int flag = lchild;//flag保存左右节点中最大值的下标
-		int rchild = lchild+1;//根节点的右子结点下标
-		if (rchild < length)//右子结点下标不能超出数组的长度(如果有的话)
-		{
-			if (a[rchild] > a[flag])//找出左右子结点中的最大值
-			{
-				flag = rchild;
-			}
-		}
-		if (a[root] < a[flag])
-		{
-			//交换父结点和比父结点大的最大子节点
-			Swap(a[root],a[flag]);
-			//从此次最大子节点的那个位置开始递归建堆
-			Heap_build(a,flag,length);
-		}
-	}
+            if(k+1<length && arr[k]<arr[k+1])    //如果左子结点小于右子结点，k指向右子结点
+	    {
+                k++;
+            }
+            if(arr[k] >temp)    //如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
+            {    
+	        arr[i] = arr[k];
+                i = k;
+            }
+	    else
+	    {
+                break;
+            }
+        }
+        arr[i] = temp;    //将temp值放到最终的位置
 }
  
-void Heap_sort(int a[],int len)
+void heap_sort(int nums[],int len)
 {
-	for (int i = len/2; i >= 0; --i)//从最后一个非叶子节点的父结点开始建堆
+	//1.构建大顶堆
+        for(int i=len/2-1;i>=0;i--)
 	{
-		Heap_build(a,i,len);
-	}
-	for (int j = len-1; j > 0; --j)//j表示数组此时的长度，因为len长度已经建过了，从len-1开始
+            //从第一个非叶子结点从下至上，从右至左调整结构
+            adjustHeap(arr,i,arr.length);
+        }
+        //2.调整堆结构+交换堆顶元素与末尾元素
+        for(int j=len-1;j>0;j--)
 	{
-		Swap(a[0],a[j]);//交换首尾元素,将最大值交换到数组的最后位置保存
-		Heap_build(a,0,j);//去除最后位置的元素重新建堆，此处j表示数组的长度，最后一个位置下标变为len-2
-	}
+            swap(nums[0],nums[j]);//将堆顶元素(最大值)与末尾元素进行交换，将最大值交换到数组的最后位置保存
+            adjustHeap(nums,0,j);//重新对堆进行调整
+        }
 }
 ```
