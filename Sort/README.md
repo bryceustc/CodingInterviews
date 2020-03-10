@@ -216,7 +216,7 @@ void Shell_sort(int a[],size_t n)
 ```
 ### 6. 快速排序（重要）
 
-![](https://images2015.cnblogs.com/blog/1024555/201611/1024555-20161128110416068-1421707828.png)
+![](https://www.runoob.com/wp-content/uploads/2019/03/quickSort.gif)
 代码：
 ```c++
 /*
@@ -282,4 +282,47 @@ void quick_sort(vector<int> &nums, int low, int high)
 		quick_sort(nums, l+1, high);
 	}
 }
+```
+### 7. 堆排序（重要）
+
+![](https://www.runoob.com/wp-content/uploads/2019/03/quickSort.gif)
+代码：
+```c++
+/*
+    1. 从数列中挑出一个元素作为基准数。
+    2. 重新排序数列，将比基准数大的放到右边，小于或等于它的数都放到左边。
+    3. 再对左右区间递归执行第二步，直至各区间只有一个数。
+*/
+
+// 稳定排序，平均 O(nlogn)-O(n^2)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
+
+ int Paritition (int A[], int low, int high) 
+ {
+   int pivot = A[low];
+   while (low < high) 
+   {
+     while (low < high && A[high] >= pivot) 
+     {
+       --high;
+     }
+     A[low] = A[high];
+     while (low < high && A[low] <= pivot) 
+     {
+       ++low;
+     }
+     A[high] = A[low];
+   }
+   A[low] = pivot;
+   return low;
+ }
+
+ void QuickSort(int A[], int low, int high) //快排母函数
+ {
+   if (low < high) 
+   {
+     int pivot = Paritition1(A, low, high);
+     QuickSort(A, low, pivot - 1);
+     QuickSort(A, pivot + 1, high);
+   }
+ }
 ```
