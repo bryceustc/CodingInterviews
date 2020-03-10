@@ -78,6 +78,7 @@
 * [LeetCode(144):二叉树的前序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Preorder-Traversal/README.md)(**重要**)
 * [LeetCode(94):二叉树的中序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Inorder-Traversal/README.md)(**重要**)
 * [LeetCode(145):二叉树的后序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Postorder-Traversal/README.md)(**重要**)
+* [LeetCode(543):二叉树的直径](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Diameter-Of-Binary-Tree/README.md)(**重要**，利用二叉树的深度公式)
 ### 位运算：
 * [剑指Offer(十五)：二进制中1的个数](./NumberOf1InBinary/README.md)(**重要**，n与n-1做&运算）
 * [剑指Offer(十六)：数值的整数次方](./Power/README.md)（二分法）
