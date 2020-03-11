@@ -6,7 +6,7 @@
 * [剑指Offer(三)：数组中重复的数字](./DuplicationInArray/README.md)(**多做几遍**)
 * [剑指Offer(四)：二维数组中的查找](./FindInPartiallySortedMatrix/README.md) (遍历)
 * [剑指Offer(十一)：旋转数组的最小数字](./MinNumberInRotatedArray/README.md) (二分查找)
-* [剑指Offer(二十一)：调整数组顺序使奇数位于偶数前面](./ReorderArray/README.md) (插入排序的思想)
+* [剑指Offer(二十一)：调整数组顺序使奇数位于偶数前面](./ReorderArray/README.md) (**重要**，快速排序的思想，双指针)
 * [剑指Offer(二十九)：顺时针打印矩阵](./PrintMatrix/README.md)
 * [剑指Offer(三十九)：数组中出现次数超过一半的数字](./MoreThanHalfNumber/README.md)
 * [剑指Offer(四十)：最小的k个数](./KLeastNumbers/README.md)(**重要** 小顶堆)
