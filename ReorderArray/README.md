@@ -9,7 +9,7 @@
   
   2). 插入排序的思想
   
-  3). 冒泡排序的思想
+  3). 快速排序的思想
   
 # 解题思路:
   1). 构建辅助数组，时间复杂度为O(n)，空间复杂度O(n);
@@ -17,6 +17,8 @@
   2). 插入排序，时间复杂度为O(nlogn)
   
   3). 冒泡排序
+  
+  4). 快速排序(最优)
 
 # 代码
 
@@ -25,6 +27,34 @@
 [Python](ReorderArray.py)
 
 # C++:
+### 最优方法
+```c++
+class Solution {
+public:
+    vector<int> exchange(vector<int>& nums) {
+        int n = nums.size();
+        int l = 0;
+        int r = n-1;
+        while(l<r)
+        {
+            while(l<r && (nums[l]&1))
+            {
+                l++;
+            }
+            while(l<r && !(nums[r]&1))
+            {
+                r--;
+            }
+            if (l<r)
+            {
+                swap(nums[l], nums[r]);
+            }
+        }
+        return nums;
+    }
+};
+```
+
 ## 方法一：暴力遍历
 ```c++
 #include <iostream>
