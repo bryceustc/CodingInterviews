@@ -43,6 +43,7 @@
 * [剑指Offer(六十七)：把字符串转换成整数 ](./StringToInt/README.md)
 * [LeetCode(43):字符串相乘](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Multiply-Strings/README.md)
 * [LeetCode(415):字符串相加](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Add-Strings/README.md)
+* [LeetCode(1071):字符串的最大公因子](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Greatest-Common-Divisor-Of-Strings/README.md)
 ### 链表：
 * [剑指Offer(六)：从尾到头打印链表](./PrintListInReversedOrder/README.md)(**重要** 递归和非递归法都要掌握)
 * [剑指Offer(十八)：删除链表的节点](./DeleteNodeInList/README.md)
