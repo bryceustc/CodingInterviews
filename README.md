@@ -95,6 +95,7 @@
 * [剑指Offer(六十三)：股票的最大利润](./MaxProfit/README.md)(**重要**，动规)
 * [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-coin])
 * [LeetCode：买卖股票的最佳时机系列问题](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Best-Time-To-Buy-And-Sell-Stock/README.md)(**重要**，画出状态机理解动态规划)
+* [LeetCode(674)：长连续递增序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，双指针or 动态规划 dp[i] = dp[i-1]+1 or dp[i] = 1)
 ### 回溯：
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)
 * [剑指Offer(十三)：机器人的运动范围](./RobotMove/README.md)
