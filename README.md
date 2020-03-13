@@ -93,6 +93,7 @@
 * [剑指Offer(十)：矩形覆盖问题](./RectCover/README.md)(斐波那契数列)
 * [剑指Offer(十四)：剪绳子](./CuttingRope/README.md)(**重要**，动规，贪心)
 * [剑指Offer(六十三)：股票的最大利润](./MaxProfit/README.md)(**重要**，动规)
+* [LeetCode(221)：最大正方形](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Maximal-Square/README.md)(**重要**，dp[i][j] = min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1])+1);
 * [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-coin])
 * [LeetCode：买卖股票的最佳时机系列问题](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Best-Time-To-Buy-And-Sell-Stock/README.md)(**重要**，画出状态机理解动态规划)
 * [LeetCode(674)：长连续递增序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，双指针or 动态规划 dp[i] = dp[i-1]+1 or dp[i] = 1)
