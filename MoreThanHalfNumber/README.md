@@ -378,6 +378,6 @@ class Solution:
 ```
 
 # 参考：
-   - [LeetCode-169多数元素](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Spiral-Matrix/README.md) 
+   - [LeetCode-169多数元素](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Majority-Element/README.md) 
 
 
