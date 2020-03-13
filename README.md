@@ -8,7 +8,7 @@
 * [剑指Offer(十一)：旋转数组的最小数字](./MinNumberInRotatedArray/README.md) (二分查找)
 * [剑指Offer(二十一)：调整数组顺序使奇数位于偶数前面](./ReorderArray/README.md) (**重要**，快速排序的思想，双指针)
 * [剑指Offer(二十九)：顺时针打印矩阵](./PrintMatrix/README.md)
-* [剑指Offer(三十九)：数组中出现次数超过一半的数字](./MoreThanHalfNumber/README.md)
+* [剑指Offer(三十九)：数组中出现次数超过一半的数字](./MoreThanHalfNumber/README.md)(摩尔投票法，注意判断是否存在超过一半的数字)
 * [剑指Offer(四十)：最小的k个数](./KLeastNumbers/README.md)(**重要** 小顶堆)
 * [剑指Offer(四十一)：数据流中的中位数](./StreamMedian/README.md)(**重要**,大顶堆+小顶堆)
 * [剑指Offer(四十二)：连续子数组的最大和](./GreatestSumOfSubarrays/README.md)(**重要**,动态规划、分治法再做)
