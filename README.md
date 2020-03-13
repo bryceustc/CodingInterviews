@@ -95,6 +95,7 @@
 * [剑指Offer(六十三)：股票的最大利润](./MaxProfit/README.md)(**重要**，动规)
 * [LeetCode(62)：不同路径](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Unique-Paths/README.md)(**重要**，dp[i][j] = dp[i][j-1]+dp[i-1][j]))
 * [LeetCode(64)：最小路径和](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Minimum-Path-Sum)(**重要**，dp[i][j] = min(dp[i][j-1], dp[i-1][j],)+grid[i][j])
+* [LeetCode(120)：三角形最小路径和](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Triangle/README.md)(**重要**，自底向上，triangle[i][j]+=min(triangle[i+1][j],triangle[i+1][j+1]))
 * [LeetCode(221)：最大正方形](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Maximal-Square/README.md)(**重要**，dp[i][j] = min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1])+1)
 * [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-coin])
 * [LeetCode：买卖股票的最佳时机系列问题](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Best-Time-To-Buy-And-Sell-Stock/README.md)(**重要**，画出状态机理解动态规划)
