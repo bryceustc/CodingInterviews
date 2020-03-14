@@ -41,6 +41,7 @@
 * [剑指Offer(五十八)：翻转字符串 ](./ReverseWordsInSentence/README.md)
 * [剑指Offer(五十八)：左旋转字符串 ](./LeftRotateString/README.md)
 * [剑指Offer(六十七)：把字符串转换成整数 ](./StringToInt/README.md)
+* [LeetCode(3):无重复字符的最长子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest_Substring_Without_Repeating_Characters/README.md)(**重要**，滑动窗口+hash)
 * [LeetCode(43):字符串相乘](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Multiply-Strings/README.md)
 * [LeetCode(415):字符串相加](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Add-Strings/README.md)
 * [LeetCode(1071):字符串的最大公因子](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Greatest-Common-Divisor-Of-Strings/README.md)
