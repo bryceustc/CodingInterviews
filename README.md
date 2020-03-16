@@ -103,6 +103,7 @@
 * [LeetCode(221)：最大正方形](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Maximal-Square/README.md)(**重要**，dp[i][j] = min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1])+1)
 * [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-coin])
 * [LeetCode：买卖股票的最佳时机系列问题](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Best-Time-To-Buy-And-Sell-Stock/README.md)(**重要**，画出状态机理解动态规划)
+* [LeetCode(300)：最长上升子序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Increasing-Subsequence/README.md)(**重要**，动态规划 遍历i之前的 dp[i] = max(dp[i], dp[j]+1))
 * [LeetCode(674)：长连续递增序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Continuous-Increasing-Subsequence/README.md)(**重要**，双指针or 动态规划 dp[i] = dp[i-1]+1 or dp[i] = 1)
 ### 回溯：
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)
