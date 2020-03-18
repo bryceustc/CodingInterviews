@@ -2,7 +2,7 @@
 
 基础排序算法： 冒泡排序、选择排序、**插入排序**、**归并排序**、希尔排序、**快速排序**、**堆排序**
 
-![](http://pelhans.com/img/in-post/alg/sort_summary.jpg)
+![](https://github.com/bryceustc/CodingInterviews/blob/master/Sort/img/sort_summary.jpg)
 
 ### 1. 冒泡排序
 
