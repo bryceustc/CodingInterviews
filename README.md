@@ -107,7 +107,7 @@
 * [LeetCode：买卖股票的最佳时机系列问题](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Best-Time-To-Buy-And-Sell-Stock/README.md)(**重要**，画出状态机理解动态规划)
 * [LeetCode(300)：最长上升子序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Increasing-Subsequence/README.md)(**重要**，动态规划 遍历i之前的 dp[i] = max(dp[i], dp[j]+1))
 * [LeetCode(674)：长连续递增序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Continuous-Increasing-Subsequence/README.md)(**重要**，双指针or 动态规划 dp[i] = dp[i-1]+1 or dp[i] = 1)
-### 回溯：
+### DFS与BFS：
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)
 * [剑指Offer(十三)：机器人的运动范围](./RobotMove/README.md)
 * [LeetCode(695)：岛屿的最大面积](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Max-Area-Of-Island/README.md)(**重要**，dfs)
