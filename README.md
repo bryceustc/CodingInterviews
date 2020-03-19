@@ -45,7 +45,7 @@
 * [LeetCode(3):无重复字符的最长子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest_Substring_Without_Repeating_Characters/README.md)(**重要**，滑动窗口+hash)
 * [LeetCode(5):最长回文子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Palindromic-Substring/README.md)(**重要**，dp 或者中心扩展)
 * [LeetCode(43):字符串相乘](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Multiply-Strings/README.md)
-* [LeetCode(409):最长回文串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Palindrome/README.md)(利用数组哈希char_map[128]提高效率)
+* [LeetCode(409):最长回文串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Palindrome/README.md)(**重要**，利用数组哈希char_map[128]提高效率)
 * [LeetCode(415):字符串相加](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Add-Strings/README.md)
 * [LeetCode(1071):字符串的最大公因子](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Greatest-Common-Divisor-Of-Strings/README.md)
 * [LeetCode(1160):拼写单词](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-Words-That-Can-Be-Formed-By-Characters/README.md)(**重要**，两个哈希进行比较)
