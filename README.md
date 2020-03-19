@@ -44,6 +44,7 @@
 * [剑指Offer(六十七)：把字符串转换成整数 ](./StringToInt/README.md)
 * [LeetCode(3):无重复字符的最长子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest_Substring_Without_Repeating_Characters/README.md)(**重要**，滑动窗口+hash)
 * [LeetCode(5):最长回文子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Palindromic-Substring/README.md)(**重要**，dp 或者中心扩展)
+* [LeetCode(516):最长回文子序列](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Longest-Palindromic-Subsequence)(**重要**，子序列dp问题)
 * [LeetCode(43):字符串相乘](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Multiply-Strings/README.md)
 * [LeetCode(409):最长回文串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Palindrome/README.md)(**重要**，利用数组哈希char_map[128]提高效率)
 * [LeetCode(415):字符串相加](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Add-Strings/README.md)
@@ -108,6 +109,7 @@
 * [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-coin])
 * [LeetCode：买卖股票的最佳时机系列问题](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Best-Time-To-Buy-And-Sell-Stock/README.md)(**重要**，画出状态机理解动态规划)
 * [LeetCode(300)：最长上升子序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Increasing-Subsequence/README.md)(**重要**，动态规划 遍历i之前的 dp[i] = max(dp[i], dp[j]+1))
+* [LeetCode(516):最长回文子序列](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Longest-Palindromic-Subsequence)(**重要**，子序列dp问题)
 * [LeetCode(674)：长连续递增序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Continuous-Increasing-Subsequence/README.md)(**重要**，双指针or 动态规划 dp[i] = dp[i-1]+1 or dp[i] = 1)
 ### DFS与BFS：
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)(**重要**，dfs)
