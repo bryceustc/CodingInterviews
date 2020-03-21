@@ -121,6 +121,7 @@
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
+* [LeetCode(365)：水壶问题](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Water-And-Jug-Problem)(**重要**，扩展欧几里得算法，gcd)
 ### 排序：
 * [冒泡排序](./Sort/README.md)
 * [选择排序](./Sort/README.md)
