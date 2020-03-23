@@ -63,6 +63,7 @@
 * [剑指Offer(三十五)：复杂链表的复制](./CopyComplexList/README.md)(**重要**，三步法)
 * [剑指Offer(五十二)：两个链表的第一个公共节点](./FirstCommonNodesInLists/README.md)(**重要**)
 * [LeetCode(25):K 个一组翻转链表](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Reverse-Nodes-In-K-Group/README.md)(**重要**)
+* [LeetCode(876):链表的中间结点](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Middle-Of-The-Linked-List)(**重要**，快慢双指针)
 ### 栈和队列：
 * [剑指Offer(九)：用两个栈实现队列](./QueueWithTwoStacks/README.md)
 * [剑指Offer(三十)：包含min函数的栈](./MinInStack/README.md)(**重要**，利用两个栈，一个数据栈，一个辅助栈存储最小元素)
