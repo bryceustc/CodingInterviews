@@ -110,7 +110,7 @@
 * [LeetCode(120)：三角形最小路径和](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Triangle/README.md)(**重要**，自底向上，triangle[i][j]+=min(triangle[i+1][j],triangle[i+1][j+1]))
 * [LeetCode(221)：最大正方形](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Maximal-Square/README.md)(**重要**，dp[i][j] = min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1])+1)
 * [LeetCode(322)：零钱兑换](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Coin-Change/README.md)(**重要**，dp[i] = min(dp[i], 1+dp[i-coin])
-* [LeetCode：买卖股票的最佳时机系列问题](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Best-Time-To-Buy-And-Sell-Stock/README.md)(**重要**，画出状态机理解动态规划)
+* [LeetCode：买卖股票的最佳时机系列问题](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Best-Time-To-Buy-And-Sell-Stock-Series)(**重要**，画出状态机理解动态规划)
 * [LeetCode(300)：最长上升子序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Increasing-Subsequence/README.md)(**重要**，动态规划 遍历i之前的 dp[i] = max(dp[i], dp[j]+1))
 * [LeetCode(516):最长回文子序列](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Longest-Palindromic-Subsequence)(**重要**，子序列dp问题，dp[i][j] = dp[i+1][j-1]+2 && s[i]==s[j], else dp[i][j]=max(dp[i+1][j],dp[i][j-1])
 * [LeetCode(1143):最长公共子序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Common-Subsequence/README.md)(**重要**，LCS，经典dp问题，dp[i][j] = dp[i-1][j-1]+1 && s1[i-1]==s2[j-1], else dp[i][j]=max(dp[i-1][j],dp[i][j-1])
