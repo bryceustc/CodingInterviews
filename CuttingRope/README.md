@@ -21,6 +21,7 @@
   
   建立一维动态数组 dp：
   
+  - 定义状态：定义 dp[i] 表示长度i的绳子能得到的最大乘积
   - 边界条件：dp[1] = dp[2] = 1，表示长度为 2 的绳子最大乘积为 1；
   - 状态转移方程：dp[i] = max(dp[i], max((i - j) * j, j * dp[i - j]))，可以这样理解：
   
@@ -58,7 +59,8 @@
 class Solution {
 public:
     int cuttingRope(int n) {
-        vector<int> dp (n+1,0); // # dp[0] dp[1]其实没用
+        vector<int> dp (n+1,0); 
+        dp[1] = 1;
         dp[2] = 1;
         for (int i=3;i<=n;i++)
         {
