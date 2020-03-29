@@ -122,6 +122,7 @@
 * [LeetCode(200)：岛屿数量](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-Islands/README.md)(**重要**，dfs)
 * [LeetCode(695)：岛屿的最大面积](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Max-Area-Of-Island/README.md)(**重要**，dfs)
 * [LeetCode(994)：腐烂的橘子](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Rotting-Oranges/README.md)(**重要**，bfs)
+* [LeetCode(1162)：地图分析](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/As-Far-From-Land-As-Possible)(**重要**，bfs)
 ### 其他：
 * [剑指Offer(一)：赋值运算符函数&hearts;](./CMyString/README.md)
 * [剑指Offer(二)：实现Singleton模式&hearts;](./Singleton/README.md) 
