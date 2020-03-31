@@ -17,7 +17,7 @@
 
 // 稳定排序，平均 O(n**2)，最好 O(n), 最差 O(n**2),辅助空间 O(1)
 
-void bubble_sort(vector<int> &nums)
+void BubbleSort(vector<int> &nums)
 {
     int n = nums.size();
     if (n==0) return;
@@ -50,7 +50,7 @@ void bubble_sort(vector<int> &nums)
 
 // 不稳定排序，平均 O(n**2)，最好 O(n**2), 最差 O(n**2),辅助空间 O(1)
 
-void select_sort(vector<int> &nums)
+void SelectSort(vector<int> &nums)
 {
     int n = nums.size();
     if (n==0) return;
@@ -91,7 +91,7 @@ void select_sort(vector<int> &nums)
 
 // 稳定排序，平均 O(n**2)，最好 O(n), 最差 O(n**2),辅助空间 O(1)
 
-void insert_sort(vector<int> &nums)
+void InsertSort(vector<int> &nums)
 {
     int n = nums.size();
     if (n==0) return;
@@ -137,7 +137,7 @@ void insert_sort(vector<int> &nums)
 
 void merge(int array[],int first,int last)
     {
-        int temp[last];
+        int temp[last+1];
         int mid=(first+last)/2;
         int i=0; //临时数组指针
         int l=first;//左序列指针
@@ -188,7 +188,7 @@ void mergesort(int data[],int first,int last)
 
 // 不稳定排序，平均 O(nlogn)-O(n^2)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
 
-void Shell_sort(int a[],size_t n)
+void ShellSort(int a[],size_t n)
 {
 	int i,j,k,group;
 	for (group = n/2; group > 0; group /= 2)//增量序列为n/2,n/4....直到1
@@ -259,7 +259,7 @@ void Shell_sort(int a[],size_t n)
 ```
 ### 精简版
 ```c++
-void quick_sort(vector<int> &nums, int low, int high)
+void QuickSort(vector<int> &nums, int low, int high)
 {
 	if(low < high)
 	{
@@ -323,7 +323,7 @@ void adjustHeap(int nums[],int i,int length)
         arr[i] = temp;    //将temp值放到最终的位置
 }
  
-void heap_sort(int nums[],int len)
+void HeapSort(int nums[],int len)
 {
 	//1.构建大顶堆
         for(int i=len/2-1;i>=0;i--)
