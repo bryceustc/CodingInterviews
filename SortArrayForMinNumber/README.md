@@ -56,6 +56,19 @@ public:
     }
 };
 
+class Solution {
+public:
+    string minNumber(vector<int>& nums) {
+        string res;
+        sort(nums.begin(), nums.end(), [](int a, int b){return to_string(a)+to_string(b) < to_string(b)+to_string(a);});
+        for (int num : nums)
+        {
+            res += to_string(num);
+        }
+        return res;
+    }
+};
+
 int main()
 {
     vector<int> nums = {3,1,2};
