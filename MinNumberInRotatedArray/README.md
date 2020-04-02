@@ -3,6 +3,8 @@
 ## 题目：
 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
 
+注意：下边二分考虑的是没有重复元素的，要考虑重复元素的情况。
+
 # 本题考点：
   
   1). 数组非减排序
@@ -72,23 +74,49 @@ class Solution{
             int n = nums.size();     
             int start = 0;
             int end = n-1;
-            int res = nums[0];
-            while (end>=start)
+            while (end>start)
             {
                 int mid = start + (end-start)/2;
-                if (nums[mid]>=res)
+                if (nums[mid]>nums[end])
                 {
                     start = mid+1;
                 }
-                if (nums[mid]<res)
+                if (nums[mid]<nums[end])
                 {
-                    end = mid-1;
+                    end = mid;
                 }
-                res = min(res,nums[mid]);
                 }
-            return res;          
+            return nums[start];          
         }
 };
+/* 包含重复元素的情况
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        if (nums.empty()) return 0;
+        int n = nums.size();
+        int start = 0;
+        int end = n-1;
+        while(end > start)
+        {
+            int mid = start + (end-start)/2;
+            if (nums[mid] > nums[end])
+            {
+                start = mid+1;
+            }
+            else if (nums[mid] < nums[end])
+            {
+                end = mid;
+            }
+            else 
+            {
+                end--;
+            }
+        }
+        return nums[start];
+    }
+};
+*/
 
 int main()
 {
