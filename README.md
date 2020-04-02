@@ -121,6 +121,7 @@
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)(**重要**，dfs)
 * [剑指Offer(十三)：机器人的运动范围](./RobotMove/README.md)(**重要**，dfs)
 * [LeetCode(200)：岛屿数量](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Number-Of-Islands/README.md)(**重要**，dfs)
+* [LeetCode(289)：生命游戏]https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Game-Of-Life/README.md)(**重要**，类似bfs，注意利用状态机00,01,10,11)
 * [LeetCode(695)：岛屿的最大面积](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Max-Area-Of-Island/README.md)(**重要**，dfs)
 * [LeetCode(994)：腐烂的橘子](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Rotting-Oranges/README.md)(**重要**，bfs)
 * [LeetCode(1162)：地图分析](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/As-Far-From-Land-As-Possible)(**重要**，bfs)
