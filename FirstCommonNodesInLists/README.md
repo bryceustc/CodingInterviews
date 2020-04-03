@@ -9,6 +9,10 @@
    方法一：暴力遍历法，对l1，l2进行遍历，时间复杂度为O(n\*m)
     
    方法二：方法一的时间复杂度有点高，考虑方法二，找出2个链表的长度，然后让长的先走两个链表的长度差，然后再一起走（因为2个链表用公共的尾部）。如果存在共同节点的话，那么从该节点，两个链表之后的元素都是相同的。 也就是说两个链表从尾部往前到某个点，节点都是一样的。
+   
+   方法三：双指针 设交集链表长c,链表1除交集的长度为a，链表2除交集的长度为b，有
+   - a + c + b = b + c + a
+  - 若无交集，则a + b = b + a
 # 代码
 
 [C++](./FirstCommonNodesInLists.cpp)
@@ -111,6 +115,31 @@ public:
     }
 };
 ```
+### 方法三(最优方法)
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* p = headA;
+        ListNode* q = headB;
+        while(p!=q)
+        {
+            p = p==NULL?headB:p->next;
+            q = q==NULL?headA:q->next;
+        }
+        return p;
+    }
+};
+```
+
 
 # Python:
 ### 方法一：直接遍历法
