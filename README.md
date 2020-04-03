@@ -45,6 +45,7 @@
 * [剑指Offer(六十七)：把字符串转换成整数 ](./StringToInt/README.md)
 * [LeetCode(3):无重复字符的最长子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest_Substring_Without_Repeating_Characters/README.md)(**重要**，滑动窗口+hash)
 * [LeetCode(5):最长回文子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Palindromic-Substring/README.md)(**重要**，dp 或者中心扩展)
+* [LeetCode(8):字符串转换整数 (atoi)](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/String-To-Integer-Atoi/README.md)(**重要**)
 * [LeetCode(516):最长回文子序列](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Longest-Palindromic-Subsequence)(**重要**，子序列dp问题)
 * [LeetCode(43):字符串相乘](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Multiply-Strings/README.md)
 * [LeetCode(409):最长回文串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Palindrome/README.md)(**重要**，利用数组哈希char_map[128]提高效率)
