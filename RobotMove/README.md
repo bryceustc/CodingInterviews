@@ -80,6 +80,43 @@ public:
     }
 };
 ```
+### DFS
+```c++
+class Solution {
+public:
+    int movingCount(int m, int n, int k) {
+        int res = 0;
+        vector<vector<int>> visited (m,vector<int>(n,0));
+        res = helper(0,0,m,n,k,visited);
+        return res;
+    }
+    int helper(int i,int j, int m, int n, int k, vector<vector<int>>&visited)
+    {
+        int sum = DigitSum(i,j);
+        if (i<0 || i>=m || j<0 || j>=n || sum>k || visited[i][j]==1)
+            return 0;
+        visited[i][j]=1;
+        return helper(i-1,j,m,n,k,visited)+helper(i+1,j,m,n,k,visited)+helper(i,j-1,m,n,k,visited)+helper(i,j+1,m,n,k,visited)+1;
+    }
+
+    int DigitSum(int i, int j)
+    {
+        int res =0;
+        while(i>0)
+        {
+            res += i%10;
+            i/=10;
+        }
+        while(j>0)
+        {
+            res += j%10;
+            j/=10;
+        }
+        return res;
+    }
+};
+```
+
 # Python:
 ###  回溯
 ```python
