@@ -35,6 +35,28 @@
 [Python](./ReplaceSpaces.py)
 
 # C++: 
+
+### 力扣
+```c++
+class Solution {
+public:
+    string replaceSpace(string s) {     //字符数组
+        string res;   //存储结果
+        
+        for(auto c : s){   //遍历原字符串
+            if(c == ' '){
+                res.push_back('%');
+                res.push_back('2');
+                res.push_back('0');
+            }
+            else{
+                res.push_back(c);
+            }
+        }
+        return res;
+    }
+};
+```
 ### 方法一：模拟直接法
 ```c++
 #include <iostream>
