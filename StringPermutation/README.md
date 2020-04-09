@@ -19,6 +19,43 @@
 [Python](./StringPermutation.py)
 
 # C++: 
+
+### 与力扣47题类似，回溯法，标准dfs，注意先排序一下
+```c++
+class Solution {
+public:
+    vector<string> permutation(string s) {
+        vector<string> res;
+        int n = s.size();
+        vector<int> visited(n,0);
+        sort(s.begin(),s.end());
+        string out = "";
+        dfs(s,0,visited,out,res);
+        return res;
+    }
+    void dfs(string s, int level, vector<int> &visited, string &out, vector<string> &res)
+    {
+        if (level==s.size())
+        {
+            res.push_back(out);
+            return;
+        }
+        for (int i=0;i<s.size();i++)
+        {
+            if (visited[i]==1)
+                continue;
+            if (i>0 && s[i-1]==s[i] && visited[i-1]==0)
+                continue;
+            visited[i]=1;
+            out+=s[i];
+            dfs(s,level+1,visited,out,res);
+            out.pop_back();
+            visited[i]=0;
+        }
+    }
+};
+```
+
 ### 方法一：DFS
 ```c++
 class Solution {
