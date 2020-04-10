@@ -40,7 +40,7 @@
 * [剑指Offer(四十六)：把数字翻译成字符串](./TranslateNum/README.md)(**重要**，动态规划)
 * [剑指Offer(五十)：第一个只出现一次的字符 ](./FirstNotRepeatingChar/README.md)(**重要**，哈希表)
 * [剑指Offer(五十)：字符流中第一个只出现一次的字符 ](./FirstCharacterInStream/README.md)(**重要**，哈希表)
-* [剑指Offer(五十八)：翻转字符串 ](./ReverseWordsInSentence/README.md)
+* [剑指Offer(五十八)：翻转字符串 ](./ReverseWordsInSentence/README.md)(**重要**，翻转整个句子，再翻转单词)
 * [剑指Offer(五十八)：左旋转字符串 ](./LeftRotateString/README.md)
 * [剑指Offer(六十七)：把字符串转换成整数 ](./StringToInt/README.md)
 * [LeetCode(3):无重复字符的最长子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest_Substring_Without_Repeating_Characters/README.md)(**重要**，滑动窗口+hash)
