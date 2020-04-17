@@ -106,6 +106,7 @@
 * [剑指Offer(十)：矩形覆盖问题](./RectCover/README.md)(斐波那契数列)
 * [剑指Offer(十四)：剪绳子](./CuttingRope/README.md)(**重要**，动规，贪心)
 * [剑指Offer(六十三)：股票的最大利润](./MaxProfit/README.md)(**重要**，动规)
+* [LeetCode(55)：跳跃游戏](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Jump-Game/README.md)(**重要**，动态规划、贪心)
 * [LeetCode(62)：不同路径](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Unique-Paths/README.md)(**重要**，dp[i][j] = dp[i][j-1]+dp[i-1][j]))
 * [LeetCode(63)：不同路径 II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Unique-Paths-II/README.md)(**重要**，dp[i][j] = dp[i][j-1]+dp[i-1][j]) or dp[i][j] =0)
 * [LeetCode(64)：最小路径和](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Minimum-Path-Sum)(**重要**，dp[i][j] = min(dp[i][j-1], dp[i-1][j],)+grid[i][j])
