@@ -27,8 +27,10 @@
 * [剑指Offer(六十六)： 构建乘积数组](./ConstuctArray/README.md)
 * [LeetCode(11)：盛最多水的容器](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Container-With-Most-Water/README.md)(**重要**，双指针)
 * [LeetCode(56)：合并区间](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Intervals/README.md)(**重要**，先sort再对后边进行合并)
-* [LeetCode(1013)：将数组分成和相等的三个部分](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Partition-Array-Into-Three-Parts-With-Equal-Sum/README.md)(**重要**，sum三等分值)
+* [LeetCode(560)：和为K的子数组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Intervals/README.md)(**重要**，前缀和)
 * [LeetCode(945)：使数组唯一的最小增量](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Minimum-Increment-To-Make-Array-Unique/README.md)(**重要**，线性探测法(压缩))
+* [LeetCode(1013)：将数组分成和相等的三个部分](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Partition-Array-Into-Three-Parts-With-Equal-Sum/README.md)(**重要**，sum三等分值)
+* [LeetCode(1248)：统计「优美子数组」](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Count-Number-Of-Nice-Subarrays/README.md)(**重要**，滑动窗口、前缀和+哈希)
 
 ### 字符串：
 * [剑指Offer(五)：替换空格](./ReplaceSpaces/README.md)(双指针)
