@@ -63,12 +63,12 @@ void SelectSort(vector<int> &nums)
             {
                 idx = j;
             }
-            if (idx !=i)
-            {
-                int temp = nums[idx];
-                nums[idx] = nums[i];
-                nums[i] = temp;
-            }
+        }
+	if (idx !=i)
+        {
+            int temp = nums[idx];
+            nums[idx] = nums[i];
+            nums[i] = temp;
         }
 }
 ```
