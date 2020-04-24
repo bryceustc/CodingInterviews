@@ -66,52 +66,62 @@ public:
 };
 ```
 
-### 方法二：归并排序
+### 方法二：典型归并排序
 ```c++
 class Solution {
 public:
     int reversePairs(vector<int>& nums) {
-        int count = 0;
-        if (nums.empty()) return count;
+        if (nums.empty()) return 0;
         int n = nums.size();
-        vector<int> temp;
-        for (int i=0;i<n;i++)
-        {
-            temp.push_back(nums[i]);
-        }
-        count = helper(nums, temp, 0, n-1);
-        return count;
+        int res = 0;
+        mergesort(nums,0,n-1, res);
+        return res;
     }
-    int helper(vector<int> &nums, vector<int> &temp, int start, int end)
-    {
-        if (start==end)
-        {
-            temp[start] = nums[start];
-            return 0;
-        }
-        int mid = start + (end-start)/2;
-        int left = helper(temp, nums, start, mid);
-        int right = helper(temp, nums, mid+1, end);
 
-        int i = mid;
-        int j = end;
-        int index = end;
-        int count = 0;
-        while (i>=start && j>=mid+1)
+    void mergesort(vector<int>& nums, int start, int end, int& res)
+    {
+        if (start<end)
         {
-            if (nums[i]>nums[j])
+            int mid = start + (end-start)/2;
+            mergesort(nums,start,mid,res);
+            mergesort(nums,mid+1,end,res);
+            merge(nums,start,end,res);
+        }
+    }
+
+    void merge(vector<int>& nums, int start, int end,int& res)
+    {
+        int temp[end+1];
+        int i =0;
+        int mid = start + (end-start)/2;
+        int l = start;
+        int r = mid+1;
+        while(l<=mid&&r<=end)
+        {
+            if (nums[l]>nums[r])
             {
-                temp[index--] = nums[i--];
-                count += j-mid;
+                temp[i++] = nums[r++];
             }
             else
             {
-                temp[index--] = nums[j--];
+                temp[i++] = nums[l++];
+                res+= r-(mid+1);
             }
         }
-        while(i>=start) temp[index--] = nums[i--];
-        while(j>=mid+1) temp[index--] = nums[j--];
-        return left + right + count;
+        while(l<=mid)
+        {
+            temp[i++] = nums[l++];
+            res += r-(mid+1);
+        }
+        while(r<=end)
+        {
+            temp[i++] = nums[r++];
+        }
+        i = 0;
+        while(start<=end)
+        {
+            nums[start++] = temp[i++];
+        }
     }
 };
 ```
