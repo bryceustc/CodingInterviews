@@ -104,6 +104,8 @@
 * [LeetCode(98):验证搜索二叉树](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Validate-Binary-Search-Tree)(**重要**，中序遍历)
 * [LeetCode(199):二叉树的右视图](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Binary-Tree-Right-Side-View)(**重要**，BFS)
 * [LeetCode(543):二叉树的直径](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Diameter-Of-Binary-Tree/README.md)(**重要**，利用二叉树的深度公式)
+* [LeetCode(236):二叉树的最近公共祖先](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Lowest-Common-Ancestor-Of-A-Binary-Tree/README.md)(**重要**，分清具体情况)
+* [LeetCode(572):另一个树的子树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Subtree-Of-Another-Tree/README.md)(**重要**，递归判断，两棵树是否相同)
 ### 位运算：
 * [剑指Offer(十五)：二进制中1的个数](./NumberOf1InBinary/README.md)(**重要**，n与n-1做&运算）
 * [剑指Offer(十六)：数值的整数次方](./Power/README.md)（二分法）
