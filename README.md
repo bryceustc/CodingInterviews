@@ -83,7 +83,7 @@
 * [剑指Offer(五十九)：队列的最大值](./MaxQueue/README.md) (**重要**，两个队列，一个普通队列正常存取元素，一个deque双端队列存取单调元素)
 * [LeetCode(155):最小栈](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Min-Stack/README.md)(**重要**)
 * [LeetCode(225):用队列实现栈](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Implement-Stack-Using-Queues/README.md)(**重要**)
-* [LeetCode单调栈系列问题](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Monotone-Stack)(**重要**)
+* [LeetCode单调栈系列问题](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Monotone-Stack)(**重要!!**)
 ### 树：
 * [剑指Offer(七)：重建二叉树](./ConstructBinaryTree/README.md)(**重要**，前序遍历，中序遍历，后序遍历要掌握)
 * [剑指Offer(八：二叉树的下一个节点](./NextNodeInBinaryTrees/README.md)(**重要**，中序遍历，分情况讨论)
