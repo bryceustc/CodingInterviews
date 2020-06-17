@@ -137,6 +137,7 @@
 * [LeetCode(1143):最长公共子序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Common-Subsequence/README.md)(**重要**，LCS，经典dp问题，dp[i][j] = dp[i-1][j-1]+1 && s1[i-1]==s2[j-1], else dp[i][j]=max(dp[i-1][j],dp[i][j-1])
 * [LeetCode(674)：长连续递增序列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Continuous-Increasing-Subsequence/README.md)(**重要**，双指针or 动态规划 dp[i] = dp[i-1]+1 or dp[i] = 1)
 * [LeetCode(887)：鸡蛋掉落](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Super-Egg-Drop/README.md)(**重要**，$dp[i][k]=\min _{1 \leq j \leq i}(\max (d p[j-1][k-1], dp[i-j][k])+1)$)
+* [LeetCode(1014)：最佳观光组合](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Best-Sightseeing-Pair)(**重要**，贪心思想，掌握)
 * [LeetCode：小偷打家劫舍系列问题](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Best-Time-To-Buy-And-Sell-Stock-Series)(**重要**，画出状态机理解动态规划)
 ### DFS与BFS：
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)(**重要**，dfs)
