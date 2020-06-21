@@ -104,6 +104,7 @@
 * [LeetCode(94):二叉树的中序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Inorder-Traversal/README.md)(**重要**)
 * [LeetCode(145):二叉树的后序遍历](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Binary-Tree-Postorder-Traversal/README.md)(**重要**)
 * [LeetCode(98):验证搜索二叉树](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Validate-Binary-Search-Tree)(**重要**，中序遍历)
+* [LeetCode(124):二叉树中的最大路径和](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Binary-Tree-Maximum-Path-Sum)(**重要**，递归，max(root, root+left, root+right))
 * [LeetCode(199):二叉树的右视图](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Binary-Tree-Right-Side-View)(**重要**，BFS)
 * [LeetCode(543):二叉树的直径](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Diameter-Of-Binary-Tree/README.md)(**重要**，利用二叉树的深度公式)
 * [LeetCode(236):二叉树的最近公共祖先](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Lowest-Common-Ancestor-Of-A-Binary-Tree/README.md)(**重要**，分清具体情况)
