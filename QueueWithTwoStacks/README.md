@@ -25,7 +25,8 @@ public:
 
     int pop() {
         int temp = 0;
-        if (stack2.empty())
+        if (stack2.empty())  // 注意要加这个判断，因为有可能先加进去3个元素，只弹出一个，
+        // 后边再加元素，剩下的两个元素优先级还是最高
         {
             while(!stack1.empty())
             {
