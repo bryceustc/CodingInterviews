@@ -83,6 +83,8 @@
 * [剑指Offer(三十一)：栈的压入、弹出元素](./StackPushPopOrder/README.md)(**重要**，利用一个辅助栈模拟)
 * [剑指Offer(五十九)：滑动窗口的最大值](./MaxInSlidingWindow/README.md) (**重要**，利用deque双端队列)
 * [剑指Offer(五十九)：队列的最大值](./MaxQueue/README.md) (**重要**，两个队列，一个普通队列正常存取元素，一个deque双端队列存取单调元素)
+* [LeetCode(20):有效的括号](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Valid-Parentheses/Valid-Parentheses.cpp)(**重要**，栈的应用)
+* [LeetCode(32):最长有效括号](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Valid-Parentheses/Longest-Valid-Parentheses.cpp)(**重要**，栈的应用)
 * [LeetCode(155):最小栈](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Min-Stack/README.md)(**重要**)
 * [LeetCode(225):用队列实现栈](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Implement-Stack-Using-Queues/README.md)(**重要**)
 * [LeetCode单调栈系列问题](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Monotone-Stack)(**重要!!**)
