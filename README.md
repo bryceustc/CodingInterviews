@@ -30,7 +30,7 @@
 * [LeetCode(56)：合并区间](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Intervals/README.md)(**重要**，先sort再对后边进行合并)
 * [LeetCode(33)：搜索旋转排序数组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Search-In-Rotated-Sorted-Array/README.md)(**重要**，二分查找)
 * [LeetCode(81)：搜索旋转排序数组II](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Search-In-Rotated-Sorted-Array-II)(**重要**，二分查找)
-* [LeetCode(287)：寻找重复数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-The-Duplicate-Number/README.md)(**重要**，快慢指针O(n))
+* [LeetCode(287)：寻找重复数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-The-Duplicate-Number/README.md)(**重要**，快慢指针O(n), 类似判断链表成环)
 * [LeetCode(378)：有序矩阵中第K小的元素](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Kth-Smallest-Element-In-A-Sorted-Matrix)(**重要！！**，二分查找)
 * [LeetCode(560)：和为K的子数组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Intervals/README.md)(**重要**，前缀和)
 * [LeetCode(945)：使数组唯一的最小增量](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Minimum-Increment-To-Make-Array-Unique/README.md)(**重要**，线性探测法(压缩))
