@@ -29,7 +29,7 @@
 * [LeetCode(41)：缺失的第一个正数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/First-Missing-Positive/README.md)(**重要**，交换座位法)
 * [LeetCode(56)：合并区间](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Intervals/README.md)(**重要**，先sort再对后边进行合并)
 * [LeetCode(33)：搜索旋转排序数组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Search-In-Rotated-Sorted-Array/README.md)(**重要**，二分查找)
-* [LeetCode(69)：x 的平方根](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Sqrtx/README.md)(**重要**，二分查找)
+* [LeetCode(69)：x 的平方根](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Sqrtx/README.md)(**重要**，二分查找， 注意考虑溢出)
 * [LeetCode(81)：搜索旋转排序数组II](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Search-In-Rotated-Sorted-Array-II)(**重要**，二分查找)
 * [LeetCode(287)：寻找重复数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-The-Duplicate-Number/README.md)(**重要**，快慢指针O(n), 类似判断链表成环)
 * [LeetCode(378)：有序矩阵中第K小的元素](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Kth-Smallest-Element-In-A-Sorted-Matrix)(**重要！！**，二分查找)
@@ -116,6 +116,21 @@
 * [LeetCode(543):二叉树的直径](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Diameter-Of-Binary-Tree/README.md)(**重要**，利用二叉树的深度公式)
 * [LeetCode(236):二叉树的最近公共祖先](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Lowest-Common-Ancestor-Of-A-Binary-Tree/README.md)(**重要**，分清具体情况)
 * [LeetCode(572):另一个树的子树](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Subtree-Of-Another-Tree/README.md)(**重要**，递归判断，两棵树是否相同)
+
+### 二分：
+* [剑指Offer(十一)：旋转数组的最小数字](./MinNumberInRotatedArray/README.md) (二分查找)
+* [剑指Offer(五十三)： 数字在排序数组中出现的次数](./NumberOfK/README.md)(二分查找)
+* [LeetCode(33)：搜索旋转排序数组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Search-In-Rotated-Sorted-Array/README.md)(**重要**，二分查找)
+* [LeetCode(34)：在排序数组中查找元素的第一个和最后一个位置](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-First-And-Last-Position-Of-Element-In-Sorted-Array/README.md)(**重要**，二分查找)
+* [LeetCode(35)：搜索插入位置](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Search-Insert-Position/README.md)(**重要**，二分查找)
+* [LeetCode(81)：搜索旋转排序数组II](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Search-In-Rotated-Sorted-Array-II)(**重要**，二分查找)
+* [LeetCode(153)：寻找旋转排序数组中的最小值](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-Minimum-In-Rotated-Sorted-Array/README.md)(**重要**，二分查找)
+* [LeetCode(154)：寻找旋转排序数组中的最小值II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-Minimum-In-Rotated-Sorted-Array-II/README.md)(**重要**，二分查找)
+* [LeetCode(275)：H指数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/H-Index-II/README.md)
+* [LeetCode(374)：猜数字大小](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Guess-Number-Higher-Or-Lower/README.md)
+* [LeetCode(852)：山脉数组的峰顶索引](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Peak-Index-In-A-Mountain-Array/README.md)
+* [LeetCode(1095)：山脉数组中查找目标值](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-In-Mountain-Array/README.md)(**重要**，二分查找)
+* [LeetCode(1300)：转变数组后最接近目标值的数组和](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Sum-Of-Mutated-Array-Closest-To-Target/README.md)(**重要**，二分查找)
 ### 位运算：
 * [剑指Offer(十五)：二进制中1的个数](./NumberOf1InBinary/README.md)(**重要**，n与n-1做&运算）
 * [剑指Offer(十六)：数值的整数次方](./Power/README.md)（二分法）
