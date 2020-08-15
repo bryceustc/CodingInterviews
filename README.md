@@ -77,6 +77,7 @@
 * [剑指Offer(五十二)：两个链表的第一个公共节点](./FirstCommonNodesInLists/README.md)(**重要**)
 * [LeetCode(23):合并K个排序链表](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-K-Sorted-Lists/README.md)(**重要**，归并排序的思想)
 * [LeetCode(25):K 个一组翻转链表](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Reverse-Nodes-In-K-Group/README.md)(**重要**)
+* [LeetCode(234):回文链表](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Palindrome-Linked-List)(**重要**)
 * [LeetCode(445):两数相加 II](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Add-Two-Numbers-II)(**重要**)
 * [LeetCode(876):链表的中间结点](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Middle-Of-The-Linked-List)(**重要**，快慢双指针)
 ### 栈和队列：
