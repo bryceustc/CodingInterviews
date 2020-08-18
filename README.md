@@ -171,6 +171,8 @@
 ### DFS与BFS：
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)(**重要**，dfs)
 * [剑指Offer(十三)：机器人的运动范围](./RobotMove/README.md)(**重要**，dfs)
+* [LeetCode(46)：全排列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations/README.md)(**重要**，dfs)
+* [LeetCode(47)：全排列 II ](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations-II/README.md)(**重要**，dfs)
 * [LeetCode(93)：复原IP地址](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Restore-Ip-Addresses/README.md)(**重要**，dfs)
 * [LeetCode(130)：被围绕的区域](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Surrounded-Regions/README.md)(**重要**，dfs模板题)
 * [LeetCode(133)：克隆图](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Clone-Graph/README.md)(**重要**，图的dfs、bfs，要掌握)
