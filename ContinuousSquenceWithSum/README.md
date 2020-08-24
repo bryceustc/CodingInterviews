@@ -17,7 +17,7 @@
 [Python](./ContinuousSquenceWithSum.py)
 
 # C++:
-## 方法一：暴力遍历
+## 方法一：双指针
 ```c++
 #include <iostream>
 #include <vector>
