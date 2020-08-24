@@ -14,6 +14,7 @@
   
   
   即通过A[i]项将B[i]分为两部分的乘积。效果如下图所示
+
   ![image](https://github.com/bryceustc/CodingInterviews/blob/master/ConstuctArray/Image/image.png)
   
   不妨设定C[i]=A[0]\*A[1]\*...\*A[i-1]，D[i]=A[i+1]\*...\*A[n-2]\*A[n-1]。C[i]可以用自上而下的顺序计算出来，即C[i]=C[i-1]\*A[i-1]。类似的，D[i]可以用自下而上的顺序计算出来，即D[i]=D[i+1]\*A[i+1]。时间复杂度为O(n)，空间复杂度为O(n)
