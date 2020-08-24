@@ -125,7 +125,7 @@ class Solution{
             if (nums.empty()) return res;
             int n = nums.size();
             int half = n/2;
-            int cnt = 1;
+            int cnt = 0;
             for (auto num:nums)
             {
                 if (cnt==0)
@@ -171,7 +171,6 @@ int main()
     system("pause");
     return 0;
 }
-
 ```
 
 ## 方法四：sort排序后返回
