@@ -37,7 +37,7 @@
 using namespace std;
 class Solution {
 public:
-	int count = 0;   // count要声明为全局变量
+	int count = 0;   // count要声明为成员变量
 	void Insert(int num) {
 		if (count % 2 == 0) // 偶数放入最大堆
 		{
