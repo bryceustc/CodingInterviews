@@ -60,7 +60,7 @@ public:
             RandomListNode* temp = cur->next;
             if (cur->random)
             {
-                temp->random = cur->random->next;
+                temp->random = cur->random->next;  // cur->random是原来的next才是复制后的
             }
             cur = temp->next;
         }
