@@ -27,7 +27,7 @@
 * [剑指Offer(六十六)： 构建乘积数组](./ConstuctArray/README.md) 
 * [LeetCode(11)：盛最多水的容器](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Container-With-Most-Water/README.md)(**重要**，双指针)
 * [LeetCode(41)：缺失的第一个正数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/First-Missing-Positive/README.md)(**重要**，交换座位法)
-* [LeetCode(56)：合并区间](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Intervals/README.md)(**重要**，先sort再对后边进行合并)
+* [LeetCode(56)：合并区间](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Intervals/README.md)(**重要**，先sort再对后边进行合并，！！！！)
 * [LeetCode(33)：搜索旋转排序数组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Search-In-Rotated-Sorted-Array/README.md)(**重要**，二分查找)
 * [LeetCode(69)：x 的平方根](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Sqrtx/README.md)(**重要**，二分查找， 注意考虑溢出)
 * [LeetCode(81)：搜索旋转排序数组II](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Search-In-Rotated-Sorted-Array-II)(**重要**，二分查找)
