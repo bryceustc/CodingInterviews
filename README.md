@@ -174,6 +174,8 @@
 ### DFS与BFS：
 * [剑指Offer(十二)：矩阵中的路径](./StringPathInMatrix/README.md)(**重要**，dfs)
 * [剑指Offer(十三)：机器人的运动范围](./RobotMove/README.md)(**重要**，dfs)
+* [LeetCode(39)：组合总和](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Combination-Sum/README.md)(**重要**，dfs)
+* [LeetCode(40)：组合总和II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Combination-Sum-II/README.md)(**重要**，dfs)
 * [LeetCode(46)：全排列](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations/README.md)(**重要**，dfs)
 * [LeetCode(47)：全排列 II ](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Permutations-II/README.md)(**重要**，dfs)
 * [LeetCode(51)：n皇后 ](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/N-Queens)(**重要**，dfs)
