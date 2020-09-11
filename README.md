@@ -150,6 +150,7 @@
 * [剑指Offer(十)：变态跳台阶](./JumpFloorII/README.md)(通项公式数学归纳)
 * [剑指Offer(十)：矩形覆盖问题](./RectCover/README.md)(斐波那契数列)
 * [剑指Offer(十四)：剪绳子](./CuttingRope/README.md)(**重要**，动规，贪心)
+* [剑指Offer(六十)：n个骰子的点数](./Nge/README.md)(**重要**，动规,dp[i][j] += dp[i-1][j-k] k∈[1,6])
 * [剑指Offer(六十三)：股票的最大利润](./MaxProfit/README.md)(**重要**，动规)
 * [LeetCode(55)：跳跃游戏](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Jump-Game/README.md)(**重要**，贪心,reach=max(reach,i+nums[i]))
 * [LeetCode(45)：跳跃游戏II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Jump-Game-II/README.md)(**重要**，贪心算法)
