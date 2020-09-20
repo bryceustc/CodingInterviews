@@ -159,6 +159,7 @@
 * [LeetCode(63)：不同路径 II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Unique-Paths-II/README.md)(**重要**，dp[i][j] = dp[i][j-1]+dp[i-1][j]) or dp[i][j] =0)
 * [LeetCode(64)：最小路径和](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Minimum-Path-Sum)(**重要**，dp[i][j] = min(dp[i][j-1], dp[i-1][j],)+grid[i][j])
 * [LeetCode(85):柱状图中最大的矩形](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Maximal-Rectangle/README.md)(**重要**，dp)
+* [LeetCode(152):乘积最大子数组](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Maximum-Product-Subarray)(**重要**，dp)
 * [LeetCode(120)：三角形最小路径和](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Triangle/README.md)(**重要**，自底向上，triangle[i][j]+=min(triangle[i+1][j],triangle[i+1][j+1]))
 * [LeetCode(221)：最大正方形](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Maximal-Square/README.md)(**重要**，dp[i][j] = min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1])+1)
 * [LeetCode(279)：完全平方数](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Perfect-Squares)(**重要**，dp[i] = min(dp[i], 1+dp[i-j\*j])
