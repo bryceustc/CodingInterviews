@@ -37,7 +37,7 @@
 * [LeetCode(945)：使数组唯一的最小增量](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Minimum-Increment-To-Make-Array-Unique/README.md)(**重要**，线性探测法(压缩))
 * [LeetCode(1013)：将数组分成和相等的三个部分](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Partition-Array-Into-Three-Parts-With-Equal-Sum/README.md)(**重要**，sum三等分值)
 * [LeetCode(1248)：统计「优美子数组」](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Count-Number-Of-Nice-Subarrays/README.md)(**重要**，滑动窗口、前缀和+哈希)
-* 面试题 17.10. 主要元素](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-Majority-Element-Lccii/README.md)(**重要**，摩尔投票法)
+* [面试题 17.10. 主要元素](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-Majority-Element-Lccii/README.md)(**重要**，摩尔投票法)
 
 ### 字符串：
 * [剑指Offer(五)：替换空格](./ReplaceSpaces/README.md)(双指针)
