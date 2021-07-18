@@ -65,6 +65,7 @@
 * [LeetCode(1071):字符串的最大公因子](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Greatest-Common-Divisor-Of-Strings/README.md)(**重要**，gcd最大公约数函数)
 * [LeetCode(1160):拼写单词](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-Words-That-Can-Be-Formed-By-Characters/README.md)(**重要**，两个哈希进行比较)
 * [面试题01.06:字符串压缩](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Compress-String-Lcci/README.md)(**重要**，双指针)
+* [面试题 10.02. 变位词组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Group-Anagrams-Lcci/README.md)(**重要**，哈希模拟排序)
 * [LeetCode：滑动窗口解决字符串子串问题](https://bryceustc.github.io/2020/04/22/%E5%8F%8C%E6%8C%87%E9%92%88%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/#more)(**重要**，双指针滑动窗口)
 ### 链表：
 * [剑指Offer(六)：从尾到头打印链表](./PrintListInReversedOrder/README.md)(**重要** 递归和非递归法都要掌握)
