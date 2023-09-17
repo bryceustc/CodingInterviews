@@ -143,6 +143,7 @@
 * [LeetCode(941)：有效的山脉数组](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Valid-Mountain-Array/README.md)
 * [LeetCode(1095)：山脉数组中查找目标值](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-In-Mountain-Array/README.md)(**重要**，二分查找)
 * [LeetCode(1300)：转变数组后最接近目标值的数组和](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Sum-Of-Mutated-Array-Closest-To-Target/README.md)(**重要**，二分查找)
+* [二分算法总结](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-First-And-Last-Position-Of-Element-In-Sorted-Array/BinarySearch.md)
 ### 位运算：
 * [剑指Offer(十五)：二进制中1的个数](./NumberOf1InBinary/README.md)(**重要**，n与n-1做&运算）
 * [剑指Offer(十六)：数值的整数次方](./Power/README.md)（二分法）
