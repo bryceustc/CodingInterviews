@@ -17,16 +17,6 @@ struct ListNode
 
 思路2：思路1其实偷懒了，因为严格意义上来说，既然是对于链表来操作，那么其实返回结果其实也应该是链表，而不应该是简单的容器或者列表。按这样理解，我们其实应该直接对链表进行逆序打印，而不是转换成中间变量来操作。
 
-分析：
-
-  1). 若链表为空或只有一个元素，则直接返回；
-
-  2). 设置两个前后相邻的指针p,q. 将p所指向的节点作为q指向节点的后继；
-
-  3). 重复2),直到q为空
-
-  4). 调整链表头和链表尾
-
 
 # 代码
 
@@ -44,17 +34,16 @@ struct ListNode
 ### 方法一：保存至容器，然后逆序打印
 ```c++
 /**
-*  struct ListNode {
-*        int val;
-*        struct ListNode *next;
-*        ListNode(int x) :
-*              val(x), next(NULL) {
-*        }
-*  };
-*/
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
 class Solution {
 public:
-    vector<int> printListFromTailToHead(ListNode* head) {
+    vector<int> reversePrint(ListNode* head) {
         vector<int> res;
         ListNode* p = head;
         if (p==NULL) return res;
@@ -104,35 +93,34 @@ public:
 ### 方法二：原地修改链表(**重要**)
 ```c++
 /**
-*  struct ListNode {
-*        int val;
-*        struct ListNode *next;
-*        ListNode(int x) :
-*              val(x), next(NULL) {
-*        }
-*  };
-*/
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
 class Solution {
 public:
-    vector<int> printListFromTailToHead(ListNode* head) {
+    vector<int> reversePrint(ListNode* head) {
         vector<int> res;
-        if (head==NULL)
+        if (head == NULL)
             return res;
-        ListNode* prev = head;
-        ListNode* cur = head->next;
-        ListNode* temp = head->next->next;
-        while(cur)
+        ListNode* prev = NULL;
+        ListNode* cur = head;
+        ListNode* temp = cur->next;
+        while(cur != NULL)
         {
             temp = cur->next;//temp作为中间节点，记录当前结点的下一个节点的位置
             cur->next = prev;//当前结点指向前一个节点
             prev = cur;//指针后移
             cur = temp;// 指针后移,处理下一个节点
         }
-        head->next = NULL; //while结束后，将翻转后的最后一个节点（即翻转前的第一个结点head）的链域置为NULL
-        while(prev)
+        ListNode* p = prev;
+        while(p)
         {
-            res.push_back(prev->val);
-            prev = prev->next;
+            res.push_back(p->val);
+            p = p->next;
         }
         return res;
     }
@@ -142,18 +130,16 @@ public:
 ## Python
 ### 方法一：保存为列表，然后逆序打印
 ```python
-# -*- coding:utf-8 -*-
+# Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
 
 class Solution:
-    # 返回从尾部到头部的列表值序列，例如[1,2,3]
-    def printListFromTailToHead(self, listNode):
-        # write code here
+    def reversePrint(self, head: ListNode) -> List[int]:
         res = []
-        p = listNode
+        p = head
         while p:
             res.append(p.val)
             p = p.next
@@ -164,31 +150,29 @@ class Solution:
 ```
 ###  方法二：原地旋转链表(**重要**)
 ```python
-# -*- coding:utf-8 -*-
+# Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
 
 class Solution:
-    # 返回从尾部到头部的列表值序列，例如[1,2,3]
-    def printListFromTailToHead(self, head):
-        # write code here
+    def reversePrint(self, head: ListNode) -> List[int]:
         res = []
         if head == None:
             return res
-        prev = head
-        cur = head.next
-        temp = head.next.next
+        prev = None
+        cur = head
+        temp = cur.next
         while cur:
             temp = cur.next
             cur.next = prev
             prev = cur
             cur = temp
-        head.next = None
-        while prev:
-            res.append(prev.val)
-            prev = prev.next
+        p = prev
+        while p:
+            res.append(p.val)
+            p = p.next
         return res
 ```
 # 参考
