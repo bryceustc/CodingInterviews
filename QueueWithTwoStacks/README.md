@@ -13,61 +13,73 @@
 
 [Python](./QueueWithTwoStacks.py)
 
-# C++: 
-### 
+## C++: 
 ```c++
-class Solution
-{
+class MyQueue {
 public:
-    void push(int node) {
-        stack1.push(node);
+    MyQueue() {
+
+    }
+
+    void push(int x) {
+        s1.push(x);
     }
 
     int pop() {
-        int temp = 0;
-        if (stack2.empty())  // 注意要加这个判断，因为有可能先加进去3个元素，只弹出一个，
-        // 后边再加元素，剩下的两个元素优先级还是最高
-        {
-            while(!stack1.empty())
-            {
-                temp = stack1.top();
-                stack1.pop();
-                stack2.push(temp);
-            }
-        }
-        int res = stack2.top();
-        stack2.pop();
+        int res = this->peek();
+        s2.pop();
         return res;
     }
 
+    int peek() {
+        // 注意要加这个判断，因为有可能先加进去3个元素，只弹出一个
+        // 后边再加元素，剩下的两个元素优先级还是最高
+        if (s2.empty()) {
+            while(!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+        if (!s2.empty()) return s2.top();
+        return -1;
+    }
+
+    bool empty() {
+        return s1.empty() && s2.empty();
+    }
 private:
-    stack<int> stack1;
-    stack<int> stack2;
+    stack<int> s1;
+    stack<int> s2;
 };
 ```
 
-# Python:
-### 
+## Python:
 ```python
 # -*- coding:utf-8 -*-
-class Solution:
+class MyQueue:
+
     def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
-    def push(self, node):
-        # write code here
-        self.stack1.append(node)
-    def pop(self):
-        # return xx
-        l1 = len(self.stack1)
-        l2 = len(self.stack2)
-        if l2==0:
-            while l1!=0:
-                temp = self.stack1.pop()
-                self.stack2.append(temp)
-                l1 = len(self.stack1)
-        res = self.stack2.pop()
-        return res
+        self.s1, self.s2 = [], []
+
+    def push(self, x: int) -> None:
+        self.s1.append(x)
+
+    def pop(self) -> int:
+        peek = self.peek()
+        self.s2.pop()
+        return peek
+
+    def peek(self) -> int:
+        if not self.s2: 
+            while self.s1:
+                self.s2.append(self.s1.pop())
+        if self.s2:
+            return self.s2[-1]
+        return -1
+
+    def empty(self) -> bool:
+        return (not self.s1) and (not self.s2)
+
 ```
 ## 参考
   -  [C++ stl容器stack栈pop用法](https://blog.csdn.net/l494926429/article/details/52066918)
