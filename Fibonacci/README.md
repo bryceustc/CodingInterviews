@@ -57,6 +57,57 @@ public:
     }
 };
 ```
+
+### 矩阵快速幂
+```c++
+### 矩阵快速幂
+
+```c++
+// 定义矩阵
+typedef long long ll;
+ll mod = 1e9 + 7;
+struct matrix {
+    ll mat[2][2];
+    matrix() { memset(mat, 0, sizeof(mat)); }//构造函数初始化
+};
+class Solution {
+public:
+    matrix res, transition;
+    //矩阵乘法
+    matrix mul(matrix A, matrix B) {  // return A * B
+        matrix C;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                for (int k = 0; k < 2; k++) {
+                    C.mat[i][j] += (A.mat[i][k] % mod * B.mat[k][j] % mod) % mod;
+                    C.mat[i][j] %= mod;
+                }
+            }
+        }
+        return C;
+    }
+    //快速幂
+    void fast_pow(int n) {
+        while (n) {
+            if (n & 1) {
+                res = mul(res, transition);
+            }
+            transition = mul(transition, transition);
+            n >>= 1;
+        }
+    }
+
+    int fib(int n) {
+        if (n < 2) return n;
+        //初始化
+        res.mat[0][0] = 1;
+        transition.mat[0][0] = transition.mat[0][1] = transition.mat[1][0] = 1;
+        fast_pow(n - 1);
+        return res.mat[0][0];
+    }
+};
+```
+```
 # Python:
 ###  递归 未通过OJ
 ```python
