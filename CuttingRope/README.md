@@ -34,7 +34,7 @@
 
 3. 贪心算法
 
-![](https://github.com/bryceustc/CodingInterviews/blob/master/CuttingRope/1.jpg)
+[数学推导]([https://github.com/bryceustc/CodingInterviews/blob/master/CuttingRope/1.jpg](https://leetcode.cn/problems/jian-sheng-zi-lcof/solutions/104809/mian-shi-ti-14-i-jian-sheng-zi-tan-xin-si-xiang-by/))
 # 时间复杂度：
 1： O(n^2)
  
