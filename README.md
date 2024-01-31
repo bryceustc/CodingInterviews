@@ -21,7 +21,7 @@
 * [剑指Offer(五十六)：数组中只出现一次的数字](./NumberAppearingOnce/README.md)（**重要**，lowbit异或）
 * [剑指Offer(五十六)：数组中唯一只出现一次的数字](./NumbersAppearOnce/README.md)(**重要**，哈希表，位运算)
 * [剑指Offer(五十七)： 和为s的两个数字](./TwoNumbersWithSum/README.md)(双指针)
-* [剑指Offer(五十七)： 和为S的连续正数序列](./ContinuousSquenceWithSum/README.md)(双指针)
+* [剑指Offer(五十七)： 和为S的连续正数序列](./ContinuousSquenceWithSum/README.md)(双指针滑动窗口，根据条件判断low 或者 high 移动)
 * [剑指Offer(六十一)： 扑克牌的顺子](./ContinousCards/README.md)
 * [剑指Offer(六十二)： 圆圈中最后剩下的数字](./LastNumberInCircle/README.md)(约瑟夫环，(start+m-1)%len(nums)循环)
 * [剑指Offer(六十六)： 构建乘积数组](./ConstuctArray/README.md) 
