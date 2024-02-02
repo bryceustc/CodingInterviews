@@ -88,28 +88,42 @@ public:
 
 ## 方法二：位运算
 ```c++
+//对于出现三次的数字，各 二进制位 出现的次数都是 3 的倍数。因此，统计所有数字的各二进制位中 1 的出现次数，并对 3 求余，结果则为只出现一次的数字
+// 这个时分开某一位都单独计算，上边那个是 因为每一个的位运算是一样的，所以作为一个整体去运算
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        int ans = 0;
-        for (int i = 0; i < 32; i++)
-        {
-            int count = 0;
-            for (auto n : nums)
-            {
-                if ((1 << i ) & n) 
-                    count++;
+        int counts[32] = {0};            // C++ 初始化数组需要写明初始值 0
+        for(int action : actions) {
+            for(int i = 0; i < 32; i++) {
+                counts[i] += action & 1; // 更新第 i 位 1 的个数之和
+                action >>= 1;            // 第 i 位 --> 第 i 位
             }
-            if (count % 3) 
-                ans += (1 << i);
         }
-        return ans;
+        int res = 0, m = 3;
+        for(int i = 31; i >= 0; i--) {
+            res <<= 1;
+            res |= counts[i] % m;        // 恢复第 i 位
+        }
+        return res;
     }
 };
 ```
 
-## 方法二：位运算(未搞懂)
+## 方法二：位运算
 ```c++
+// 位运算统计
+// 位运算公式：
+// x ^ 0 = x, x ^ 1 = ~x
+// x & 0 = 0, x & 1 = x
+// 有限状态机：https://leetcode.cn/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/solutions/215895/mian-shi-ti-56-ii-shu-zu-zhong-shu-zi-chu-xian-d-4/
+// 考虑数字的二进制形式，对于出现三次的数字，各 二进制位 出现的次数都是 3 的倍数。因此，统计所有数字的各二进制位中 1 的出现次数，并对 3 求余，结果则为只出现一次的数字。
+// 对3取余的状态：0，1，2，在此题情景下，只会有0，1两个状态
+// 状态转化：00 -> 01 -> 10 -> 00 -> ...
+// b2 = 0, b1 = 0，当输入n为 0 时， b2b1 = 00，当输入n=1时，b2b1 = 01;
+// b2 = 0, b1 = 1，当输入n为 0 时， b2b1 = 01，当输入n=1时，b2b1 = 10;
+// b2 = 1, b2 = 0，当输入n为 0 时， b2b1 = 10，当输入n=1时，b2b1 = 00;
+// 推断出来：b1 = b1 ^ n & ~b2;  b2 = b2 ^ n & ~b1;
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
@@ -158,7 +172,7 @@ class Solution:
                 res += 1<<i
         return res
 ```
-### 方法二：位运算（最简版）未搞懂
+### 方法二：位运算
 ```python
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
