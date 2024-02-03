@@ -58,45 +58,56 @@ int main()
 
 ## 方法二：二分查找
 ```c++
-#include <iostream>
-#include <vector>
-using namespace std;
+//
+// Created by capta on 2024/2/4.
+//
+
+#include <bits/stdc++.h>
+
+
+
+// 暴力遍历
 class Solution {
 public:
-    int IntegerIdenticalToIndex(vector<int>& nums) {
-        int res = 0;
+    int getNumberSameAsIndex(std::vector<int>& nums) {
+        int res = -1;
         int n = nums.size();
-        int start = 0;
-	int end = n-1;
-	while(end>=start)
-	{
-	    int mid = start + (end -start) /2;
-	    if (nums[mid]==mid)
-	    {
-	    	res = mid;
-		break;
-	    }
-	    if (nums[mid]>mid)
-	    {
-	    	end = mid-1;
-	    }
-	    else
-	    {
-	    	start = mid +1;
-	    }
-	}
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == i) {
+                res = nums[i];
+                break;
+            }
+        }
         return res;
     }
 };
 
+class Solution2 {
+public:
+    int getNumberSameAsIndex(std::vector<int>& nums) {
+        int res = -1;
+        int n = nums.size();
+        int start = 0;
+        int end = n - 1;
+        while(start < end) {
+            int mid = (start + end) / 2;
+            if (nums[mid] < mid) {
+                start = mid + 1;
+            } else {
+                end = mid;
+            }
+        }
 
-int main()
-{
-	vector<int> nums = {-1,0,2};
-	int res = Solution().IntegerIdenticalToIndex(nums);
-	cout << res << endl;
-	system("pause");
-	return 0;
+        if (nums[start] == start) res = start;
+        return res;
+    }
+};
+
+int main() {
+    std::vector<int> nums = {-3, -1, 1, 3, 5};
+    int num = Solution2().getNumberSameAsIndex(nums);
+    std::cout << "num: " << num << std::endl;
+    return 0;
 }
 ```
 
