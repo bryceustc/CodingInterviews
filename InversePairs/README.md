@@ -86,57 +86,38 @@ public:
 ```c++
 class Solution {
 public:
-    int reversePairs(vector<int>& nums) {
-        if (nums.empty()) return 0;
-        int n = nums.size();
+    int reversePairs(vector<int>& record) {
         int res = 0;
-        mergesort(nums,0,n-1, res);
+        if (record.empty()) return 0;
+        int n = record.size();
+        mergeSort(record, 0, n - 1, res);
         return res;
     }
 
-    void mergesort(vector<int>& nums, int start, int end, int& res)
-    {
-        if (start<end)
-        {
-            int mid = start + (end-start)/2;
-            mergesort(nums,start,mid,res);
-            mergesort(nums,mid+1,end,res);
-            merge(nums,start,end,res);
-        }
-    }
+    void mergeSort(vector<int>&nums, int l, int r, int& res) {
+        if (l >= r) return;
 
-    void merge(vector<int>& nums, int start, int end,int& res)
-    {
-        int temp[end+1];
-        int i =0;
-        int mid = start + (end-start)/2;
-        int l = start;
-        int r = mid+1;
-        while(l<=mid&&r<=end)
-        {
-            if (nums[l]>nums[r])
-            {
-                temp[i++] = nums[r++];
-            }
-            else
-            {
-                temp[i++] = nums[l++];
-                res+= r-(mid+1);  // 关键点，也是归并排序添加的唯一一行代码。
+        int mid = (l + r ) / 2;
+        mergeSort(nums, l, mid, res);
+        mergeSort(nums, mid + 1, r, res);
+
+        int m = r - l + 1;
+        vector<int> temp(m);
+        int i = l, j = mid + 1, k = 0;
+        while (i <= mid && j <= r) {
+            if (nums[i] <= nums[j]) {
+                temp[k++] = nums[i++];
+            } else {
+                temp[k++] = nums[j++];
+                res += (mid - i + 1); // 修改的唯一一行代码
             }
         }
-        while(l<=mid)
-        {
-            temp[i++] = nums[l++];
-            res += r-(mid+1);
-        }
-        while(r<=end)
-        {
-            temp[i++] = nums[r++];
-        }
-        i = 0;
-        while(start<=end)
-        {
-            nums[start++] = temp[i++];
+
+        while (i <= mid) temp[k++] = nums[i++];
+        while (j <= r ) temp[k++] = nums[j++];
+
+        for (i = l, j = 0; i <= r; i++, j++) {
+            nums[i] = temp[j];
         }
     }
 };
