@@ -23,7 +23,7 @@
 * [剑指Offer(五十七)： 和为s的两个数字](./TwoNumbersWithSum/README.md)(双指针)
 * [剑指Offer(五十七)： 和为S的连续正数序列](./ContinuousSquenceWithSum/README.md)(双指针滑动窗口，根据条件判断low 或者 high 移动)
 * [剑指Offer(六十一)： 扑克牌的顺子](./ContinousCards/README.md)
-* [剑指Offer(六十二)： 圆圈中最后剩下的数字](./LastNumberInCircle/README.md)(约瑟夫环，(start+m-1)%len(nums)循环)
+* [剑指Offer(六十二)： 圆圈中最后剩下的数字](./LastNumberInCircle/README.md)(约瑟夫环，(start+m-1)%len(nums)循环, 递归(f(n-1,m) + m) %n;)
 * [剑指Offer(六十六)： 构建乘积数组](./ConstuctArray/README.md) 
 * [LeetCode(11)：盛最多水的容器](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Container-With-Most-Water/README.md)(**重要**，双指针)
 * [LeetCode(41)：缺失的第一个正数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/First-Missing-Positive/README.md)(**重要**，交换座位法)
