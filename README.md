@@ -53,7 +53,7 @@
 * [剑指Offer(五十八)：翻转字符串 ](./ReverseWordsInSentence/README.md)(**重要**，1.翻转整个句子 2.翻转单词 3.删除多余空格)
 * [剑指Offer(五十八)：左旋转字符串 ](./LeftRotateString/README.md)
 * [剑指Offer(六十七)：把字符串转换成整数 ](./StringToInt/README.md)
-* [LeetCode(3):无重复字符的最长子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest_Substring_Without_Repeating_Characters/README.md)(**重要**，滑动窗口+hash)
+* [LeetCode(3):无重复字符的最长子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest_Substring_Without_Repeating_Characters/README.md)(**重要**，双指针滑动窗口+hash)
 * [LeetCode(5):最长回文子串](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Longest-Palindromic-Substring/README.md)(**重要**，dp 或者中心扩展)
 * [LeetCode(8):字符串转换整数 (atoi)](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/String-To-Integer-Atoi/README.md)(**重要**)
 * [LeetCode(516):最长回文子序列](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Longest-Palindromic-Subsequence)(**重要**，子序列dp问题)
