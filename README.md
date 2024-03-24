@@ -100,7 +100,7 @@
 * [剑指Offer(七)：重建二叉树](./ConstructBinaryTree/README.md)(**重要**，前序遍历，中序遍历，后序遍历要掌握)
 * [剑指Offer(八：二叉树的下一个节点](./NextNodeInBinaryTrees/README.md)(**重要**，中序遍历，分情况讨论)
 * [剑指Offer(二十六)：树的子结构](./SubstructureInTree/README.md)(**重要**，递归遍历思想)
-* [剑指Offer(二十七)：二叉树的镜像](./MirrorOfBinaryTree/README.md)(**重要**，翻转二叉树，**递归**)
+* [剑指Offer(二十七)：二叉树的镜像](./MirrorOfBinaryTree/README.md)(**重要**，写个helper函数，判断是否是对称，分情况确定好递归条件，**递归**)
 * [剑指Offer(二十八)：对称的二叉树](./SymmetricalBinaryTree/README.md)(**重要**，递归！！！)
 * [剑指Offer(三十二)：从上往下打印二叉树](./PrintTreeFromTopToBottom/README.md)(**重要**，层序遍历，利用队列实现)
 * [剑指Offer(三十二)：分行从上往下打印二叉树](./PrintTreesInLines/README.md)(**重要**，利用队列实现，递归)
