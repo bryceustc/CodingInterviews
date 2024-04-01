@@ -301,41 +301,31 @@ void QuickSort(vector<int> &nums, int low, int high)
 
 // 不稳定排序，平均 O(nlogn)，最好 O(nlogn), 最差 O(n**2),辅助空间 O(1)
 
-void adjustHeap(int nums[],int i,int length)
-{
-	int temp = arr[i];//先取出当前元素i
-        for(int k=i*2+1;k<length;k=k*2+1)     //从i结点的左子结点开始，也就是2i+1处开始
-	{
-            if(k+1<length && arr[k]<arr[k+1])    //如果左子结点小于右子结点，k指向右子结点
-	    {
-                k++;
-            }
-            if(arr[k] >temp)    //如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
-            {    
-	        arr[i] = arr[k];
-                i = k;
-            }
-	    else
-	    {
-                break;
-            }
-        }
-        arr[i] = temp;    //将temp值放到最终的位置
+// 构建大根堆(n是nums的长度，index是第一个非叶子节点的下标）
+void adjustHeap(vector<int>&nums, int n, int index) {
+    int parent_idx = index;
+    int left = 2*index + 1; // index的左子节点
+    int right = 2*index +2; // index的右子节点
+    if(left < n && nums[left] > nums[parent_idx]) parent_idx = left;
+    if(right < n && nums[right] > nums[parent_idx]) parent_idx = right;
+
+    if (parent_idx != index) {
+        swap(nums[index], nums[parent_idx]);
+        adjustHeap(nums, n, parent_idx);
+    }
 }
- 
-void HeapSort(int nums[],int len)
-{
-	//1.构建大顶堆
-        for(int i=len/2-1;i>=0;i--)
-	{
-            //从第一个非叶子结点从下至上，从右至左调整结构
-            adjustHeap(nums,i,len);
-        }
-        //2.调整堆结构+交换堆顶元素与末尾元素
-        for(int j=len-1;j>0;j--)
-	{
-            swap(nums[0],nums[j]);//将堆顶元素(最大值)与末尾元素进行交换，将最大值交换到数组的最后位置保存
-            adjustHeap(nums,0,j);//重新对堆进行调整
-        }
+
+void heapSort(vector<int>& nums) {
+    int n = nums.size();
+    // 构建大根堆（从最后一个非叶子节点向上）
+    for (int i = n/2 - 1; i >= 0; i--) {
+        adjustHeap(nums, n, i);
+    }
+
+    // 调整大根堆
+    for (int i = n - 1; i >= 1; i--) {
+        swap(nums[0], nums[i]);
+        adjustHeap(nums, i, 0);  // 将未完成排序的部分继续进行堆排序
+    }
 }
 ```
