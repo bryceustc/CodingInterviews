@@ -158,6 +158,7 @@
 * [剑指Offer(十四)：剪绳子](./CuttingRope/README.md)(**重要**，动规，贪心)
 * [剑指Offer(六十)：n个骰子的点数](./Nge/README.md)(**重要**，动规,dp[i][j] += dp[i-1][j-k] k∈[1,6])
 * [剑指Offer(六十三)：股票的最大利润](./MaxProfit/README.md)(**重要**，动规)
+* [LeetCode(53)：最大子数组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Maximum-Subarray/README.md)(**重要**，dp[i],res=max(dp[i-1]+nums[i],nums[i]))
 * [LeetCode(55)：跳跃游戏](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Jump-Game/README.md)(**重要**，贪心,reach=max(reach,i+nums[i]))
 * [LeetCode(45)：跳跃游戏II](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Jump-Game-II/README.md)(**重要**，贪心算法)
 * [LeetCode(62)：不同路径](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Unique-Paths/README.md)(**重要**，dp[i][j] = dp[i][j-1]+dp[i-1][j]))
