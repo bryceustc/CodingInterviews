@@ -34,7 +34,7 @@
 * [LeetCode(128)：最长连续序列](./CodingInterviews/LongestConsecutive/README.md)(**重要**，哈希表)
 * [LeetCode(287)：寻找重复数](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Find-The-Duplicate-Number/README.md)(**重要**，快慢指针O(n), 类似判断链表成环)
 * [LeetCode(378)：有序矩阵中第K小的元素](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Kth-Smallest-Element-In-A-Sorted-Matrix)(**重要！！**，二分查找)
-* [LeetCode(560)：和为K的子数组](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Intervals/README.md)(**重要**，前缀和)
+* [LeetCode(560)：和为K的子数组]([https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Merge-Intervals/README.md](https://github.com/bryceustc/LeetCode_Note/tree/master/cpp/Subarray-Sum-Equals-K))(**重要**，前缀和)
 * [LeetCode(945)：使数组唯一的最小增量](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Minimum-Increment-To-Make-Array-Unique/README.md)(**重要**，线性探测法(压缩))
 * [LeetCode(1013)：将数组分成和相等的三个部分](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Partition-Array-Into-Three-Parts-With-Equal-Sum/README.md)(**重要**，sum三等分值)
 * [LeetCode(1248)：统计「优美子数组」](https://github.com/bryceustc/LeetCode_Note/blob/master/cpp/Count-Number-Of-Nice-Subarrays/README.md)(**重要**，滑动窗口、前缀和+哈希)
